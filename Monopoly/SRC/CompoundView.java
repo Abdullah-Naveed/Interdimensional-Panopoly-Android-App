@@ -1,12 +1,20 @@
 package com.rob.monopoly;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Robert on 18/02/2018.
@@ -14,8 +22,11 @@ import android.widget.TextView;
 
 public class CompoundView extends LinearLayout {
 
-    public CompoundView(Context context, @Nullable AttributeSet attrs) {
+    Button button=(Button)findViewById(R.id.button);
+    Context mainContext;
+    public CompoundView(final Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        mainContext=context;
         setOrientation(LinearLayout.VERTICAL);
         LayoutInflater.from(context).inflate(R.layout.compound_view, this, true);
 
@@ -35,6 +46,7 @@ public class CompoundView extends LinearLayout {
         }
 
         init(title);
+
     }
 
     // Setup views
@@ -44,11 +56,14 @@ public class CompoundView extends LinearLayout {
     }
 
 
+
     public void setText(String str)
     {
         TextView titleView = (TextView) findViewById(R.id.customview_textview_title);
         titleView.setText(str);
     }
+
+
 
 
 }

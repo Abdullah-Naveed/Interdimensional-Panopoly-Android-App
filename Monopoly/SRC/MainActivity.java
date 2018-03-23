@@ -1,49 +1,39 @@
 package com.rob.monopoly;
 
+import android.app.ActionBar;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.Random;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
     }
 
     @Override
@@ -83,11 +73,10 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Fragment fragment = null;
-        Class fragmentClass = null;
         if (id == R.id.nav_camera) {
-            //fragmentClass = FragmentOne.class;
             Toast.makeText(MainActivity.this, "worked", Toast.LENGTH_SHORT).show();
+//            alertOneButton();
+            alertPersistentDialog();
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -100,23 +89,86 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-//        try {
-//            fragment = (Fragment) fragmentClass.newInstance();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
-//        // Explicit Intent by specifying its class name
-//        Intent i = new Intent(MainActivity.this, FragmentOne.class);
-//
-//        // Starts TargetActivity
-//        startActivity(i);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    /*
+    * AlertDialog with one action button.
+    */
+    public void alertOneButton() {
+
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle("One Button")
+                .setMessage("Thanks for visiting The Code of a Ninja - codeofaninja.com")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        dialog.cancel();
+                    }
+                }).show();
+    }
+
+
+
+    public void alertPersistentDialog(){
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this)
+                .setTitle("The Code of a Ninja")
+                .setMessage("This is a persistent AlertDialog")
+                .setPositiveButton("Show Toast", null) // null to override the onClick
+                .setNegativeButton("Dismiss", null)
+                .setCancelable(false)
+                .create();
+
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow(DialogInterface dialog) {
+
+                Button btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                btnPositive.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+
+                        Toast.makeText(MainActivity.this,"Not Dismissed",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+
+                Button btnNegative = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+                btnNegative.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+
+                        // dismiss once everything is ok
+                        alertDialog.dismiss();
+                    }
+                });
+            }
+        });
+
+        // don't forget to show it
+        alertDialog.show();
+
+    }
+
+
+    public void test(View v)
+    {
+        Log.v("fuck","this");
+        Toast.makeText(MainActivity.this,"worked",Toast.LENGTH_SHORT).show();
+//        Intent intent=new Intent(this,Main2Activity.class);
+//        startActivity(intent);
+    }
+
+
 }
+
