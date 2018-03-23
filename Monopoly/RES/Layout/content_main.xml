@@ -8,107 +8,94 @@
     tools:context="com.rob.monopoly.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <TableLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <TableRow>
-
+            
+            <ImageView
+                android:id="@+id/square1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/freeparking"
+                />
 
             <com.rob.monopoly.CompoundView
                 android:id="@+id/topleft"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="Other Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="Other Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="Other Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="Other Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="Other Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="Other Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="Other Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="Other Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="Other Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="Other Title"
-                />
-            <com.rob.monopoly.CompoundView
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                app:customViewTitle="My Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="Other Title"
-                />
-
-            <com.rob.monopoly.CompoundView
                 android:layout_height="wrap_content"
+                app:customViewTitle="Other Title" />
+
+            <ImageView
+                android:id="@+id/square2"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
+                android:layout_height="wrap_content"
+                android:rotation="180"
+                android:src="@drawable/jail"
                 />
-
-
 
         </TableRow>
 
@@ -116,63 +103,135 @@
 
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
+                android:layout_height="wrap_content"
                 android:rotation="90"
-                />
+                android:layout_marginBottom="-24dp"
+                app:customViewTitle="My Title" />
 
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                android:rotation="270"
+                android:layout_marginTop="-24dp"
+                app:customViewTitle="My Title" />
 
+
+        </TableRow>
+
+        <TableRow >
+
+            <com.rob.monopoly.CompoundView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="90"
+                android:layout_marginBottom="-24dp"
+                app:customViewTitle="My Title" />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <com.rob.monopoly.CompoundView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="270"
+                android:layout_marginTop="-24dp"
+                app:customViewTitle="My Title" />
 
 
         </TableRow>
 
         <TableRow>
 
-            <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
-
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                android:rotation="90"
+                android:layout_marginBottom="-24dp"
+                app:customViewTitle="My Title" />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <com.rob.monopoly.CompoundView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="270"
+                android:layout_marginTop="-24dp"
+                app:customViewTitle="My Title" />
 
 
         </TableRow>
@@ -181,127 +240,174 @@
 
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                android:rotation="90"
+                android:layout_marginBottom="-24dp"
+                app:customViewTitle="My Title" />
 
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
-            <Space/>
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
-
-
+                android:layout_height="wrap_content"
+                android:rotation="270"
+                android:layout_marginTop="-24dp"
+                app:customViewTitle="My Title" />
 
 
         </TableRow>
 
         <TableRow>
 
+
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
+                android:layout_height="wrap_content"
+                android:rotation="90"
+                android:layout_marginBottom="-24dp"
+                app:customViewTitle="My Title" />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <com.rob.monopoly.CompoundView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="270"
+                android:layout_marginTop="-24dp"
+                app:customViewTitle="My Title" />
+
+
+        </TableRow>
+
+        <TableRow>
+
+            <ImageView
+                android:id="@+id/square3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/injail"
                 />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="Other Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="Other Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="Other Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="Other Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="Other Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="Other Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="Other Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="Other Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="Other Title"
-                />
-            <com.rob.monopoly.CompoundView
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                app:customViewTitle="Other Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="Other Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="Other Title" />
 
             <com.rob.monopoly.CompoundView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                app:customViewTitle="My Title"
-                />
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
 
+            <ImageView
+                android:id="@+id/square4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/go"
+                />
 
 
         </TableRow>
