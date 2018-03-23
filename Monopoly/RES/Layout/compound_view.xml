@@ -4,19 +4,13 @@
 
     <FrameLayout
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:onClick="test">
+        android:layout_width="wrap_content">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="39dp"
-            android:layout_height="62dp"
-            android:visibility="invisible"/>
         <ImageView
             android:id="@+id/customview_imageview_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/pink"
+            android:src="@drawable/blue"
             />
 
         <TextView
@@ -25,11 +19,9 @@
             android:textSize="8dp"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="8dp"
             android:layout_marginLeft="2dp"
             />
-
-
 
         <View
             android:id="@+id/colored_bar1"
