@@ -29,7 +29,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    int i=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +37,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         initialSetting();
+
+        ViewGroup viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
+        Player rob=new Player(viewGroup);
+        for(int i=0;i<39;i++)
+        {
+            rob.move();
+        }
+
     }
 
     public void initialSetting(){
@@ -293,10 +300,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        ViewGroup viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
-        UserMover userMover=new UserMover();
-        userMover.move(viewGroup,i,1);
-        i++;
+
 
     }
 
