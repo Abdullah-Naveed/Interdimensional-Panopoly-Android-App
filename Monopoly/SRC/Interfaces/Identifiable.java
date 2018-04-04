@@ -1,9 +1,12 @@
-package com.rob.monopoly;
+package com.rob.monopoly.Interfaces;
 
 /**
- * Created by ErikBurka on 22/03/2018.
+ * Created by AbdullahNaveed on 30/03/2018.
  */
 
 public interface Identifiable {
-    String getId();
+
+    public String getID();
+
+
 }

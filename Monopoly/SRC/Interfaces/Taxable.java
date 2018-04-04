@@ -1,11 +1,12 @@
-package com.rob.monopoly;
+package com.rob.monopoly.Interfaces;
 
 /**
- * Created by ErikBurka on 22/03/2018.
+ * Created by AbdullahNaveed on 30/03/2018.
  */
 
-public interface Taxable {
+public interface Taxable extends Ownable {
 
     int getTaxAmount();
     void payTax();
+
 }

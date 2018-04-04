@@ -1,14 +1,12 @@
-package com.rob.monopoly;
+package com.rob.monopoly.Interfaces;
 
 /**
- * Created by ErikBurka on 22/03/2018.
+ * Created by AbdullahNaveed on 30/03/2018.
  */
 
-public interface Mortgageable extends Ownable{
+public interface Mortgageable extends Ownable {
 
-   int getMortgageAmount();
-   int getUnmortgageAmount();
+    int getMortgageAmount();
+    void mortgageProperty();
 
-   void mortgageProperty();
-   void unmortgageProperty();
 }

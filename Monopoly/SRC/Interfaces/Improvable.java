@@ -1,19 +1,16 @@
-package com.rob.monopoly;
+package com.rob.monopoly.Interfaces;
 
 /**
- * Created by ErikBurka on 22/03/2018.
+ * Created by AbdullahNaveed on 30/03/2018.
  */
 
 public interface Improvable extends Ownable {
-    void buildHouse();
-    void buildHotel();
 
-    void demolishHouse();
-    void demolishHotel();
-
+    boolean buildHouse();
+    boolean demolishHouse();
     int getHousePrice();
-    int getHotelPrice();
-
     int getNumHouses();
-    int getNumHotels();
+    String getColourGroup();
+    boolean ownsColourGroup();
+
 }

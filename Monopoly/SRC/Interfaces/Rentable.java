@@ -1,11 +1,16 @@
-package com.rob.monopoly;
+package com.rob.monopoly.Interfaces;
+
+import com.rob.monopoly.Player;
 
 /**
- * Created by ErikBurka on 22/03/2018.
+ * Created by AbdullahNaveed on 30/03/2018.
  */
 
-public interface Rentable extends Ownable{
+public interface Rentable extends Ownable {
 
-    void payRent();
+    void payRent(Player player);
     int getRentalAmount();
+    boolean isOwned();
+    boolean isMorgaged();
+
 }

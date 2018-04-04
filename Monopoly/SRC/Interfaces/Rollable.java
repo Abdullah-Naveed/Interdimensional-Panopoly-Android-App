@@ -1,9 +1,15 @@
-package com.rob.monopoly;
+package com.rob.monopoly.Interfaces;
 
 /**
- * Created by ErikBurka on 22/03/2018.
+ * Created by AbdullahNaveed on 30/03/2018.
  */
 
 public interface Rollable {
+
     void rollDice();
+    int[] getDice ();
+    int getTotal ();
+    boolean isDouble ();
+    String toString ();
+
 }

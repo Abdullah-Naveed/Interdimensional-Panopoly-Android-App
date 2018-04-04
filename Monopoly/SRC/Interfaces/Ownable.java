@@ -1,10 +1,14 @@
-package com.rob.monopoly;
+package com.rob.monopoly.Interfaces;
+
+import com.rob.monopoly.Player;
 
 /**
- * Created by ErikBurka on 22/03/2018.
+ * Created by AbdullahNaveed on 30/03/2018.
  */
 
-public interface Ownable extends Identifiable{
+public interface Ownable extends Identifiable {
 
-    Playable getOwner();
+    Player getOwner();
+    void buyProperty(Player player);
+
 }
