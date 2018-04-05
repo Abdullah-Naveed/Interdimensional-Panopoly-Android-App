@@ -42,8 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ViewGroup viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
         Player rob=new Player(viewGroup,"ROB");
-        for(int i=0;i<5;i++)
-        {
+        for(int i=0;i<5;i++) {
             rob.move();
         }
 
