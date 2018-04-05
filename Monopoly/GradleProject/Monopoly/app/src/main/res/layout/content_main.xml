@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.rob.monopoly.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tablelayout"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TableRow>
+
+            <ImageView
+                android:id="@+id/square1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/freeparking"
+                />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/red1"
+                android:rotation="180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/red2"
+                android:rotation="180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/card1"
+                android:rotation="180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/red3"
+                android:rotation="180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/game1"
+                android:rotation="180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/yellow1"
+                android:rotation="180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/teleport1"
+                android:rotation="180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/yellow2"
+                android:rotation="180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/game2"
+                android:rotation="180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/pink1"
+                android:rotation="180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/tax1"
+                android:rotation="180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/pink2"
+                android:rotation="180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/pink3"
+                android:rotation="180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="Other Title" />
+
+            <ImageView
+                android:id="@+id/square2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="180"
+                android:src="@drawable/jail"
+                />
+
+        </TableRow>
+
+        <TableRow>
+
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/green1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="90"
+                android:layout_marginBottom="-24dp"
+                app:customViewTitle="My Title" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <Space android:rotation="90" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/card2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="270"
+                android:layout_marginTop="-24dp"
+                app:customViewTitle="" />
+
+
+        </TableRow>
+
+        <TableRow >
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/green2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="90"
+                android:layout_marginBottom="-24dp"
+                app:customViewTitle="My Title" />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/teleport2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="270"
+                android:layout_marginTop="-24dp"
+                app:customViewTitle="" />
+
+
+        </TableRow>
+
+        <TableRow>
+
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/green3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="90"
+                android:layout_marginBottom="-24dp"
+                app:customViewTitle="My Title" />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/blue1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="270"
+                android:layout_marginTop="-24dp"
+                app:customViewTitle="My Title" />
+
+
+        </TableRow>
+
+        <TableRow>
+
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/teleport3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="90"
+                android:layout_marginBottom="-24dp"
+                app:customViewTitle="" />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/blue2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="270"
+                android:layout_marginTop="-24dp"
+                app:customViewTitle="My Title" />
+
+
+        </TableRow>
+
+        <TableRow>
+
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/card3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="90"
+                android:layout_marginBottom="-24dp"
+                app:customViewTitle="" />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <Space />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/blue3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="270"
+                android:layout_marginTop="-24dp"
+                app:customViewTitle="My Title" />
+
+
+        </TableRow>
+
+        <TableRow>
+
+            <ImageView
+                android:id="@+id/square3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/jail"
+                />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/grey1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/grey2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/tax2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/grey3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/game3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/orange1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/teleport4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/orange2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/game4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/brown1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/card4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/brown2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="My Title" />
+
+            <com.rob.monopoly.CompoundView
+                android:id="@+id/brown3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customViewTitle="Other Title" />
+
+            <ImageView
+                android:id="@+id/square4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/go"
+                />
+
+
+        </TableRow>
+
+
+    </TableLayout>
+
+
+</RelativeLayout>
