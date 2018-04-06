@@ -15,14 +15,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,6 +35,12 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static ArrayList<Property> properties=new ArrayList<Property>();
+    static ArrayList<Player> players=new ArrayList<Player>();
+    ViewGroup viewGroup=null;
+//    public static final Random RANDOM = new Random();
+//    private ImageView imageView1, imageView2;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +49,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         initialSetting();
+        viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
 
-        ViewGroup viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
-        Player rob=new Player(viewGroup,"ROB");
-        for(int i=0;i<5;i++) {
-            rob.move();
-        }
+        //add players
+        players.add(new Player(viewGroup,"Rob"));
+//
+//        imageView1 = (ImageView) findViewById(R.id.dice1);
+//        imageView2 = (ImageView) findViewById(R.id.dice2);
+//        diceShow();
 
     }
 
@@ -53,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         CompoundView compoundView1 = (CompoundView)findViewById(R.id.red1);
         compoundView1.changeImage(1);
         compoundView1.setText("TEST");
-        properties.add(new Property("test","red",100,100,100));
+        new Property("test","red",100,100,100);
         CompoundView compoundView2 = (CompoundView)findViewById(R.id.red2);
         compoundView2.changeImage(1);
         CompoundView compoundView3 = (CompoundView)findViewById(R.id.red3);
@@ -186,18 +198,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.nav_camera) {
-            Toast.makeText(MainActivity.this, "worked", Toast.LENGTH_SHORT).show();
-            alertOneButton();
+        if (id == R.id.roll) {
+//            Toast.makeText(MainActivity.this, "worked", Toast.LENGTH_SHORT).show();
+//            alertOneButton();
+
+            Random RANDOM=new Random();
+            int i=RANDOM.nextInt(6) + 1;
+            for(int j=0;j<i;j++)
+            {
+                players.get(0).move();
+            }
+
+
         } else if (id == R.id.nav_gallery) {
+            ViewGroup viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
+            Player rob=new Player(viewGroup,"ROB");
+            rob.move();
 
         } else if (id == R.id.nav_slideshow) {
+            ViewGroup viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
+            Player rob=new Player(viewGroup,"ROB");
+            rob.move();
 
         } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+            ViewGroup viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
+            Player rob=new Player(viewGroup,"ROB");
+            rob.move();
 
         }
 
@@ -295,12 +321,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SweetAlertDialog pDialog=new SweetAlertDialog(this);
         //pDialog.setTitleText("test");
         ListView listView=new ListView(this);
+        Player owner=properties.get(0).getOwner();
+        String ownerStr=null;
+        if(owner==null){ownerStr="No Owner";}else{ownerStr=owner.getID();}
         String[] values = new String[] {
-                "Property Name: "+properties.get(1).getID(),
-//                "Buy Price: "+properties.get(1).buyPrice,
-                "Simple List View In Android",
-                "Create List View Android",
-                "Android Example"
+                "Property Name: "+properties.get(0).getID(),
+                "Buy Price: "+properties.get(0).buyPrice(),
+                "Rent Price: "+properties.get(0).getRentalAmount(),
+                "Owner: "+ownerStr,
+                "Colour Group: "+properties.get(0).getColourGroup()
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
         listView.setAdapter(adapter);
@@ -310,6 +339,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         pDialog.show();
 
     }
+
+
+
+//    public void diceShow(){
+//        final Animation anim1 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
+//        final Animation anim2 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
+//        final Animation.AnimationListener animationListener = new Animation.AnimationListener() {
+//            @Override
+//            public void onAnimationStart(Animation animation) {
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animation animation) {
+//                int value = randomDiceValue();
+//                int res = getResources().getIdentifier("dice_" + value, "drawable", "com.abdullahnaveed.diceanimation");
+//
+//                if (animation == anim1) {
+//                    imageView1.setImageResource(res);
+//                } else if (animation == anim2) {
+//                    imageView2.setImageResource(res);
+//                }
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animation animation) {
+//
+//            }
+//        };
+//
+//        anim1.setAnimationListener(animationListener);
+//        anim2.setAnimationListener(animationListener);
+//
+//        imageView1.startAnimation(anim1);
+//        imageView2.startAnimation(anim2);
+//    }
+//
+//    public static int randomDiceValue() {
+//        return RANDOM.nextInt(6) + 1;
+//    }
 
 
 
