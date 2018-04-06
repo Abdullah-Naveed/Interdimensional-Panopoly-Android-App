@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //red
         CompoundView compoundView1 = (CompoundView)findViewById(R.id.red1);
         compoundView1.changeImage(1);
-//        compoundView1.setText(NOC);
-//        properties.add(new Property(....));
+        compoundView1.setText("TEST");
+        properties.add(new Property("test","red",100,100,100));
         CompoundView compoundView2 = (CompoundView)findViewById(R.id.red2);
         compoundView2.changeImage(1);
         CompoundView compoundView3 = (CompoundView)findViewById(R.id.red3);
@@ -293,17 +293,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        then using that property change the values for sweetalert
 
 
-        SweetAlertDialog pDialog=new SweetAlertDialog(getApplicationContext());
+        SweetAlertDialog pDialog=new SweetAlertDialog(this);
         //pDialog.setTitleText("test");
         ListView listView=new ListView(this);
         String[] values = new String[] {
-//                "Property Name: "+getID(),
-//                "Buy Price: "+buyPrice,
+                "Property Name: "+properties.get(1).getID(),
+//                "Buy Price: "+properties.get(1).buyPrice,
                 "Simple List View In Android",
                 "Create List View Android",
                 "Android Example"
         };
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
         listView.setAdapter(adapter);
 
 

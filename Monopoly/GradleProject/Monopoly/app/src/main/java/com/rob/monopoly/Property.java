@@ -12,7 +12,7 @@ import com.rob.monopoly.Interfaces.Rentable;
 
 import java.util.ArrayList;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
+import static com.rob.monopoly.MainActivity.properties;
 
 public class Property extends AppCompatActivity implements Improvable,Rentable,Mortgageable,Ownable {
 
@@ -33,6 +33,7 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
         this.buyPrice=buyPrice;
         this.mortgageAmount=mortgageAmount;
         this.housePriceModifier=housePriceModifier;
+        properties.add(this);
     }
 
     @Override
