@@ -103,6 +103,7 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
         return false;
     }
 
+
     @Override
     public int getMortgageAmount() {
         return mortgageAmount;
@@ -150,6 +151,11 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
         isOwned=true;
         isMortgaged=false;
 
+    }
+
+    @Override
+    public int buyPrice() {
+        return buyPrice;
     }
 
     @Override

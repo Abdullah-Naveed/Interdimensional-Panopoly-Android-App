@@ -10,4 +10,5 @@ public interface Ownable extends Identifiable{
 
     Player getOwner();
     void buyProperty(Player player);
+    int buyPrice();
 }

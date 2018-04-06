@@ -98,26 +98,4 @@ public class CompoundView extends LinearLayout {
 
 
 
-    public void turnOnColour(int id)
-    {
-        switch(id)
-        {
-            case 1: View view=findViewById(R.id.colored_bar1);
-                    view.setVisibility(View.VISIBLE);
-                    break;
-            case 2: View view2=findViewById(R.id.colored_bar2);
-                view2.setVisibility(View.VISIBLE);
-                break;
-            case 3: View view3=findViewById(R.id.colored_bar3);
-                view3.setVisibility(View.VISIBLE);
-                break;
-            case 4: View view4=findViewById(R.id.colored_bar4);
-                view4.setVisibility(View.VISIBLE);
-                break;
-        }
-    }
-
-
-
-
 }

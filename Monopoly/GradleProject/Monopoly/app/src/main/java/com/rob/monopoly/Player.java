@@ -6,6 +6,9 @@ import com.rob.monopoly.Interfaces.Playable;
 
 import java.util.ArrayList;
 
+import static com.rob.monopoly.MainActivity.players;
+
+
 public class Player extends UserMover implements Playable{
 
     private int playerNum=1;
@@ -20,6 +23,7 @@ public class Player extends UserMover implements Playable{
         this.viewGroup=viewGroup;
         this.ID=ID;
         bankAccount=new Bank(2000);
+        players.add(this);
     }
 
     @Override

@@ -239,9 +239,12 @@
 
             <Space />
 
+            <!--<ImageView-->
+                <!--android:id="@+id/dice1"/>-->
             <Space />
-
             <Space />
+            <!--<ImageView-->
+                <!--android:id="@+id/dice2" />-->
 
             <Space />
 
