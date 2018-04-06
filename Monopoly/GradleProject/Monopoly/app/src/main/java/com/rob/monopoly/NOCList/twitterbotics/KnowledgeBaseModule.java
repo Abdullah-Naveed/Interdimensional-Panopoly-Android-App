@@ -2,6 +2,8 @@ package com.rob.monopoly.NOCList.twitterbotics;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,31 +19,31 @@ import com.rob.monopoly.NOCList.tabular.BucketTable;
 // T. Veale, 2015
 
 
-public class KnowledgeBaseModule 
+public class KnowledgeBaseModule
 {
 	private static Random RND 		= new Random();
 
 	private Hashtable kb = new Hashtable();
-	
+
 	private Vector fieldNames  = new Vector();
 	private Vector fieldTables = new Vector();
-	
+
 	//-----------------------------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------------------------//
 	//   Constructors
 	//-----------------------------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------------------------//
-	
+
 	public KnowledgeBaseModule(String filename, int keyPosition)
 	{
 		loadKnowledgeBaseFrom(filename, keyPosition);
 	}
-	
+
 	public KnowledgeBaseModule(String filename)
 	{
 		loadKnowledgeBaseFrom(filename, 0);
 	}
-	
+
 	//-----------------------------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------------------------//
 	//  Accessors
@@ -49,14 +51,55 @@ public class KnowledgeBaseModule
 	//-----------------------------------------------------------------------------------------------//
 
 	// Get the list of fields that describe concepts (keys) in this knowledge-base module
-	
+
 	public Vector<String> getFieldNames()
 	{
 		return fieldNames;
 	}
 
+	public Vector<String> getFictionalWorlds()
+	{
+		String line = null;
+		Vector<String> fictionalWorlds=new Vector<String>();
+		// FileReader reads text files in the default encoding.
+		FileReader fileReader = null;
+		try {
+			fileReader = new FileReader("C:\\Users\\Vlad\\Desktop\\SE3\\NOC-LIST\\FictionalWorlds.txt");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		// Always wrap FileReader in BufferedReader.
+		BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+		try {
+			while((line = bufferedReader.readLine()) != null) {
+				if(!line.isEmpty())
+				{
+					//System.out.println(line);
+					fictionalWorlds.add(line);
+				}
+
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// Always close files.
+		try {
+			bufferedReader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return fictionalWorlds;
+	}
+
+
 	// Get the values associated with a specific field of a key concept
-	
+
 	public Vector<String> getFieldValues(String fieldName, String key)
 	{
 		for (int f = 0; f < fieldNames.size(); f++)
@@ -64,28 +107,28 @@ public class KnowledgeBaseModule
 			if (fieldName.equals(fieldNames.elementAt(f)))
 			{
 				Hashtable field = (Hashtable)fieldTables.elementAt(f);
-				
+
 				return (Vector)field.get(key);
 			}
 		}
-		
+
 		return null;
 	}
-	
-	
+
+
 	public String getFirstValue(String fieldName, String key)
 	{
 		Vector values = getFieldValues(fieldName, key);
-		
+
 		if (values == null || values.size() < 1)
 			return null;
 		else
 			return (String)values.elementAt(0);
 	}
-	
-	
+
+
 	// Check whether a key concept has a given value for a given field
-	
+
 	public boolean hasFieldValue(String fieldName, String key, String value)
 	{
 		for (int f = 0; f < fieldNames.size(); f++)
@@ -93,78 +136,78 @@ public class KnowledgeBaseModule
 			if (fieldName.equals(fieldNames.elementAt(f)))
 			{
 				Hashtable field = (Hashtable)fieldTables.elementAt(f);
-				
+
 				Vector values = (Vector)field.get(key);
-				
+
 				if (values == null || values.size() == 0)
 					return false;
-				
+
 				for (int v = 0; v < values.size(); v++)
 					if (value.equals(values.elementAt(v)))
-						return true;		
+						return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	// Return a list of all the key concepts that have fields/values in this knowledge module
-	
+
 	public Vector<String> getAllFrames()
 	{
 		Vector longest = null;
-		
+
 		for (int f = 0; f < fieldTables.size(); f++)
 		{
 			Hashtable field = (Hashtable)fieldTables.elementAt(f);
-			
+
 			Vector list =  (Vector)field.get("*keylist*");
-			
+
 			if (list != null && (longest == null || list.size() > longest.size()))
 				longest = list;
 		}
-		
+
 		return longest;
 	}
-		
+
 	// return a list of key concepts with a given value in a given field
-	
+
 	public Vector<String> getAllKeysWithFieldValue(String fieldname, String value)
 	{
 		Vector<String> matchingKeys = new Vector();
 
-		if (value == null) 
+		if (value == null)
 			return matchingKeys;
 		else
 			value = value.intern();
-		
+
 		for (int f = 0; f < fieldTables.size(); f++)
 		{
 			String name = (String)fieldNames.elementAt(f);
-			
+
 			if (!name.equals(fieldname)) continue;
-		
+
 			Hashtable field = (Hashtable)fieldTables.elementAt(f);
-			
+
 			Vector keys =  (Vector)field.get("*keylist*");
-			
+
 			if (keys == null) break;
-			
+
 			for (int k = 0; k < keys.size(); k++)
 			{
 				String key = (String)keys.elementAt(k);
-				
+
 				Vector values = (Vector)field.get(key);
-				
+
 				if (values != null && values.contains(value))
 					matchingKeys.add(key);
 			}
 		}
-		
+
 		return matchingKeys;
 	}
-	
-	
+
+
 	public String selectRandomlyFrom(Vector<String> choices)
 	{
 		if (choices == null || choices.size() == 0)
@@ -172,7 +215,7 @@ public class KnowledgeBaseModule
 		else
 			return choices.elementAt(RND.nextInt(choices.size()));
 	}
-	
+
 	//-----------------------------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------------------------//
 	//   Useful public tools
@@ -180,141 +223,141 @@ public class KnowledgeBaseModule
 	//-----------------------------------------------------------------------------------------------//
 
 	// Turn a field value into a hashtag
-	
+
 	public String hashtagify(String phrase)
 	{
 		if (phrase == null || phrase.length() < 1)
 			return phrase;
-		
+
 		if (phrase.indexOf((int)' ') < 0)
 			return "#" + Character.toUpperCase(phrase.charAt(0)) + phrase.substring(1);
-		
-		StringBuffer tagged = new StringBuffer("#"); 
-		
+
+		StringBuffer tagged = new StringBuffer("#");
+
 		char prev = ' ', curr = ' ';
-		
+
 		for (int i = 0; i < phrase.length(); i++)
 		{
 			prev = curr;
 			curr = phrase.charAt(i);
-			
+
 			if ((prev == ' ' || prev == '.' || prev == '_') && Character.isLowerCase(curr))
 				curr = Character.toUpperCase(curr);
-			
+
 			if (curr != ' ' && curr != '\"' && curr != '.' && curr != '-' && curr != '\'')
 				tagged.append(curr);
 		}
-		
+
 		return tagged.toString();
 	}
-	
-	
-	
+
+
+
 	public String replaceWith(String whole, String before, String after)
 	{
 		int where = whole.indexOf(before);
-		
+
 		while (where >= 0)
 		{
 			whole = whole.substring(0, where) + after + whole.substring(where + before.length());
-			
+
 			where = whole.indexOf(before, where + after.length());
 		}
-		
+
 		return whole;
 	}
 
-	
+
 	// Get the intersection of two lists of concepts
-	
+
 	public Vector intersect(Vector v1, Vector v2)
 	{
 		if (v1 == null || v1.size() == 0)
 			return null;
-		
+
 		if (v2 == null || v2.size() == 0)
 			return null;
-		
+
 		if (v1.size()*v2.size() < 1000)
 		{
 			Vector common = new Vector();
-			
+
 			for (int i = 0; i < v1.size(); i++)
 				if (v2.contains(v1.elementAt(i)))
 					common.add(v1.elementAt(i));
-			
+
 			return common;
 		}
-		
+
 		Hashtable seen = new Hashtable();
-		
+
 		for (int i = 0; i < v2.size(); i++)
 			seen.put(v2.elementAt(i), "seen");
-		
+
 		Vector common = new Vector();
-		
+
 		for (int i = 0; i < v1.size(); i++)
 			if (seen.get(v1.elementAt(i)) != null)
 				common.add(v1.elementAt(i));
-		
+
 		return common;
 	}
-	
-	
+
+
 	// Get the union of two lists of concepts
-	
+
 	public Vector union(Vector v1, Vector v2)
 	{
 		if (v1 == null || v1.size() == 0)
 			return v2;
-		
+
 		if (v2 == null || v2.size() == 0)
 			return v1;
-		
+
 		Hashtable seen = new Hashtable();
-		
+
 		Vector union = new Vector();
 
-		
+
 		for (int i = 0; i < v1.size(); i++)
 		{
-			seen.put(v1.elementAt(i), "seen");		
+			seen.put(v1.elementAt(i), "seen");
 			union.add(v1.elementAt(i));
 		}
-			
+
 		for (int i = 0; i < v2.size(); i++)
 			if (seen.get(v2.elementAt(i)) != null)
 				union.add(v2.elementAt(i));
-		
+
 		return union;
 	}
-	
-	
+
+
 	// Get the union of two lists of concepts
-	
+
 	public Vector difference(Vector v1, Vector v2)
 	{
 		if (v1 == null || v1.size() == 0)
 			return null;
-		
+
 		if (v2 == null || v2.size() == 0)
 			return v1;
-		
+
 		Hashtable seen = new Hashtable();
-		
+
 		Vector difference = new Vector();
 
-		
+
 		for (int i = 0; i < v2.size(); i++)
-			seen.put(v2.elementAt(i), "seen");		
-			
+			seen.put(v2.elementAt(i), "seen");
+
 		for (int i = 0; i < v1.size(); i++)
 			if (seen.get(v1.elementAt(i)) == null)
 				difference.add(v1.elementAt(i));
-		
+
 		return difference;
 	}
-	
+
 	//-----------------------------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------------------------//
 	//   Invert a Field to get a table mapping from values to key concepts
@@ -326,103 +369,103 @@ public class KnowledgeBaseModule
 	{
 		return getInvertedField(givenField, new Hashtable());
 	}
-	
-	
-	
+
+
+
 	public Hashtable getInvertedField(String givenField, Hashtable inversion)
 	{
 		Vector invertedKeys = new Vector();
-		
+
 		inversion.put("*keylist*", invertedKeys);
-		
+
 		for (int f = 0; f < fieldTables.size(); f++)
 		{
 			String fieldName      = (String)fieldNames.elementAt(f);
-			
+
 			if (!fieldName.equals(givenField))
 				continue;
-			
+
 			Hashtable fieldTable  = (Hashtable)fieldTables.elementAt(f);
-			
+
 			Vector keylist =  (Vector)fieldTable.get("*keylist*"), values = null, entries = null;
-			
+
 			if (keylist == null) continue;
-			
+
 			String key = null, value = null;
-			
+
 			for (int k = 0; k < keylist.size(); k++)
 			{
 				key    = (String)keylist.elementAt(k);
 				values = (Vector)fieldTable.get(key);
-				
+
 				if (values == null) continue;
-				
+
 				for (int v = 0; v < values.size(); v++)
 				{
 					value = (String)values.elementAt(v);
-					
+
 					entries = (Vector)inversion.get(value);
-					
+
 					if (entries == null)
 					{
 						entries = new Vector();
 						inversion.put(value, entries);
-						
+
 						invertedKeys.add(value);
 					}
-					
+
 					if (!entries.contains(key))
 						entries.add(key);
 				}
-			}	
+			}
 		}
-		
+
 		return inversion;
 	}
-	
-	
-	
+
+
+
 	public BucketTable invertFieldInto(String givenField, BucketTable inversion)
 	{
 		Vector invertedKeys = new Vector();
-		
+
 		inversion.put("*keylist*", invertedKeys);
-		
+
 		for (int f = 0; f < fieldTables.size(); f++)
 		{
 			String fieldName      = (String)fieldNames.elementAt(f);
-			
+
 			if (!fieldName.equals(givenField))
 				continue;
-			
+
 			Hashtable fieldTable  = (Hashtable)fieldTables.elementAt(f);
-			
+
 			Vector keylist =  (Vector)fieldTable.get("*keylist*"), values = null, entries = null;
-			
+
 			if (keylist == null) continue;
-			
+
 			String key = null, value = null;
-			
+
 			for (int k = 0; k < keylist.size(); k++)
 			{
 				key    = (String)keylist.elementAt(k);
 				values = (Vector)fieldTable.get(key);
-				
+
 				if (values == null) continue;
-				
+
 				for (int v = 0; v < values.size(); v++)
 				{
 					value = (String)values.elementAt(v);
-					
+
 					inversion.put(value, key);
 				}
-			}	
+			}
 		}
-		
+
 		return inversion;
 	}
-	
-	
+
+
 	//-----------------------------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------------------------//
 	//   Return an ordered list of the most similar key concepts to a given key, most similar first
@@ -433,103 +476,103 @@ public class KnowledgeBaseModule
 	{
 		return getSimilarConcepts(given, fieldNames, 1);
 	}
-	
-	
+
+
 	public Vector getSimilarConcepts(String given, int minSimilarity)
 	{
 		return getSimilarConcepts(given, fieldNames, minSimilarity);
 	}
 
-	
+
 	public Vector getSimilarConcepts(String given, Vector fieldNames)
 	{
 		return getSimilarConcepts(given, fieldNames, 1);
 	}
-	
-	
+
+
 	public Vector getSimilarConcepts(String given, Vector fieldNames, int minSimilarity)
 	{
 		Vector keys = getAllFrames();
-		
+
 		Vector[] scale = new Vector[fieldNames.size()*10];
-		
+
 		String other = null;
-		
+
 		for (int k = 0; k < keys.size(); k++)
 		{
 			other = (String)keys.elementAt(k);
-			
+
 			if (other.equals(given)) continue;
-			
+
 			Vector overlap = getOverlappingFields(given, other, fieldNames);
-			
+
 			if (overlap == null || overlap.size() < minSimilarity) continue;
-			
+
 			int simScore = overlap.size();
-			
+
 			if (simScore >= scale.length) simScore = scale.length-1;
-			
+
 			if (scale[simScore] == null)
 				scale[simScore] = new Vector();
-			
+
 			scale[simScore].add(other);
 		}
-		
+
 		Vector rank = new Vector();
-		
+
 		for (int s = scale.length-1; s > 0; s--)
 		{
 			if (scale[s] == null) continue;
-			
+
 			for (int v = 0; v < scale[s].size(); v++)
 				rank.add(scale[s].elementAt(v));
 		}
-		
+
 		return rank;
 	}
-	
+
 	//-----------------------------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------------------------//
 	//   Return a list of overlapping fieldname:fieldvalue pairs for two key concepts
 	//-----------------------------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------------------------//
-	
+
 	public Vector getOverlappingFields(String key1, String key2)
 	{
 		return getOverlappingFields(key1, key2, fieldNames);
 	}
-	
-	
+
+
 	public Vector getOverlappingFields(String key1, String key2, Vector salient)
 	{
 		String fieldName     = null;
 		Hashtable fieldTable = null;
-		
+
 		Vector overlap       = new Vector();
-		
+
 		for (int n = 0; n < fieldNames.size(); n++)
 		{
 			fieldName = (String)fieldNames.elementAt(n);
-			
+
 			if (salient != fieldNames && !salient.contains(fieldName))
 				continue;
-			
+
 			fieldTable = (Hashtable)fieldTables.elementAt(n);
-			
+
 			Vector common = intersect((Vector)fieldTable.get(key1), (Vector)fieldTable.get(key2));
-			
+
 			if (common == null) continue;
-			
+
 			for (int c = 0; c < common.size(); c++)
 			{
 				overlap.add(fieldName + "=" + (String)common.elementAt(c));
 			}
 		}
-		
+
 		return overlap;
 	}
-	
-	
+
+
 	//-----------------------------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------------------------//
 	//   Load Knowledge-Base Module from a Given File
@@ -540,36 +583,36 @@ public class KnowledgeBaseModule
 	{
 		loadKnowledgeBaseFrom(filename, 0);
 	}
-	
-	
+
+
 	private void loadKnowledgeBaseFrom(String filename, int keyPosition)
 	{
 		FileInputStream input;
 
 		try {
 		    input = new FileInputStream(filename);
-		    
+
 		    loadKnowledgeBaseFrom(input, keyPosition);
 		}
 		catch (IOException e)
 		{
 			System.out.println("Cannot find/load knowledge file: " + filename);
-			
+
 			e.printStackTrace();
 		}
 	}
-	
-		
+
+
 
 	private void loadKnowledgeBaseFrom(InputStream stream, int keyPosition)
 	{
 		String line = null;
-		
+
 		try {
 			BufferedReader input = new BufferedReader(new InputStreamReader(stream, "UTF8"));
-			
+
 			loadFieldNames(input.readLine());
-			
+
 			while ( (line = input.readLine()) != null)  // Read a line at a time
 			{
 				parseFieldsIntoKB(fieldNames, line, keyPosition);
@@ -580,129 +623,129 @@ public class KnowledgeBaseModule
 		}
 
 	}
-	
-	
+
+
 	private void parseFieldsIntoKB(Vector fieldNames, String line, int keyPosition)
 	{
 		StringTokenizer values = new StringTokenizer(line, "\t", true);
-		
+
 		int fieldNumber = 0;
-		
+
 		Vector valueSets = new Vector();
-		
+
 		for (int f = 0; f < fieldNames.size(); f++)
 			valueSets.add("");
-		
+
 		while (values.hasMoreTokens())
 		{
 			String token = values.nextToken();
-			
+
 			if (token.equals("\t"))
 			{
 				fieldNumber++;
-				
+
 				if (fieldNumber >= valueSets.size())
 					break;
 				else
 					continue;
 			}
-			
+
 			token = token.trim();
-			
+
 			if (token.length() > 0)
 				valueSets.setElementAt(token, fieldNumber);
 		}
-				
+
 		String key = ((String)valueSets.elementAt(keyPosition)).trim().intern();
-		
+
 		for (int v = 0; v < valueSets.size(); v++)
 		{
 			setFieldsInKB((Hashtable)fieldTables.elementAt(v), key, (String)valueSets.elementAt(v));
 		}
 	}
-	
-	
-	
+
+
+
 	private Vector setFieldsInKB(Hashtable field, String key, String valueSet)
 	{
 		if (valueSet == "") return null;
-				
+
 		StringTokenizer values = new StringTokenizer(valueSet, ",", false);
-		
+
 		Vector fieldValues = (Vector)field.get(key);
-		
-		if (fieldValues == null) 
+
+		if (fieldValues == null)
 		{
 			Vector keyList = (Vector)field.get("*keylist*");
-			
+
 			if (keyList == null)
 			{
 				keyList = new Vector();
 				field.put("*keylist*", keyList);
 			}
-			
+
 			keyList.add(key);
-			
+
 			fieldValues = new Vector();
 		}
-		
+
 		field.put(key, fieldValues);
-		
+
 		while (values.hasMoreTokens())
 		{
 			String value = values.nextToken().trim().intern();
-			
+
 			if (value.length() > 0 && !fieldValues.contains(value))
 				fieldValues.add(value);
 		}
-		
+
 		return fieldValues;
 	}
-	
-	
-	
+
+
+
 	private Vector loadFieldNames(String line)
 	{
 		StringTokenizer names = new StringTokenizer(line, "\t");
-		
+
 		fieldNames.setSize(0);
 		fieldTables.setSize(0);
-		
+
 		String previous = "", current = "";
-		
+
 		Hashtable prevTable = null, currTable = null;
-		
+
 		while (names.hasMoreTokens())
 		{
 			previous  = current;
 			current   = names.nextToken().intern();
-			
+
 			prevTable = currTable;
 			currTable = new Hashtable();
-			
+
 			fieldNames.add(current);
-			
+
 			if (current == previous && prevTable != null)
 				currTable = prevTable;
-			
+
 			fieldTables.add(currTable);
 		}
-		
+
 		return fieldNames;
 	}
-	
-	
-	
+
+
+
 	//-----------------------------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------------------------//
 	//   Application Stub:  Examples of how to load and access different knowledge modules
 	//-----------------------------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------------------------//
-	
+
 	public static void main(String[] args)
 	{
 		String kdir = "C:\\Users\\Vlad\\Desktop\\SE3\\NOC-LIST\\";
-		
+
 		KnowledgeBaseModule NOC          = new KnowledgeBaseModule(kdir + "Veale's The NOC List.txt", 0);
 		KnowledgeBaseModule CATEGORIES   = new KnowledgeBaseModule(kdir + "Veale's Category Hierarchy.txt", 0);
 		KnowledgeBaseModule CLOTHES      = new KnowledgeBaseModule(kdir + "Veale's clothing line.txt", 1);  // 1 is the column number of the key value
@@ -712,11 +755,11 @@ public class KnowledgeBaseModule
 		KnowledgeBaseModule VEHICLES     = new KnowledgeBaseModule(kdir + "Veale's vehicle fleet.txt", 1);  // 1 is the column number of the key value
 		KnowledgeBaseModule WEAPONS	     = new KnowledgeBaseModule(kdir + "Veale's weapon arsenal.txt", 1);  // 1 is the column number of the key value
 		KnowledgeBaseModule PLACES       = new KnowledgeBaseModule(kdir + "Veale's place elements.txt", 0);
-		
+
 		KnowledgeBaseModule SUPERLATIVES = new KnowledgeBaseModule(kdir + "superlatives.txt", 0);
-		
+
 		// Only picks up villains that ONLY have star wars, can't find darth vader etc //
-		
+
 		Vector Heroes = NOC.getAllKeysWithFieldValue("Category", "Hero");
 		Vector Villains = NOC.getAllKeysWithFieldValue("Category", "Villain");
 		Vector Comedians = NOC.getAllKeysWithFieldValue("Category", "Comedian");
@@ -731,118 +774,132 @@ public class KnowledgeBaseModule
 		Vector Judges = NOC.getAllKeysWithFieldValue("Category", "Judge");
 		Vector Athletes = NOC.getAllKeysWithFieldValue("Category", "Athlete");
 		Vector Actors = NOC.getAllKeysWithFieldValue("Category", "Actor");
-		
+
 		Vector Male = NOC.getAllKeysWithFieldValue("Gender", "male");
 		Vector Female = NOC.getAllKeysWithFieldValue("Gender", "female");
-		
+
 		Vector StarWars = NOC.getAllKeysWithFieldValue("Domains", "Star Wars");
 		Vector Hollywood = NOC.getAllKeysWithFieldValue("Domains", "Hollywood");
-		
+
+
+
 		// Functions and what they do //
-				Vector test = NOC.getFieldValues("Gender", "Adam Sandler"); // returns gender of Adam //
-				Vector test1 = NOC.getOverlappingFields("Adam Sandler", "Adam West"); // returns what both of them have in common //
-				Vector test2 = NOC.getSimilarConcepts("Darth Vader"); // who knows? 
-				Vector test3 = NOC.getSimilarConcepts("Darth Vader", 5);
-				Vector test4 = NOC.getSimilarConcepts("Darth Vader" , Killers);
-				Vector test5 = NOC.intersect(StarWars, Villains);
-				Vector test6 = NOC.union(StarWars, Killers); // who knows??
-				Hashtable test7 = NOC.getInvertedField("Domains");// i don't know?
-				
-				
+//				Vector test = NOC.getFieldValues("Gender", "Adam Sandler"); // returns gender of Adam //
+//				Vector test1 = NOC.getOverlappingFields("Adam Sandler", "Adam West"); // returns what both of them have in common //
+//				Vector test2 = NOC.getSimilarConcepts("Darth Vader"); // who knows?
+//				Vector test3 = NOC.getSimilarConcepts("Darth Vader", 5);
+//				Vector test4 = NOC.getSimilarConcepts("Darth Vader" , Killers);
+//				Vector test5 = NOC.intersect(StarWars, Villains);
+//				Vector test6 = NOC.union(StarWars, Killers); // who knows??
+//				Hashtable test7 = NOC.getInvertedField("Domains");// i don't know?
+
+
+				//				System.out.println(Worlds);
+				String Worlds = NOC.selectRandomlyFrom(NOC.getFictionalWorlds());
+		System.out.println(Worlds);
+
+		Vector<String> Board = NOC.getAllKeysWithFieldValue("Fictional World", Worlds);
+
+
+		while(Board.size() < 3) {
+			Worlds = NOC.selectRandomlyFrom(NOC.getFictionalWorlds());
+			Board = NOC.getAllKeysWithFieldValue("Fictional World", Worlds);
+		}
 		
-		
-		
+		System.out.println(Board);
+
+
  //main part i hope//
-				
+
 		String Hero = NOC.selectRandomlyFrom(Male);
-		
+
 		Vector<String> ClothesChoice = NOC.getFieldValues("Seen Wearing", Hero);
 		String Clothes = NOC.selectRandomlyFrom(ClothesChoice);
-		
+
 		Vector<String> VehicleChoice = NOC.getFieldValues("Vehicle of Choice", Hero);
 		String Vehicle = NOC.selectRandomlyFrom(VehicleChoice);
-		
+
 		Vector<String> WeaponChoice = NOC.getFieldValues("Weapon of Choice", Hero);
 		String Weapon = NOC.selectRandomlyFrom(WeaponChoice);
-		
+
 		Vector<String> ActivityChoice = NOC.getFieldValues("Typical Activity", Hero);
 		String Activity = NOC.selectRandomlyFrom(ActivityChoice);
-	
+
 		// Will need an IF statement; checking if the character is fictional or not first; return the adress of normal world if not fictional; check for world if fictional
 		Vector<String> WorldChoice = NOC.getFieldValues("Address 3", Hero);
 		String World = NOC.selectRandomlyFrom(WorldChoice);
-		
+
 		Vector<String> NegativeChoice = NOC.getFieldValues("Negative Talking Points", Hero);
 		String Negative = NOC.selectRandomlyFrom(NegativeChoice);
-		
+
 		Vector<String> PositiveChoice = NOC.getFieldValues("Positive Talking Points", Hero);
 		String Positive = NOC.selectRandomlyFrom(PositiveChoice);
-		
+
 		String pronoun    = "he";
 		String possPro	  = "his";
-		
-				
+
+
 		if (NOC.hasFieldValue("Gender", Hero, "female"))
 		{
 			pronoun = "she";
 			possPro = "her";
 		}
 
-		
-		
+
+
 			// Gets Determiner for Vehicle - include if statement to get rid of null's//
-		String VehicleDet = VEHICLES.getFirstValue("Determiner", Vehicle); 
+		String VehicleDet = VEHICLES.getFirstValue("Determiner", Vehicle);
 		//System.out.println("i was driving " + VehicleDet + " " + Vehicle);
-		
+
 		// Gets affordance for the vehicle - some vehicles end in question mark or quote marks, messes up search //
-		String VehicleAff = VEHICLES.getFirstValue("Affordances", Vehicle); 
+		String VehicleAff = VEHICLES.getFirstValue("Affordances", Vehicle);
 		//System.out.println("i was " + VehicleAff + " " + VehicleDet + " " + Vehicle);
-		
+
 		// Gets Determiner for Clothes - include if statement to get rid of null's//
-		String ClothesDet = CLOTHES.getFirstValue("Determiner", Clothes); 
+		String ClothesDet = CLOTHES.getFirstValue("Determiner", Clothes);
 		//System.out.println("i was wearing " + ClothesDet + " " + Clothes);
-		
-		String WeaponDet = WEAPONS.getFirstValue("Determiner", Weapon); 
+
+		String WeaponDet = WEAPONS.getFirstValue("Determiner", Weapon);
 		//System.out.println("i was wearing " + ClothesDet + " " + Clothes);
-		 
-		Vector<String> WeaponAffChoice = WEAPONS.getFieldValues("Affordances", Weapon); 
+
+		Vector<String> WeaponAffChoice = WEAPONS.getFieldValues("Affordances", Weapon);
 		String WeaponAff = WEAPONS.selectRandomlyFrom(WeaponAffChoice);
 		//System.out.println("He began " + WeaponAff + " his " + Weapon);
-		
-		
+
+
 		if (ClothesDet == null) {
 			ClothesDet = "";
 			}
-		
+
 		if (VehicleDet == null) {
 			VehicleDet = "";
 			}
-		
-		
-		System.out.println("Suddenly you spot " + Hero + " " + pronoun + " is " + VehicleAff + " towards you in "+ possPro + " " + Vehicle + " " + pronoun + " is wearing " + ClothesDet+
-							" "+ Clothes + ", " + pronoun + " runs at you and pulls out a" + Weapon + " " + pronoun + " tells you they come from " + World + " " + 
+
+
+		/*System.out.println("Suddenly you spot " + Hero + " " + pronoun + " is " + VehicleAff + " towards you in "+ possPro + " " + Vehicle + " " + pronoun + " is wearing " + ClothesDet+
+							" "+ Clothes + ", " + pronoun + " runs at you and pulls out a" + Weapon + " " + pronoun + " tells you they come from " + World + " " +
 							pronoun + " then begin to" + Activity);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		//System.out.println(SUPERLATIVES.getFieldValues("Superlative", "expensive"));
-		
+
 		//Vector<String> fields = NOC.getFieldNames();
-		
+
 		//System.out.println(fields);
-		
+
 //		System.out.println(NOC.getFieldValues("Portrayed By", "Abraham Lincoln"));
 //		
 //		System.out.println(CATEGORIES.getFieldValues("Super Category", "President"));
@@ -869,7 +926,7 @@ public class KnowledgeBaseModule
 //		
 //		System.out.println(PLACES.getFieldValues("Fictive Status", "Alderaan"));
 //		System.out.println(PLACES.getFieldValues("Place Type", "Alderaan"));
-		
+
 //		Vector fictionalCharacters = NOC.getAllFrames();
 //		Vector vehicles = VEHICLES.getAllFrames();
 //		Vector clothes = CLOTHES.getAllFrames();
@@ -891,10 +948,10 @@ public class KnowledgeBaseModule
 //			possPro = "her";
 //		}
 //		
-		
-		
+
+
 		//System.out.println("You're walking through Tallaght and all of a sudden " + vlad + "  jumps out of "+ possPro + " " + rob + "  right in front of you wearing "+ erik2.get(0) +" " + erik);
-		
+
 //		Vector fathers = NOC.getAllKeysWithFieldValue("Category", "Father");
 //		
 //		Vector fictionalFathers = NOC.intersect(fathers, fictionalCharacters);
