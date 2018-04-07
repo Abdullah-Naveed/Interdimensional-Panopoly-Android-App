@@ -1,13 +1,13 @@
 package com.rob.monopoly;
 
-import android.graphics.Color;
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TableRow;
+
+import java.util.Random;
 
 /**
  * Created by Robert on 23/03/2018.
@@ -15,32 +15,84 @@ import android.widget.TableRow;
 
 public class UserMover extends AppCompatActivity{
 
+    private Context context;
+
+    public UserMover(Context context) {
+        this.context = context;
+    }
 
 
-    public void move(ViewGroup viewGroup, int index, int User)
+    public int move(ViewGroup viewGroup, int index, int User)
     {
         wipe(User,viewGroup);
         if(index>=20&&index<=34)
         {
+            int newLocation=0;
             TableRow subView=(TableRow)viewGroup.getChildAt(0);
-            View view=subView.getVirtualChildAt(index%20);
+            index=index%20;
+            View view=subView.getVirtualChildAt(index);
+            if(index==7)
+            {
+                Random random=new Random();
+                int i=random.nextInt(3)+1;
+                switch(i)
+                {
+                    case 1: subView=(TableRow)viewGroup.getChildAt(6);
+                        view=subView.getVirtualChildAt(Math.abs(7));
+                        newLocation=7;break;
+                    case 2: subView=(TableRow)viewGroup.getChildAt(4);
+                        view=subView.getVirtualChildAt(Math.abs(0));
+                        newLocation=27;break;
+                    case 3: subView=(TableRow)viewGroup.getChildAt(2);
+                        view=subView.getVirtualChildAt(Math.abs(14));
+                        newLocation=36;break;
+                }
+                playSound();
+            }
+
+
             setVisibility(User, view);
+            return newLocation;
         }
         else if(index==19||index==35)
         {
+            int newLocation=0;
             View view=null;
             TableRow subView=(TableRow)viewGroup.getChildAt(1);
             if(index==19){view=subView.getVirtualChildAt(0);}
-            if(index==35){view=subView.getVirtualChildAt(14);}
+            if(index==35)
+            {
+
+            }
             setVisibility(User, view);
+
         }
         else if(index==18||index==36)
         {
+            int newLocation=0;
             View view=null;
             TableRow subView=(TableRow)viewGroup.getChildAt(2);
             if(index==18){view=subView.getVirtualChildAt(0);}
-            if(index==36){view=subView.getVirtualChildAt(14);}
+            if(index==36)
+            {
+                Random random=new Random();
+                int i=random.nextInt(3)+1;
+                switch(i)
+                {
+                    case 1: subView=(TableRow)viewGroup.getChildAt(6);
+                        view=subView.getVirtualChildAt(Math.abs(7));
+                        newLocation=7;break;
+                    case 2: subView=(TableRow)viewGroup.getChildAt(4);
+                        view=subView.getVirtualChildAt(Math.abs(0));
+                        newLocation=27;break;
+                    case 3: subView=(TableRow)viewGroup.getChildAt(0);
+                        view=subView.getVirtualChildAt(Math.abs(7));
+                        newLocation=36;break;
+                }
+                playSound();
+            }
             setVisibility(User, view);
+            return newLocation;
         }
         else if(index==17||index==37)
         {
@@ -52,11 +104,31 @@ public class UserMover extends AppCompatActivity{
         }
         else if(index==16||index==38)
         {
+            int newLocation=0;
             View view=null;
             TableRow subView=(TableRow)viewGroup.getChildAt(4);
-            if(index==16){view=subView.getVirtualChildAt(0);}
+            if(index==16)
+            {
+                Random random=new Random();
+                int i=random.nextInt(3)+1;
+                switch(i)
+                {
+                    case 1: subView=(TableRow)viewGroup.getChildAt(6);
+                        view=subView.getVirtualChildAt(Math.abs(7));
+                        newLocation=7;break;
+                    case 2: subView=(TableRow)viewGroup.getChildAt(0);
+                        view=subView.getVirtualChildAt(Math.abs(7));
+                        newLocation=27;break;
+                    case 3: subView=(TableRow)viewGroup.getChildAt(2);
+                        view=subView.getVirtualChildAt(Math.abs(14));
+                        newLocation=36;break;
+                }
+                playSound();
+            }
             if(index==38){view=subView.getVirtualChildAt(14);}
             setVisibility(User, view);
+            return newLocation;
+
         }
         else if(index==15||index==39)
         {
@@ -68,12 +140,38 @@ public class UserMover extends AppCompatActivity{
         }
         else if(index<=14&&index>=0)
         {
+            int newLocation=0;
+            View view=null;
             TableRow subView=(TableRow)viewGroup.getChildAt(6);
-            View view=subView.getVirtualChildAt(Math.abs(index-14));
+            if(index==7)
+            {
+
+                Random random=new Random();
+                int i=random.nextInt(3)+1;
+                switch(i)
+                {
+                    case 1: subView=(TableRow)viewGroup.getChildAt(4);
+                            view=subView.getVirtualChildAt(Math.abs(0));
+                            newLocation=16;break;
+                    case 2: subView=(TableRow)viewGroup.getChildAt(0);
+                            view=subView.getVirtualChildAt(Math.abs(7));
+                            newLocation=27;break;
+                    case 3: subView=(TableRow)viewGroup.getChildAt(2);
+                            view=subView.getVirtualChildAt(Math.abs(14));
+                            newLocation=36;break;
+                }
+                playSound();
+            }
+            else
+            {
+                view=subView.getVirtualChildAt(Math.abs(index-14));
+            }
+
 
             setVisibility(User, view);
+            return newLocation;
         }
-
+        return 0;
     }
 
     public void setVisibility(int User, View view)
@@ -100,5 +198,11 @@ public class UserMover extends AppCompatActivity{
         }
     }
 
+
+    void playSound()
+    {
+        final MediaPlayer mp = MediaPlayer.create(context, R.raw.teleport_sound);
+        mp.start();
+    }
 
 }

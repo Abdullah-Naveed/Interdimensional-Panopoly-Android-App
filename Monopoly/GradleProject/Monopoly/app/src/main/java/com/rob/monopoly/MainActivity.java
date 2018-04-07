@@ -1,7 +1,9 @@
 package com.rob.monopoly;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -35,12 +37,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static ArrayList<Property> properties=new ArrayList<Property>();
-    static ArrayList<Player> players=new ArrayList<Player>();
+    static ArrayList<Player> players=new ArrayList<Player>(0);
     ViewGroup viewGroup=null;
-//    public static final Random RANDOM = new Random();
-//    private ImageView imageView1, imageView2;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +47,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         initialSetting();
+
         viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
 
         //add players
-        players.add(new Player(viewGroup,"Rob"));
+        players.add(new Player(this,viewGroup,"Rob"));
 //
 //        imageView1 = (ImageView) findViewById(R.id.dice1);
 //        imageView2 = (ImageView) findViewById(R.id.dice2);
@@ -199,31 +198,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.roll) {
-//            Toast.makeText(MainActivity.this, "worked", Toast.LENGTH_SHORT).show();
-//            alertOneButton();
-
             Random RANDOM=new Random();
             int i=RANDOM.nextInt(6) + 1;
-            for(int j=0;j<i;j++)
-            {
-                players.get(0).move();
-            }
+            i+=RANDOM.nextInt(6) + 1;
+//            for(int j=0;j<i;j++)
+//            {
+                players.get(0).move(i);
+                alertMovedButton(i);
+//            }
 
 
         } else if (id == R.id.nav_gallery) {
-            ViewGroup viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
-            Player rob=new Player(viewGroup,"ROB");
-            rob.move();
+            players.get(0).move(1);
 
         } else if (id == R.id.nav_slideshow) {
             ViewGroup viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
-            Player rob=new Player(viewGroup,"ROB");
-            rob.move();
+            Player rob=new Player(this,viewGroup,"ROB");
+            for(int j=0;j<7;j++)
+            {
+                rob.move(j);
+            }
+
 
         } else if (id == R.id.nav_manage) {
             ViewGroup viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
-            Player rob=new Player(viewGroup,"ROB");
-            rob.move();
+            Player rob=new Player(this,viewGroup,"ROB");
+            rob.move(2);
 
         }
 
@@ -236,11 +236,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /*
     * AlertDialog with one action button.
     */
-    public void alertOneButton() {
+    public void alertMovedButton(int moved) {
 
         new AlertDialog.Builder(MainActivity.this)
-                .setTitle("One Button")
-                .setMessage("Thanks for visiting The Code of a Ninja - codeofaninja.com")
+                .setMessage("You moved "+moved+" places")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
@@ -378,6 +377,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //    public static int randomDiceValue() {
 //        return RANDOM.nextInt(6) + 1;
 //    }
+
 
 
 
