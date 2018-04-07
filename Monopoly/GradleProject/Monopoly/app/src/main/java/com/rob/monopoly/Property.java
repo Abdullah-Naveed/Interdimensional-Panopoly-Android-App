@@ -17,8 +17,8 @@ import static com.rob.monopoly.MainActivity.properties;
 public class Property extends AppCompatActivity implements Improvable,Rentable,Mortgageable,Ownable {
 
     private String ID;
-    private int numHouses=0;
-    private int housePriceModifier;
+    private double numHouses=0;
+    private double housePriceModifier;
     private Player player;
     private int mortgageAmount;
     private boolean isMortgaged=false;
@@ -26,7 +26,7 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
     private int buyPrice;
     private String colourGroup;
 
-    public Property(String ID,String colourGroup,int buyPrice,int mortgageAmount,int housePriceModifier)
+    public Property(String ID,String colourGroup,int buyPrice,int mortgageAmount,double housePriceModifier)
     {
         this.ID=ID;
         this.colourGroup=colourGroup;
@@ -58,7 +58,7 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
 
 
     @Override
-    public int getHousePrice() {
+    public double getHousePrice() {
         if(numHouses==0)
         {
             return housePriceModifier;
@@ -68,7 +68,7 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
 
 
     @Override
-    public int getNumHouses() {
+    public double getNumHouses() {
         return numHouses;
     }
 
