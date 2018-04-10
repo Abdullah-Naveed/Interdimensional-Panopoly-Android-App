@@ -19,6 +19,7 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
     private String ID;
     private double numHouses=0;
     private double housePriceModifier;
+    private int baseRentPrice=0;
     private Player player;
     private int mortgageAmount;
     private boolean isMortgaged=false;
@@ -26,13 +27,14 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
     private int buyPrice;
     private String colourGroup;
 
-    public Property(String ID,String colourGroup,int buyPrice,int mortgageAmount,double housePriceModifier)
+    public Property(String ID,String colourGroup,int buyPrice,int mortgageAmount,double housePriceModifier,int baseRentPrice)
     {
         this.ID=ID;
         this.colourGroup=colourGroup;
         this.buyPrice=buyPrice;
         this.mortgageAmount=mortgageAmount;
         this.housePriceModifier=housePriceModifier;
+        this.baseRentPrice=baseRentPrice;
         properties.add(this);
     }
 
@@ -58,12 +60,12 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
 
 
     @Override
-    public double getHousePrice() {
+    public int getHousePrice() {
         if(numHouses==0)
         {
-            return housePriceModifier;
+            return baseRentPrice;
         }
-        return numHouses*housePriceModifier;
+        return (int)(numHouses*housePriceModifier+baseRentPrice);
     }
 
 

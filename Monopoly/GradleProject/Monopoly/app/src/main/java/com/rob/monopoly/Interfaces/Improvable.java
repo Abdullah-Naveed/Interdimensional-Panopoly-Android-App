@@ -8,7 +8,7 @@ public interface Improvable extends Ownable {
 
     boolean buildHouse();
     boolean demolishHouse();
-    double getHousePrice();
+    int getHousePrice();
     double getNumHouses();
     String getColourGroup();
     boolean ownsColourGroup();
