@@ -20,7 +20,7 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
     private double numHouses=0;
     private double housePriceModifier;
     private int baseRentPrice=0;
-    private Player player;
+    private Player player=null;
     private int mortgageAmount;
     private boolean isMortgaged=false;
     private boolean isOwned=false;

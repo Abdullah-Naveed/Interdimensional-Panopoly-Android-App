@@ -201,6 +201,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         CompoundView compoundView30 = (CompoundView)findViewById(R.id.teleport4);
         compoundView30.changeImage(12);
 
+        //corner
+        CompoundViewCorners compoundViewCorners1=findViewById(R.id.square1);
+        compoundViewCorners1.changeImage(1);
+        CompoundViewCorners compoundViewCorners2=findViewById(R.id.square2);
+        compoundViewCorners2.changeImage(2);
+        CompoundViewCorners compoundViewCorners3=findViewById(R.id.square3);
+        compoundViewCorners3.changeImage(3);
+        CompoundViewCorners compoundViewCorners4=findViewById(R.id.square4);
+        compoundViewCorners4.changeImage(4);
+
     }
 
     @Override
@@ -358,7 +368,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         View parent=(View)view.getParent();
         String viewName=resourceName(parent.getId());
-        Property currentProperty=null;
+        Property currentProperty=new Property("red1","red",100,50,1.2,2);;
         for(Property prop:properties)
         {
             if(viewName==prop.getID())
