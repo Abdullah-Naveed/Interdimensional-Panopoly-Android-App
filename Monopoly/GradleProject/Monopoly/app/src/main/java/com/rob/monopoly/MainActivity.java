@@ -350,16 +350,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void PopupCustomizedLayout(View view)
     {
-//        TextView textView=findViewById(R.id.customview_textview_title);
-//        Property property=new Property("rob","red",100,100,100);
-//        property.PopupCustomizedLayout(view);
-
-//        arraylist of all properties
-//        intial setting of noc list name and adding property to arraylist
-//        get textview name check if equals name in properties
-//        then using that property change the values for sweetalert
-
-
         SweetAlertDialog pDialog=new SweetAlertDialog(this);
         ListView listView=new ListView(this);
 
