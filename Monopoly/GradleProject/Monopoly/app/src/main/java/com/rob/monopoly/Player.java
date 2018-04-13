@@ -13,10 +13,11 @@ import static com.rob.monopoly.MainActivity.players;
 public class Player extends UserMover implements Playable{
 
     private int playerNum=1;
+
     private int playerLocation =0;
     private ViewGroup viewGroup;
     private String ID;
-    private Bank bankAccount;
+    private Bank bankAccount=new Bank(1000);
     private ArrayList<Property> properties=new ArrayList<Property>();
 
     public Player(Context context,ViewGroup viewGroup, String ID)
@@ -88,6 +89,16 @@ public class Player extends UserMover implements Playable{
     @Override
     public void addToProperties(Property property) {
         properties.add(property);
+    }
+
+    public void removeFromProperties(Property property) {properties.remove(property);}
+
+    public int getPlayerLocation() {
+        return playerLocation;
+    }
+
+    public void setPlayerLocation(int playerLocation) {
+        this.playerLocation = playerLocation;
     }
 
     public void move(int amountToMove)

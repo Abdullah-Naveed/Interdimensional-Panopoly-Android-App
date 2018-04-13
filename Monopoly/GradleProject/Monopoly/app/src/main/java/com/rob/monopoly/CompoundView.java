@@ -63,7 +63,6 @@ public class CompoundView extends LinearLayout {
         titleView.setText(str);
     }
 
-
     public void changeImage(int imageCode){
         ImageView imageView=(ImageView)findViewById(R.id.customview_imageview_main);
         switch(imageCode){

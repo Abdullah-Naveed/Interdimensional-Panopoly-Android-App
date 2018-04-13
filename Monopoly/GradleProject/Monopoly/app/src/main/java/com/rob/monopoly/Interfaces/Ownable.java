@@ -9,6 +9,7 @@ import com.rob.monopoly.Player;
 public interface Ownable extends Identifiable{
 
     Player getOwner();
+    void setOwner(Player player);
     void buyProperty(Player player);
     int buyPrice();
 }
