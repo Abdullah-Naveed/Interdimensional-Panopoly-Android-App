@@ -1,14 +1,18 @@
 package com.rob.monopoly.NOCList.twitterbotics;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Random;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -21,6 +25,13 @@ import com.rob.monopoly.NOCList.tabular.BucketTable;
 
 public class KnowledgeBaseModule
 {
+	final static String kdir = "";
+	static Context context=null;
+	private static Vector<String> fictionalWorlds=new Vector<String>();
+//	private static Vector
+//    public static String[] worldsArray;
+
+
 	private static Random RND 		= new Random();
 
 	private Hashtable kb = new Hashtable();
@@ -41,10 +52,59 @@ public class KnowledgeBaseModule
 
 	public KnowledgeBaseModule(String filename)
 	{
-		loadKnowledgeBaseFrom(filename, 0);
+        loadKnowledgeBaseFrom(filename, 0);
 	}
 
-	//-----------------------------------------------------------------------------------------------//
+	public KnowledgeBaseModule(Context context) {
+		this.context = context;
+//		try {
+//			InputStream is=context.getAssets().open("FictionalWorlds.txt");
+//			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+//			is.close();
+//			String  line;
+//
+//			while((line = br.readLine())!=null){
+//				fictionalWorlds.add(line.trim());
+//			}
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+
+
+		try {
+//			AssetManager assetManager=context.getAssets();
+//			System.out.println(assetManager.getLocales());
+			InputStream is = context.getAssets().open("Veales_The_NOC_List.txt");
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+			String line;
+
+			while ((line = br.readLine()) != null) {
+				fictionalWorlds.add(line.trim());
+			}
+
+			for (int i=1;i<fictionalWorlds.size();i++) {
+				String[] tokens = fictionalWorlds.get(i).split("\\t");
+				for(String token: tokens){
+
+
+//					System.out.println(token);
+				}
+				break;
+
+			}
+
+			br.close();
+			is.close();
+
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+		//-----------------------------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------------------------//
 	//  Accessors
 	//-----------------------------------------------------------------------------------------------//
@@ -59,42 +119,35 @@ public class KnowledgeBaseModule
 
 	public Vector<String> getFictionalWorlds()
 	{
-		String line = null;
-		Vector<String> fictionalWorlds=new Vector<String>();
-		// FileReader reads text files in the default encoding.
-		FileReader fileReader = null;
-		try {
-			fileReader = new FileReader("C:\\Users\\Vlad\\Desktop\\SE3\\NOC-LIST\\FictionalWorlds.txt");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 
-		// Always wrap FileReader in BufferedReader.
-		BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-		try {
-			while((line = bufferedReader.readLine()) != null) {
-				if(!line.isEmpty())
-				{
-					//System.out.println(line);
-					fictionalWorlds.add(line);
-				}
-
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		// Always close files.
-		try {
-			bufferedReader.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return fictionalWorlds;
+	}
+
+	public String[] worlds(){
+		Set<String> worlds = new HashSet<>();
+		String rand;
+		Vector<String> characters;
+		String[] worldsArray;
+
+		//infinite loop, fictional worlds string not parsed correctly example   night rises instead of knight rises, so board is always zero
+		do{
+			rand = this.selectRandomlyFrom(this.getFictionalWorlds());
+			characters = this.getAllKeysWithFieldValue("Fictional World", rand);
+
+			if(rand!=null && characters.size()<=3){
+				worlds.add(rand);
+			}
+		}while(worlds.size()!=8);
+
+		worldsArray = worlds.toArray(new String[worlds.size()]);
+
+		for(String world: worldsArray){
+			System.out.println(world); //gets the genre
+		}
+
+		return worldsArray;
+
+//		System.out.println(this.getAllKeysWithFieldValue("Gender","male"));
 	}
 
 
@@ -587,20 +640,39 @@ public class KnowledgeBaseModule
 
 	private void loadKnowledgeBaseFrom(String filename, int keyPosition)
 	{
-		FileInputStream input;
+//		InputStream input;
 
-		try {
-		    input = new FileInputStream(filename);
+//		    input = new FileInputStream(filename);
 
-		    loadKnowledgeBaseFrom(input, keyPosition);
+
+			try {
+//			AssetManager assetManager=context.getAssets();
+//			System.out.println(assetManager.getLocales());
+				InputStream is = context.getAssets().open(filename);
+				BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+				String line;
+
+				while ((line = br.readLine()) != null) {
+					fictionalWorlds.add(line.trim());
+				}
+
+				for (String s : fictionalWorlds) {
+//				String[] strings=s.split("\\t");
+
+				}
+
+				br.close();
+				is.close();
+
+				loadKnowledgeBaseFrom(is, keyPosition);
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+
 		}
-		catch (IOException e)
-		{
-			System.out.println("Cannot find/load knowledge file: " + filename);
-
-			e.printStackTrace();
-		}
-	}
 
 
 
@@ -735,244 +807,263 @@ public class KnowledgeBaseModule
 	}
 
 
-
 	//-----------------------------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------------------------//
 	//   Application Stub:  Examples of how to load and access different knowledge modules
 	//-----------------------------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------------------------//
 
-	public static void main(String[] args)
-	{
-		String kdir = "C:\\Users\\Vlad\\Desktop\\SE3\\NOC-LIST\\";
-
-		KnowledgeBaseModule NOC          = new KnowledgeBaseModule(kdir + "Veale's The NOC List.txt", 0);
-		KnowledgeBaseModule CATEGORIES   = new KnowledgeBaseModule(kdir + "Veale's Category Hierarchy.txt", 0);
-		KnowledgeBaseModule CLOTHES      = new KnowledgeBaseModule(kdir + "Veale's clothing line.txt", 1);  // 1 is the column number of the key value
-		KnowledgeBaseModule CREATIONS    = new KnowledgeBaseModule(kdir + "Veale's creations.txt", 0);
-		KnowledgeBaseModule DOMAINS      = new KnowledgeBaseModule(kdir + "Veale's domains.txt", 0);
-		KnowledgeBaseModule WORLDS       = new KnowledgeBaseModule(kdir + "Veale's fictional worlds.txt", 0);
-		KnowledgeBaseModule VEHICLES     = new KnowledgeBaseModule(kdir + "Veale's vehicle fleet.txt", 1);  // 1 is the column number of the key value
-		KnowledgeBaseModule WEAPONS	     = new KnowledgeBaseModule(kdir + "Veale's weapon arsenal.txt", 1);  // 1 is the column number of the key value
-		KnowledgeBaseModule PLACES       = new KnowledgeBaseModule(kdir + "Veale's place elements.txt", 0);
-
-		KnowledgeBaseModule SUPERLATIVES = new KnowledgeBaseModule(kdir + "superlatives.txt", 0);
-
-		// Only picks up villains that ONLY have star wars, can't find darth vader etc //
-
-		Vector Heroes = NOC.getAllKeysWithFieldValue("Category", "Hero");
-		Vector Villains = NOC.getAllKeysWithFieldValue("Category", "Villain");
-		Vector Comedians = NOC.getAllKeysWithFieldValue("Category", "Comedian");
-		Vector Magicians = NOC.getAllKeysWithFieldValue("Category", "Magician");
-		Vector Singers = NOC.getAllKeysWithFieldValue("Category", "Singer");
-		Vector Directors = NOC.getAllKeysWithFieldValue("Category", "Director");
-		Vector Boxers = NOC.getAllKeysWithFieldValue("Category", "Boxer");
-		Vector Presidents = NOC.getAllKeysWithFieldValue("Category", "President");
-		Vector Detectives = NOC.getAllKeysWithFieldValue("Category", "Detective");
-		Vector Billionaires = NOC.getAllKeysWithFieldValue("Category", "Billionaire");
-		Vector Killers = NOC.getAllKeysWithFieldValue("Category", "Killer");
-		Vector Judges = NOC.getAllKeysWithFieldValue("Category", "Judge");
-		Vector Athletes = NOC.getAllKeysWithFieldValue("Category", "Athlete");
-		Vector Actors = NOC.getAllKeysWithFieldValue("Category", "Actor");
-
-		Vector Male = NOC.getAllKeysWithFieldValue("Gender", "male");
-		Vector Female = NOC.getAllKeysWithFieldValue("Gender", "female");
-
-		Vector StarWars = NOC.getAllKeysWithFieldValue("Domains", "Star Wars");
-		Vector Hollywood = NOC.getAllKeysWithFieldValue("Domains", "Hollywood");
-
-
-
-		// Functions and what they do //
-//				Vector test = NOC.getFieldValues("Gender", "Adam Sandler"); // returns gender of Adam //
-//				Vector test1 = NOC.getOverlappingFields("Adam Sandler", "Adam West"); // returns what both of them have in common //
-//				Vector test2 = NOC.getSimilarConcepts("Darth Vader"); // who knows?
-//				Vector test3 = NOC.getSimilarConcepts("Darth Vader", 5);
-//				Vector test4 = NOC.getSimilarConcepts("Darth Vader" , Killers);
-//				Vector test5 = NOC.intersect(StarWars, Villains);
-//				Vector test6 = NOC.union(StarWars, Killers); // who knows??
-//				Hashtable test7 = NOC.getInvertedField("Domains");// i don't know?
-
-
-				//				System.out.println(Worlds);
-				String Worlds = NOC.selectRandomlyFrom(NOC.getFictionalWorlds());
-		System.out.println(Worlds);
-
-		Vector<String> Board = NOC.getAllKeysWithFieldValue("Fictional World", Worlds);
-
-
-		while(Board.size() < 3) {
-			Worlds = NOC.selectRandomlyFrom(NOC.getFictionalWorlds());
-			Board = NOC.getAllKeysWithFieldValue("Fictional World", Worlds);
-		}
-		
-		System.out.println(Board);
-
-
- //main part i hope//
-
-		String Hero = NOC.selectRandomlyFrom(Male);
-
-		Vector<String> ClothesChoice = NOC.getFieldValues("Seen Wearing", Hero);
-		String Clothes = NOC.selectRandomlyFrom(ClothesChoice);
-
-		Vector<String> VehicleChoice = NOC.getFieldValues("Vehicle of Choice", Hero);
-		String Vehicle = NOC.selectRandomlyFrom(VehicleChoice);
-
-		Vector<String> WeaponChoice = NOC.getFieldValues("Weapon of Choice", Hero);
-		String Weapon = NOC.selectRandomlyFrom(WeaponChoice);
-
-		Vector<String> ActivityChoice = NOC.getFieldValues("Typical Activity", Hero);
-		String Activity = NOC.selectRandomlyFrom(ActivityChoice);
-
-		// Will need an IF statement; checking if the character is fictional or not first; return the adress of normal world if not fictional; check for world if fictional
-		Vector<String> WorldChoice = NOC.getFieldValues("Address 3", Hero);
-		String World = NOC.selectRandomlyFrom(WorldChoice);
-
-		Vector<String> NegativeChoice = NOC.getFieldValues("Negative Talking Points", Hero);
-		String Negative = NOC.selectRandomlyFrom(NegativeChoice);
-
-		Vector<String> PositiveChoice = NOC.getFieldValues("Positive Talking Points", Hero);
-		String Positive = NOC.selectRandomlyFrom(PositiveChoice);
-
-		String pronoun    = "he";
-		String possPro	  = "his";
-
-
-		if (NOC.hasFieldValue("Gender", Hero, "female"))
-		{
-			pronoun = "she";
-			possPro = "her";
-		}
-
-
-
-			// Gets Determiner for Vehicle - include if statement to get rid of null's//
-		String VehicleDet = VEHICLES.getFirstValue("Determiner", Vehicle);
-		//System.out.println("i was driving " + VehicleDet + " " + Vehicle);
-
-		// Gets affordance for the vehicle - some vehicles end in question mark or quote marks, messes up search //
-		String VehicleAff = VEHICLES.getFirstValue("Affordances", Vehicle);
-		//System.out.println("i was " + VehicleAff + " " + VehicleDet + " " + Vehicle);
-
-		// Gets Determiner for Clothes - include if statement to get rid of null's//
-		String ClothesDet = CLOTHES.getFirstValue("Determiner", Clothes);
-		//System.out.println("i was wearing " + ClothesDet + " " + Clothes);
-
-		String WeaponDet = WEAPONS.getFirstValue("Determiner", Weapon);
-		//System.out.println("i was wearing " + ClothesDet + " " + Clothes);
-
-		Vector<String> WeaponAffChoice = WEAPONS.getFieldValues("Affordances", Weapon);
-		String WeaponAff = WEAPONS.selectRandomlyFrom(WeaponAffChoice);
-		//System.out.println("He began " + WeaponAff + " his " + Weapon);
-
-
-		if (ClothesDet == null) {
-			ClothesDet = "";
-			}
-
-		if (VehicleDet == null) {
-			VehicleDet = "";
-			}
-
-
-		/*System.out.println("Suddenly you spot " + Hero + " " + pronoun + " is " + VehicleAff + " towards you in "+ possPro + " " + Vehicle + " " + pronoun + " is wearing " + ClothesDet+
-							" "+ Clothes + ", " + pronoun + " runs at you and pulls out a" + Weapon + " " + pronoun + " tells you they come from " + World + " " +
-							pronoun + " then begin to" + Activity);
-		*/
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-		//System.out.println(SUPERLATIVES.getFieldValues("Superlative", "expensive"));
-
-		//Vector<String> fields = NOC.getFieldNames();
-
-		//System.out.println(fields);
-
-//		System.out.println(NOC.getFieldValues("Portrayed By", "Abraham Lincoln"));
-//		
-//		System.out.println(CATEGORIES.getFieldValues("Super Category", "President"));
-//		
-//		System.out.println(CLOTHES.getFieldValues("Determiner", "Armani T-shirt"));
-//		System.out.println(CLOTHES.getFieldValues("Covers", "bathrobe and socks"));
-//		
-//		System.out.println(VEHICLES.getFieldValues("Determiner", "1931 Isotta-Fraschini limousine"));
-//		System.out.println(VEHICLES.getFieldValues("Affordances", "flying hovercar"));
+//	public static void main(String[] args)
+//	{
+////		String kdir = "C:\\Users\\Vlad\\Desktop\\SE3\\NOC-LIST\\";
 //
-//		System.out.println(WEAPONS.getFieldValues("Determiner", "retractable Adamantium claws"));
-//		System.out.println(WEAPONS.getFieldValues("Affordances", "retractable Adamantium claws"));
-//		System.out.println(WEAPONS.getFieldValues("Affordances", "air gun concealed as a cane"));
-//		System.out.println(WEAPONS.getFieldValues("Determiner", "aphrodisiac overdose"));
+//		KnowledgeBaseModule NOC          = new KnowledgeBaseModule(kdir + "Veales_The_NOC_List.txt", 0);
+//		KnowledgeBaseModule CATEGORIES   = new KnowledgeBaseModule(kdir + "Veale's Category Hierarchy.txt", 0);
+//		KnowledgeBaseModule CLOTHES      = new KnowledgeBaseModule(kdir + "Veale's clothing line.txt", 1);  // 1 is the column number of the key value
+//		KnowledgeBaseModule CREATIONS    = new KnowledgeBaseModule(kdir + "Veale's creations.txt", 0);
+//		KnowledgeBaseModule DOMAINS      = new KnowledgeBaseModule(kdir + "Veale's domains.txt", 0);
+//		KnowledgeBaseModule WORLDS       = new KnowledgeBaseModule(kdir + "Veale's fictional worlds.txt", 0);
+//		KnowledgeBaseModule VEHICLES     = new KnowledgeBaseModule(kdir + "Veale's vehicle fleet.txt", 1);  // 1 is the column number of the key value
+//		KnowledgeBaseModule WEAPONS	     = new KnowledgeBaseModule(kdir + "Veale's weapon arsenal.txt", 1);  // 1 is the column number of the key value
+//		KnowledgeBaseModule PLACES       = new KnowledgeBaseModule(kdir + "Veale's place elements.txt", 0);
 //
-//		System.out.println(CREATIONS.getFieldValues("Creation Action", "Christianity"));
-//		System.out.println(CREATIONS.getFieldValues("Creation Type", "Christianity"));
+//		KnowledgeBaseModule SUPERLATIVES = new KnowledgeBaseModule(kdir + "superlatives.txt", 0);
 //
-//		System.out.println(NOC.getAllFrames());
-//		
-//		System.out.println(DOMAINS.getFieldValues("Type", "American history"));
-//		
-//		System.out.println(WORLDS.getFieldValues("Type", "The Empire Strikes Back"));
-//		
-//		System.out.println(PLACES.getFieldValues("Fictive Status", "Alderaan"));
-//		System.out.println(PLACES.getFieldValues("Place Type", "Alderaan"));
-
-//		Vector fictionalCharacters = NOC.getAllFrames();
-//		Vector vehicles = VEHICLES.getAllFrames();
-//		Vector clothes = CLOTHES.getAllFrames();
-//		
-//		
-//		
-//		String vlad = (NOC.selectRandomlyFrom(fictionalCharacters));
-//		String rob = (NOC.selectRandomlyFrom(vehicles));
-//		String erik = (NOC.selectRandomlyFrom(clothes));
-//		Vector<String> erik2 = CLOTHES.getFieldValues("Determiner", erik);
-//		
+//		// Only picks up villains that ONLY have star wars, can't find darth vader etc //
+//
+//		Vector Heroes = NOC.getAllKeysWithFieldValue("Category", "Hero");
+//		Vector Villains = NOC.getAllKeysWithFieldValue("Category", "Villain");
+//		Vector Comedians = NOC.getAllKeysWithFieldValue("Category", "Comedian");
+//		Vector Magicians = NOC.getAllKeysWithFieldValue("Category", "Magician");
+//		Vector Singers = NOC.getAllKeysWithFieldValue("Category", "Singer");
+//		Vector Directors = NOC.getAllKeysWithFieldValue("Category", "Director");
+//		Vector Boxers = NOC.getAllKeysWithFieldValue("Category", "Boxer");
+//		Vector Presidents = NOC.getAllKeysWithFieldValue("Category", "President");
+//		Vector Detectives = NOC.getAllKeysWithFieldValue("Category", "Detective");
+//		Vector Billionaires = NOC.getAllKeysWithFieldValue("Category", "Billionaire");
+//		Vector Killers = NOC.getAllKeysWithFieldValue("Category", "Killer");
+//		Vector Judges = NOC.getAllKeysWithFieldValue("Category", "Judge");
+//		Vector Athletes = NOC.getAllKeysWithFieldValue("Category", "Athlete");
+//		Vector Actors = NOC.getAllKeysWithFieldValue("Category", "Actor");
+//
+//		Vector Male = NOC.getAllKeysWithFieldValue("Gender", "male");
+//		Vector Female = NOC.getAllKeysWithFieldValue("Gender", "female");
+//
+//		Vector StarWars = NOC.getAllKeysWithFieldValue("Domains", "Star Wars");
+//		Vector Hollywood = NOC.getAllKeysWithFieldValue("Domains", "Hollywood");
+//
+//
+//
+//		// Functions and what they do //
+////				Vector test = NOC.getFieldValues("Gender", "Adam Sandler"); // returns gender of Adam //
+////				Vector test1 = NOC.getOverlappingFields("Adam Sandler", "Adam West"); // returns what both of them have in common //
+////				Vector test2 = NOC.getSimilarConcepts("Darth Vader"); // who knows?
+////				Vector test3 = NOC.getSimilarConcepts("Darth Vader", 5);
+////				Vector test4 = NOC.getSimilarConcepts("Darth Vader" , Killers);
+////				Vector test5 = NOC.intersect(StarWars, Villains);
+////				Vector test6 = NOC.union(StarWars, Killers); // who knows??
+////				Hashtable test7 = NOC.getInvertedField("Domains");// i don't know?
+//
+//
+//
+//
+//
+//
+//
+////        Set<String> worlds = new HashSet<>();
+////		String Worlds;
+////        Vector<String> Board;
+////
+////        do{
+////            Worlds = NOC.selectRandomlyFrom(NOC.getFictionalWorlds());
+////            Board = NOC.getAllKeysWithFieldValue("Fictional World", Worlds);
+////
+////            if(Worlds!=null && Board.size()>=3){
+////				worlds.add(Worlds);
+////            }
+////        }while(worlds.size()!=8);
+////
+////        worldsArray = worlds.toArray(new String[worlds.size()]);
+////
+////		for(String world: worldsArray){
+////			System.out.println(world); //gets the genre
+////		}
+//
+////		System.out.println(Worlds); //gets the genre
+////		System.out.println(Board); //gets the characters in that fictional world
+//
+//
+//	/*	old code incase i mess up...
+//
+//		String Worlds = NOC.selectRandomlyFrom(NOC.getFictionalWorlds());
+//
+//		Vector<String> Board = NOC.getAllKeysWithFieldValue("Fictional World", Worlds);
+//
+//
+//		while(Board.size() < 3) {
+//			Worlds = NOC.selectRandomlyFrom(NOC.getFictionalWorlds());
+//			Board = NOC.getAllKeysWithFieldValue("Fictional World", Worlds);
+//		}
+//		System.out.println(Worlds); //gets the genre
+//		System.out.println(Board); //gets the characters in that fictional world */
+//
+// //main part i hope//
+//
+//		String Hero = NOC.selectRandomlyFrom(Male);
+//
+//		Vector<String> ClothesChoice = NOC.getFieldValues("Seen Wearing", Hero);
+//		String Clothes = NOC.selectRandomlyFrom(ClothesChoice);
+//
+//		Vector<String> VehicleChoice = NOC.getFieldValues("Vehicle of Choice", Hero);
+//		String Vehicle = NOC.selectRandomlyFrom(VehicleChoice);
+//
+//		Vector<String> WeaponChoice = NOC.getFieldValues("Weapon of Choice", Hero);
+//		String Weapon = NOC.selectRandomlyFrom(WeaponChoice);
+//
+//		Vector<String> ActivityChoice = NOC.getFieldValues("Typical Activity", Hero);
+//		String Activity = NOC.selectRandomlyFrom(ActivityChoice);
+//
+//		// Will need an IF statement; checking if the character is fictional or not first; return the adress of normal world if not fictional; check for world if fictional
+//		Vector<String> WorldChoice = NOC.getFieldValues("Address 3", Hero);
+//		String World = NOC.selectRandomlyFrom(WorldChoice);
+//
+//		Vector<String> NegativeChoice = NOC.getFieldValues("Negative Talking Points", Hero);
+//		String Negative = NOC.selectRandomlyFrom(NegativeChoice);
+//
+//		Vector<String> PositiveChoice = NOC.getFieldValues("Positive Talking Points", Hero);
+//		String Positive = NOC.selectRandomlyFrom(PositiveChoice);
+//
 //		String pronoun    = "he";
 //		String possPro	  = "his";
-//		
-//				
-//		if (NOC.hasFieldValue("Gender", vlad, "female"))
+//
+//
+//		if (NOC.hasFieldValue("Gender", Hero, "female"))
 //		{
 //			pronoun = "she";
 //			possPro = "her";
 //		}
-//		
-
-
-		//System.out.println("You're walking through Tallaght and all of a sudden " + vlad + "  jumps out of "+ possPro + " " + rob + "  right in front of you wearing "+ erik2.get(0) +" " + erik);
-
-//		Vector fathers = NOC.getAllKeysWithFieldValue("Category", "Father");
-//		
-//		Vector fictionalFathers = NOC.intersect(fathers, fictionalCharacters);
-//		
-//		Vector GLucas = NOC.getAllKeysWithFieldValue("Creator", "George Lucas");
-//		
-//		System.out.println(fictionalFathers);
-//				
-//		Vector attributeFields = new Vector();
-//		
-//		attributeFields.add("Negative Talking Points");
-//		attributeFields.add("Positive Talking Points");
-//		
-	//	System.out.println(NOC.getSimilarConcepts("Osama Bin Laden"));
-//		
-	//	System.out.println(NOC.getOverlappingFields("Angelina Jolie", "Tina Fey"));
 //
-//		System.out.println(NOC.difference(NOC.getSimilarConcepts("Darth Vader", attributeFields), GLucas));
-//	System.out.println(NOC.difference(NOC.getSimilarConcepts("Darth Vader", attributeFields), fictionalCharacters));
-//		System.out.println(NOC.difference(NOC.getSimilarConcepts("The Joker", attributeFields), fictionalCharacters));
-//		System.out.println(NOC.intersect(NOC.getSimilarConcepts("Osama Bin Laden", attributeFields), fictionalCharacters));
-
-	}
+//
+//
+//			// Gets Determiner for Vehicle - include if statement to get rid of null's//
+//		String VehicleDet = VEHICLES.getFirstValue("Determiner", Vehicle);
+//		//System.out.println("i was driving " + VehicleDet + " " + Vehicle);
+//
+//		// Gets affordance for the vehicle - some vehicles end in question mark or quote marks, messes up search //
+//		String VehicleAff = VEHICLES.getFirstValue("Affordances", Vehicle);
+//		//System.out.println("i was " + VehicleAff + " " + VehicleDet + " " + Vehicle);
+//
+//		// Gets Determiner for Clothes - include if statement to get rid of null's//
+//		String ClothesDet = CLOTHES.getFirstValue("Determiner", Clothes);
+//		//System.out.println("i was wearing " + ClothesDet + " " + Clothes);
+//
+//		String WeaponDet = WEAPONS.getFirstValue("Determiner", Weapon);
+//		//System.out.println("i was wearing " + ClothesDet + " " + Clothes);
+//
+//		Vector<String> WeaponAffChoice = WEAPONS.getFieldValues("Affordances", Weapon);
+//		String WeaponAff = WEAPONS.selectRandomlyFrom(WeaponAffChoice);
+//		//System.out.println("He began " + WeaponAff + " his " + Weapon);
+//
+//
+//		if (ClothesDet == null) {
+//			ClothesDet = "";
+//			}
+//
+//		if (VehicleDet == null) {
+//			VehicleDet = "";
+//			}
+//
+//
+//		/*System.out.println("Suddenly you spot " + Hero + " " + pronoun + " is " + VehicleAff + " towards you in "+ possPro + " " + Vehicle + " " + pronoun + " is wearing " + ClothesDet+
+//							" "+ Clothes + ", " + pronoun + " runs at you and pulls out a" + Weapon + " " + pronoun + " tells you they come from " + World + " " +
+//							pronoun + " then begin to" + Activity);
+//		*/
+//
+//
+//
+//		//System.out.println(SUPERLATIVES.getFieldValues("Superlative", "expensive"));
+//
+//		//Vector<String> fields = NOC.getFieldNames();
+//
+//		//System.out.println(fields);
+//
+////		System.out.println(NOC.getFieldValues("Portrayed By", "Abraham Lincoln"));
+////
+////		System.out.println(CATEGORIES.getFieldValues("Super Category", "President"));
+////
+////		System.out.println(CLOTHES.getFieldValues("Determiner", "Armani T-shirt"));
+////		System.out.println(CLOTHES.getFieldValues("Covers", "bathrobe and socks"));
+////
+////		System.out.println(VEHICLES.getFieldValues("Determiner", "1931 Isotta-Fraschini limousine"));
+////		System.out.println(VEHICLES.getFieldValues("Affordances", "flying hovercar"));
+////
+////		System.out.println(WEAPONS.getFieldValues("Determiner", "retractable Adamantium claws"));
+////		System.out.println(WEAPONS.getFieldValues("Affordances", "retractable Adamantium claws"));
+////		System.out.println(WEAPONS.getFieldValues("Affordances", "air gun concealed as a cane"));
+////		System.out.println(WEAPONS.getFieldValues("Determiner", "aphrodisiac overdose"));
+////
+////		System.out.println(CREATIONS.getFieldValues("Creation Action", "Christianity"));
+////		System.out.println(CREATIONS.getFieldValues("Creation Type", "Christianity"));
+////
+////		System.out.println(NOC.getAllFrames());
+////
+////		System.out.println(DOMAINS.getFieldValues("Type", "American history"));
+////
+////		System.out.println(WORLDS.getFieldValues("Type", "The Empire Strikes Back"));
+////
+////		System.out.println(PLACES.getFieldValues("Fictive Status", "Alderaan"));
+////		System.out.println(PLACES.getFieldValues("Place Type", "Alderaan"));
+//
+////		Vector fictionalCharacters = NOC.getAllFrames();
+////		Vector vehicles = VEHICLES.getAllFrames();
+////		Vector clothes = CLOTHES.getAllFrames();
+////
+////
+////
+////		String vlad = (NOC.selectRandomlyFrom(fictionalCharacters));
+////		String rob = (NOC.selectRandomlyFrom(vehicles));
+////		String erik = (NOC.selectRandomlyFrom(clothes));
+////		Vector<String> erik2 = CLOTHES.getFieldValues("Determiner", erik);
+////
+////		String pronoun    = "he";
+////		String possPro	  = "his";
+////
+////
+////		if (NOC.hasFieldValue("Gender", vlad, "female"))
+////		{
+////			pronoun = "she";
+////			possPro = "her";
+////		}
+////
+//
+//
+//		//System.out.println("You're walking through Tallaght and all of a sudden " + vlad + "  jumps out of "+ possPro + " " + rob + "  right in front of you wearing "+ erik2.get(0) +" " + erik);
+//
+////		Vector fathers = NOC.getAllKeysWithFieldValue("Category", "Father");
+////
+////		Vector fictionalFathers = NOC.intersect(fathers, fictionalCharacters);
+////
+////		Vector GLucas = NOC.getAllKeysWithFieldValue("Creator", "George Lucas");
+////
+////		System.out.println(fictionalFathers);
+////
+////		Vector attributeFields = new Vector();
+////
+////		attributeFields.add("Negative Talking Points");
+////		attributeFields.add("Positive Talking Points");
+////
+//	//	System.out.println(NOC.getSimilarConcepts("Osama Bin Laden"));
+////
+//	//	System.out.println(NOC.getOverlappingFields("Angelina Jolie", "Tina Fey"));
+////
+////		System.out.println(NOC.difference(NOC.getSimilarConcepts("Darth Vader", attributeFields), GLucas));
+////	System.out.println(NOC.difference(NOC.getSimilarConcepts("Darth Vader", attributeFields), fictionalCharacters));
+////		System.out.println(NOC.difference(NOC.getSimilarConcepts("The Joker", attributeFields), fictionalCharacters));
+////		System.out.println(NOC.intersect(NOC.getSimilarConcepts("Osama Bin Laden", attributeFields), fictionalCharacters));
+//
+//	}
 }
