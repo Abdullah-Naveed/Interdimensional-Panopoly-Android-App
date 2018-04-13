@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String randomWorld = "";
         String add = "";
 
-
         //getting all fictional worlds
         al.addAll(database.get_data("NA","Fictional World","NA"));
         for(int i=0; i<al.size(); i++){
