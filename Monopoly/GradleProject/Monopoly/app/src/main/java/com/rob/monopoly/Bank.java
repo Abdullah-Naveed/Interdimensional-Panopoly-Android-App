@@ -38,6 +38,4 @@ public class Bank implements Bankable{
         return balance;
     }
 
-
-
 }

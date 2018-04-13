@@ -28,8 +28,11 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -53,11 +56,97 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //add players
         players.add(new Player(this,viewGroup,"Rob"));
-//
-//        imageView1 = (ImageView) findViewById(R.id.dice1);
-//        imageView2 = (ImageView) findViewById(R.id.dice2);
-//        diceShow();
 
+        populateProperties();
+
+    }
+
+    public ArrayList<Set<String>> populateProperties(){
+        viewData database = new viewData(this);
+        database.loadMultiValuedData("");
+
+        viewData database2 = new viewData(this);
+        database2.loadSingleValuedData("");
+
+        ArrayList<ArrayList<String>> al = new ArrayList<>();
+        ArrayList<ArrayList<String>> al2 = new ArrayList<>();
+        ArrayList<String> addressAL;
+        ArrayList<String> charactersAL;
+        Set<String> addressSet = new HashSet<>();
+
+        Set<String> fictionalWorldsAL = new HashSet<>();
+
+        ArrayList<ArrayList<String>> colourGroups = new ArrayList<>();
+
+        Random rand = new Random();
+        int  n;
+        String randomWorld = "";
+        String add = "";
+
+
+        //getting all fictional worlds
+        al.addAll(database.get_data("NA","Fictional World","NA"));
+        for(int i=0; i<al.size(); i++){
+            fictionalWorldsAL.add(al.get(i).get(2));
+        }
+        al.clear();
+        do {
+            do {
+                //selecting a random fictional world
+                n = rand.nextInt(fictionalWorldsAL.size());
+                int j=0;
+                for(String obj : fictionalWorldsAL)
+                {
+                    if (j == n){
+                        randomWorld = obj;
+                        fictionalWorldsAL.remove(obj);
+                        break;
+                    }
+                    j++;
+                }
+
+                al2.addAll(database.get_data("NA", "NA", randomWorld));
+                charactersAL = new ArrayList<>();
+                for (int i = 0; i < al2.size(); i++) {
+                    charactersAL.add(al2.get(i).get(0));
+                }
+                al2.clear();
+                for (String character : charactersAL) {
+                    add = database2.get_data(character, "address_1", "NA").get(0).get(2);
+
+                    if (add.equals("NA")) {
+                        add = database2.get_data(character, "address_2", "NA").get(0).get(2);
+                    }
+
+                    if (add.equals("NA")) {
+                        add = database2.get_data(character, "address_3", "NA").get(0).get(2);
+                    }
+
+                    if (add.equals("NA")) {
+                        continue;
+                    }
+
+                    addressSet.add(add);
+
+                }
+
+            } while (addressSet.size() < 3);
+
+//            charactersAL.clear();
+            //converting the set to an arrayList
+            addressAL = new ArrayList<>(addressSet);
+            colourGroups.add(new ArrayList<String>(addressAL));
+            addressSet.clear();
+            addressAL.clear();
+
+        }while(colourGroups.size()!=8);
+
+        Log.i("world:", fictionalWorldsAL.toString());
+        Log.i("char:", charactersAL.toString());
+        Log.i("add:", addressSet.toString());
+        Log.i("colourGroups:", colourGroups.toString());
+
+        return null;
     }
 
     public void initialSetting(){
