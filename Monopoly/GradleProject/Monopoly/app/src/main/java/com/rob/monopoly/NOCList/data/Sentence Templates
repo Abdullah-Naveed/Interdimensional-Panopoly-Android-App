@@ -1,0 +1,50 @@
+System.out.println("Suddenly you spot " + Hero + " " + pronoun + " is " + VehicleAff + " towards you in "+ possPro + " " + Vehicle + " " + pronoun + " is wearing " + ClothesDet+
+//							" "+ Clothes + ", " + pronoun + " runs at you and pulls out a" + Weapon + " " + pronoun + " tells you they come from " + World + " " +
+//							pronoun + " then begin to" + Activity);
+
+
+// Teleportation
+
+    Villain + "Starts to chase you with " + possPro + "" + WeaponOfChoice + "So you decide to teleport elsewhere"
+
+    "You see" + Hero + "" + ActivityOfChoice + ". you avoid" + pronoun + "by teleporting away"
+
+    "You're standing beside" + Hero + " and they smell so you teleport away"
+
+    Hero + "is driving" + pronoun + "" + VehicleAff + " and offers you a lift to where they're going"
+
+    "You don't like the fact that you're in" + Villain+ "" + World + "so you teleport to a better place"
+
+
+// Tax
+
+    Villain + "snitched on you for avoiding tax. You owe 150"
+
+
+
+// Jail
+
+    "You got into a fight with" + Villain + " and got caught. You are sent to jail."
+
+    "You were sent to jail under the suspicion of breaking into" + Villain + " home at" + Address
+
+    "You were snitched on by" + Villain + " for destroying + Hero + "" + Vehicle + "and are now sent to jail"
+
+
+
+// Chance
+
+    Hero + "has" + pronoun "birthday today. Although" + pronoun + "is" + NegativeTalkingPoint + "you transfer 50 euro to" + pronoun + "account."
+
+    "You get into a fight with" + Villain + "." + pronoun + "injures you with" + pronoun + "" + WeaponOfChoice + ". As a result you break your leg and must pay a hospital fee of 200 euro"
+
+    "You got pickpoteted by" + Villain + ". You lost 50 euro"
+
+    "You managed to steal" + Villain + "" + Clothes + ". You sell them on ebay for 200."
+
+    "You bought " + Hero + "" + Clothes + "online for 50."
+
+    "You enjoy bowling with " + Hero + "because he is" + GoodTrait + "," + GoodTrait + " and " + GoodTrait + " but this cost you 40"
+
+    
+

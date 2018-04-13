@@ -1,0 +1,33 @@
+//				System.out.println(Worlds);
+				String Worlds = NOC.selectRandomlyFrom(NOC.getFictionalWorlds());
+				
+				Vector<String> Characters = NOC.getAllKeysWithFieldValue("Fictional World", Worlds);
+				
+				
+				while(Characters.size() < 3) {                                                      
+					Worlds = NOC.selectRandomlyFrom(NOC.getFictionalWorlds());                 
+					Characters = NOC.getAllKeysWithFieldValue("Fictional World", Worlds);           
+				}
+				
+//			    System.out.println(Worlds);
+//				System.out.println(Characters);
+				
+				String Char1 = NOC.selectRandomlyFrom(Characters);
+				System.out.println(Char1);
+				
+				Vector<String> Address = NOC.getFieldValues("Address 1", Char1);
+				
+				
+				if(Address == null) {
+					
+					Address = NOC.getFieldValues("Address 2", Char1);
+				}
+				
+				if(Address == null) {
+					
+					Address = NOC.getFieldValues("Address 3", Char1);
+				}
+				
+			
+				System.out.println(Address.firstElement());
+				

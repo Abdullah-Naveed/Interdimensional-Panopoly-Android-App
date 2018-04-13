@@ -1,5 +1,6 @@
 package com.rob.monopoly;
 
+import android.content.Context;
 import android.view.ViewGroup;
 
 import com.rob.monopoly.Interfaces.Playable;
@@ -18,8 +19,9 @@ public class Player extends UserMover implements Playable{
     private Bank bankAccount;
     private ArrayList<Property> properties=new ArrayList<Property>();
 
-    public Player(ViewGroup viewGroup,String ID)
+    public Player(Context context,ViewGroup viewGroup, String ID)
     {
+        super(context);
         this.viewGroup=viewGroup;
         this.ID=ID;
         bankAccount=new Bank(2000);
@@ -88,11 +90,18 @@ public class Player extends UserMover implements Playable{
         properties.add(property);
     }
 
-    public void move()
+    public void move(int amountToMove)
     {
-        playerLocation++;
+        playerLocation+=amountToMove;
         playerLocation = playerLocation %40;
-        move(viewGroup, playerLocation,playerNum);
+        if(playerLocation==7||playerLocation==16||playerLocation==27||playerLocation==36)
+        {
+            playerLocation=move(viewGroup, playerLocation,playerNum);
+        }
+        else{
+            move(viewGroup, playerLocation,playerNum);
+        }
+
     }
 
 }

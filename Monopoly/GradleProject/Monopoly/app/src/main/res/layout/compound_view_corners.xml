@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:onClick="PopupCustomizedLayout">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/imageviewcorners"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/jail"
+            />
+
+        <View
+            android:id="@+id/colored_bar1"
+            android:layout_width="10dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="12dp"
+            android:background="@color/blue"
+            android:visibility="invisible"/>
+        <View
+            android:id="@+id/colored_bar2"
+            android:layout_width="10dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="22dp"
+            android:background="@color/red"
+            android:visibility="invisible"/>
+        <View
+            android:id="@+id/colored_bar3"
+            android:layout_width="10dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="32dp"
+            android:background="@color/green"
+            android:visibility="invisible"/>
+        <View
+            android:id="@+id/colored_bar4"
+            android:layout_width="10dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="42dp"
+            android:background="@color/magenta"
+            android:visibility="invisible"/>
+
+    </FrameLayout>
+
+
+
+</merge>

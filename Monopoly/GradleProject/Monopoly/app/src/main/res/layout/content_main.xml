@@ -17,11 +17,13 @@
 
         <TableRow>
 
-            <ImageView
+            <com.rob.monopoly.CompoundViewCorners
                 android:id="@+id/square1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/freeparking"
+                android:rotation="180"
+                app:customViewTitle=""
+                android:src="@drawable/parking"
                 />
 
             <com.rob.monopoly.CompoundView
@@ -115,11 +117,12 @@
                 android:layout_height="wrap_content"
                 app:customViewTitle="Other Title" />
 
-            <ImageView
+            <com.rob.monopoly.CompoundViewCorners
                 android:id="@+id/square2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:rotation="180"
+                app:customViewTitle=""
                 android:src="@drawable/jail"
                 />
 
@@ -369,11 +372,12 @@
 
         <TableRow>
 
-            <ImageView
+            <com.rob.monopoly.CompoundViewCorners
                 android:id="@+id/square3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/jail"
+                app:customViewTitle=""
+                android:src="@drawable/injail"
                 />
 
             <com.rob.monopoly.CompoundView
@@ -454,10 +458,11 @@
                 android:layout_height="wrap_content"
                 app:customViewTitle="Other Title" />
 
-            <ImageView
+            <com.rob.monopoly.CompoundViewCorners
                 android:id="@+id/square4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:customViewTitle=""
                 android:src="@drawable/go"
                 />
 
