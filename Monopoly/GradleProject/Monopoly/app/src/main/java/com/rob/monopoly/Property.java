@@ -1,10 +1,5 @@
 package com.rob.monopoly;
 
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
 import com.rob.monopoly.Interfaces.Improvable;
 import com.rob.monopoly.Interfaces.Mortgageable;
 import com.rob.monopoly.Interfaces.Ownable;
@@ -14,10 +9,10 @@ import java.util.ArrayList;
 
 import static com.rob.monopoly.MainActivity.properties;
 
-public class Property extends AppCompatActivity implements Improvable,Rentable,Mortgageable,Ownable {
+public class Property implements Improvable,Rentable,Mortgageable,Ownable {
 
     private String ID;
-    private double numHouses=0;
+    private int numHouses=0;
     private double housePriceModifier;
     private int baseRentPrice=0;
     private Player player=null;
@@ -26,8 +21,10 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
     private boolean isOwned=false;
     private int buyPrice;
     private String colourGroup;
+    private int location;//add to constructor
+    private String compoundViewID;//add to constructor
 
-    public Property(String ID,String colourGroup,int buyPrice,int mortgageAmount,double housePriceModifier,int baseRentPrice)
+    public Property(String ID,String colourGroup,int buyPrice,int mortgageAmount,double housePriceModifier,int baseRentPrice,String compoundViewID,int location)
     {
         this.ID=ID;
         this.colourGroup=colourGroup;
@@ -35,6 +32,8 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
         this.mortgageAmount=mortgageAmount;
         this.housePriceModifier=housePriceModifier;
         this.baseRentPrice=baseRentPrice;
+        this.compoundViewID=compoundViewID;
+        this.location=location;
         properties.add(this);
     }
 
@@ -70,7 +69,7 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
 
 
     @Override
-    public double getNumHouses() {
+    public int getNumHouses() {
         return numHouses;
     }
 
@@ -117,6 +116,7 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
         player.deposit(mortgageAmount);
         isMortgaged=true;
         isOwned=false;
+        player=null;
     }
 
 
@@ -146,6 +146,11 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
     }
 
     @Override
+    public void setOwner(Player player){
+        this.player=player;
+    }
+
+    @Override
     public void buyProperty(Player player) {
         this.player=player;
         this.player.addToProperties(this);
@@ -165,5 +170,100 @@ public class Property extends AppCompatActivity implements Improvable,Rentable,M
         return this.ID;
     }
 
+    public int getLocation() {
+        return location;
+    }
 
-}
+    public void setLocation(int location) {
+        this.location = location;
+    }
+
+    public String getCompoundViewID() {
+        return compoundViewID;
+    }
+
+    public void setCompoundViewID(String compoundViewID) {
+        this.compoundViewID = compoundViewID;
+    }
+
+//    public static void popup(View view) {
+//        Toast.makeText(GameState.getInstance().getContext(),"TEST",Toast.LENGTH_LONG).show();
+
+
+
+//        String ownerStr=null;
+//        if(currentProperty.getOwner()==null&&GameState.getInstance().getCurrentPlayer().getPlayerLocation()==)/* and you are currently on that tile,check property location against current player location*/
+//        {
+//            ownerStr="No Owner";
+//            //call buy popup
+//        }else if(/* and you are currently on that tile,check property location against current player location*/)
+//        {
+//            Player player=currentProperty.getOwner();
+//            //if current owner is you, call build mortgage popup else pay rent pop up
+//        }
+//        else
+//        {
+//            //call ok popup
+//        }
+
+
+
+    }
+
+
+
+//    public void PopupCustomizedLayout(View view)
+//    {
+//        SweetAlertDialog pDialog=new SweetAlertDialog(this);
+//        ListView listView=new ListView(this);
+//
+//
+//        //need to add new param to property that holds the id of the compound view. compare id against it
+//
+//        View parent=(View)view.getParent();
+//        String viewName=resourceName(parent.getId());
+//
+//        Property currentProperty=new Property("red1","red",100,50,1.2,2);;
+//        for(Property prop:properties)
+//        {
+//            if(viewName==prop.getID())
+//            {
+//                currentProperty=prop;
+//            }
+//        }
+//        String ownerStr=null;
+//        if(currentProperty.getOwner()==null/* and you are currently on that tile,check property location against current player location*/)
+//        {
+//            ownerStr="No Owner";
+//            //call buy popup
+//        }else if(/* and you are currently on that tile,check property location against current player location*/)
+//        {
+//            Player player=currentProperty.getOwner();
+//            //if current owner is you, call build mortgage popup else pay rent pop up
+//        }
+//        else
+//        {
+//            //call ok popup
+//        }
+//        String[] values = new String[] {
+//                "Property Name: "+currentProperty.getID(),
+//                "Buy Price: "+currentProperty.buyPrice(),
+//                "Rent Price: "+currentProperty.getRentalAmount(),
+//                "Owner: "+ownerStr,
+//                "Colour Group: "+currentProperty.getColourGroup()
+//        };
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+//        listView.setAdapter(adapter);
+//
+//
+//        pDialog.setCustomView(listView);
+//        pDialog.show();
+//
+//    }
+//
+//
+//
+
+
+
+
