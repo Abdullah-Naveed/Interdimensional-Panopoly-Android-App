@@ -1,40 +1,27 @@
 package com.rob.monopoly;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -43,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     static ArrayList<Property> properties=new ArrayList<Property>();
     static ArrayList<Player> players=new ArrayList<Player>(0);
     ViewGroup viewGroup=null;
+    GameState instance=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +40,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         initialSetting();
 
+        instance=GameState.getInstance();
         viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
+        instance.setViewGroup(viewGroup);
+        instance.setContext(this);
+        //gamestate add players, current player and numPlayers
 
         //add players
-        players.add(new Player(this,viewGroup,"Rob"));
+        instance.addPlayers((new Player(this,viewGroup,"Rob")));
+        instance.getPlayers().get(0).setPlayerLocation(21);
+        instance.setCurrentPlayer(instance.getPlayers().get(0));
 
         populateProperties();
 
@@ -153,105 +147,106 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         CompoundView compoundView1 = (CompoundView)findViewById(R.id.red1);
         compoundView1.changeImage(1);
         compoundView1.setText("Red property 1");
-        new Property("red1","red",100,50,1.2,2);
+//        instance.addProperties(new Property("red1","red",100,50,1.2,2));
+        properties.add(new Property("red1","red",125,65,1.2,2,"red1",21));
         CompoundView compoundView2 = (CompoundView)findViewById(R.id.red2);
         compoundView2.changeImage(1);
         compoundView2.setText("Red property 2");
-        new Property("red2","red",125,65,1.2,2);
+//        new Property("red2","red",125,65,1.2,2);
         CompoundView compoundView3 = (CompoundView)findViewById(R.id.red3);
         compoundView3.changeImage(1);
         compoundView3.setText("Red property 3");
-        new Property("red3","red",150,75,1.2,4);
+//        new Property("red3","red",150,75,1.2,4);
 
         //yellow
         CompoundView compoundView4 = (CompoundView)findViewById(R.id.yellow1);
         compoundView4.changeImage(2);
         compoundView4.setText("Yellow property 1");
-        new Property("yellow1","yellow",175,85,1.4,6);
+//        new Property("yellow1","yellow",175,85,1.4,6);
         CompoundView compoundView5 = (CompoundView)findViewById(R.id.yellow2);
         compoundView5.changeImage(2);
         compoundView5.setText("Yellow property 2");
-        new Property("yellow2","yellow",200,100,1.4,6);
+//        new Property("yellow2","yellow",200,100,1.4,6);
 
         //pink
         CompoundView compoundView6 = (CompoundView)findViewById(R.id.pink1);
         compoundView6.changeImage(3);
         compoundView6.setText("Pink property 1");
-        new Property("pink1","pink",225,100,1.6,8);
+//        new Property("pink1","pink",225,100,1.6,8);
         CompoundView compoundView7 = (CompoundView)findViewById(R.id.pink2);
         compoundView7.changeImage(3);
         compoundView7.setText("Pink property 2");
-        new Property("pink2","pink",250,125,1.6,8);
+//        new Property("pink2","pink",250,125,1.6,8);
         CompoundView compoundView8 = (CompoundView)findViewById(R.id.pink3);
         compoundView8.changeImage(3);
         compoundView8.setText("Pink property 3");
-        new Property("pink3","pink",275,135,1.6,10);
+//        new Property("pink3","pink",275,135,1.6,10);
 
         //green
         CompoundView compoundView9 = (CompoundView)findViewById(R.id.green1);
         compoundView9.changeImage(4);
         compoundView9.setText("Green property 1");
-        new Property("green1","green",300,150,1.8,12);
+//        new Property("green1","green",300,150,1.8,12);
         CompoundView compoundView10 = (CompoundView)findViewById(R.id.green2);
         compoundView10.changeImage(4);
         compoundView10.setText("Green property 2");
-        new Property("green2","green",325,150,1.8,12);
+//        new Property("green2","green",325,150,1.8,12);
         CompoundView compoundView11 = (CompoundView)findViewById(R.id.green3);
         compoundView11.changeImage(4);
         compoundView11.setText("Green property 3");
-        new Property("green3","green",350,175,1.8,14);
+//        new Property("green3","green",350,175,1.8,14);
 
         //blue
         CompoundView compoundView12 = (CompoundView)findViewById(R.id.blue1);
         compoundView12.changeImage(5);
         compoundView12.setText("Blue property 1");
-        new Property("blue1","blue",375,175,2,16);
+//        new Property("blue1","blue",375,175,2,16);
         CompoundView compoundView13 = (CompoundView)findViewById(R.id.blue2);
         compoundView13.changeImage(5);
         compoundView13.setText("Blue property 2");
-        new Property("blue2","blue",400,200,2,16);
+//        new Property("blue2","blue",400,200,2,16);
         CompoundView compoundView14 = (CompoundView)findViewById(R.id.blue3);
         compoundView14.changeImage(5);
         compoundView14.setText("Blue property 3");
-        new Property("blue3","blue",425,200,2,18);
+//        new Property("blue3","blue",425,200,2,18);
 
         //grey
         CompoundView compoundView15 = (CompoundView)findViewById(R.id.grey1);
         compoundView15.changeImage(6);
         compoundView15.setText("Grey property 1");
-        new Property("grey1","grey",450,225,2.2,20);
+//        new Property("grey1","grey",450,225,2.2,20);
         CompoundView compoundView16 = (CompoundView)findViewById(R.id.grey2);
         compoundView16.changeImage(6);
         compoundView16.setText("Grey property 2");
-        new Property("grey2","grey",475,225,2.2,20);
+//        new Property("grey2","grey",475,225,2.2,20);
         CompoundView compoundView17 = (CompoundView)findViewById(R.id.grey3);
         compoundView17.changeImage(6);
         compoundView17.setText("Grey property 3");
-        new Property("grey3","grey",500,250,2.2,22);
+//        new Property("grey3","grey",500,250,2.2,22);
 
         //orange
         CompoundView compoundView18 = (CompoundView)findViewById(R.id.orange1);
         compoundView18.changeImage(7);
         compoundView18.setText("Orange property 1");
-        new Property("orange1","orange",525,250,2.4,24);
+//        new Property("orange1","orange",525,250,2.4,24);
         CompoundView compoundView19 = (CompoundView)findViewById(R.id.orange2);
         compoundView19.changeImage(7);
         compoundView19.setText("Orange property 2");
-        new Property("orange2","orange",550,275,2.4,24);
+//        new Property("orange2","orange",550,275,2.4,24);
 
         //brown
         CompoundView compoundView20 = (CompoundView)findViewById(R.id.brown1);
         compoundView20.changeImage(8);
         compoundView20.setText("Brown property 1");
-        new Property("brown1","brown",575,275,2.6,26);
+//        new Property("brown1","brown",575,275,2.6,26);
         CompoundView compoundView21 = (CompoundView)findViewById(R.id.brown2);
         compoundView21.changeImage(8);
         compoundView21.setText("Brown property 2");
-        new Property("brown2","brown",600,300,2.6,26);
+//        new Property("brown2","brown",600,300,2.6,26);
         CompoundView compoundView22 = (CompoundView)findViewById(R.id.brown3);
         compoundView22.changeImage(8);
         compoundView21.setText("Brown property 3");
-        new Property("brown3","brown",625,300,2.6,28);
+//        new Property("brown3","brown",625,300,2.6,28);
 
         //chance card
         CompoundView compoundView23 = (CompoundView)findViewById(R.id.card1);
@@ -446,32 +441,238 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //    }
 
 
-    public void PopupCustomizedLayout(View view)
-    {
-        SweetAlertDialog pDialog=new SweetAlertDialog(this);
-        ListView listView=new ListView(this);
+    public void PopupCustomizedLayout(View view) {
 
+        View parent = (View) view.getParent();
+        String viewName=GameState.getInstance().getContext().getResources().getResourceEntryName(parent.getId());
 
-        //need to add new param to property that holds the id of the compound view. compare id against it
+        Property currentProperty = null;
 
-        View parent=(View)view.getParent();
-        String viewName=resourceName(parent.getId());
-        Property currentProperty=new Property("red1","red",100,50,1.2,2);;
-        for(Property prop:properties)
-        {
-            if(viewName==prop.getID())
-            {
-                currentProperty=prop;
+        for (Property prop : properties) {
+            if (viewName.equals(prop.getCompoundViewID())) {
+                currentProperty = prop;
             }
         }
+
         String ownerStr=null;
-        if(currentProperty.getOwner()==null){ownerStr="No Owner";}else{ownerStr=currentProperty.getID();}
+        if(currentProperty.getOwner()==null&&GameState.getInstance().getCurrentPlayer().getPlayerLocation()==currentProperty.getLocation()) {
+//            //call buy popup
+            buyPopUp(GameState.getInstance().getContext(),currentProperty);
+        }
+        else if(currentProperty.getOwner()==GameState.getInstance().getCurrentPlayer())
+        {
+            buildMortgagePopUp(GameState.getInstance().getContext(),currentProperty);
+        }
+        else
+        {
+//            //call ok popup
+            okPopUp(GameState.getInstance().getCurrentPlayer(),currentProperty);
+        }
+//        String[] values = new String[] {
+//                "Property Name: "+currentProperty.getID(),
+//                "Buy Price: "+currentProperty.buyPrice(),
+//                "Rent Price: "+currentProperty.getRentalAmount(),
+//                "Owner: "+ownerStr,
+//                "Colour Group: "+currentProperty.getColourGroup()
+//        };
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(GameState.getInstance().getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, values);
+//        listView.setAdapter(adapter);
+//
+//
+//        pDialog.setCustomView(listView);
+//        pDialog.show();
+
+
+
+
+
+    }
+
+
+//    public void PopupCustomizedLayout(View view)
+//    {
+//        SweetAlertDialog pDialog=new SweetAlertDialog(this);
+//        ListView listView=new ListView(this);
+//
+//
+//        //need to add new param to property that holds the id of the compound view. compare id against it
+//
+//        View parent=(View)view.getParent();
+//        String viewName=resourceName(parent.getId());
+//
+//        Property currentProperty=new Property("red1","red",100,50,1.2,2);;
+//        for(Property prop:properties)
+//        {
+//            if(viewName==prop.getID())
+//            {
+//                currentProperty=prop;
+//            }
+//        }
+//        String ownerStr=null;
+//        if(currentProperty.getOwner()==null/* and you are currently on that tile,check property location against current player location*/)
+//        {
+//            ownerStr="No Owner";
+//            //call buy popup
+//        }else if(/* and you are currently on that tile,check property location against current player location*/)
+//        {
+//            Player player=currentProperty.getOwner();
+//            //if current owner is you, call build mortgage popup else pay rent pop up
+//        }
+//        else
+//        {
+//            //call ok popup
+//        }
+//        String[] values = new String[] {
+//                "Property Name: "+currentProperty.getID(),
+//                "Buy Price: "+currentProperty.buyPrice(),
+//                "Rent Price: "+currentProperty.getRentalAmount(),
+//                "Owner: "+ownerStr,
+//                "Colour Group: "+currentProperty.getColourGroup()
+//        };
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+//        listView.setAdapter(adapter);
+//
+//
+//        pDialog.setCustomView(listView);
+//        pDialog.show();
+//
+//    }
+//
+//
+//
+////    public void diceShow(){
+////        final Animation anim1 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
+////        final Animation anim2 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
+////        final Animation.AnimationListener animationListener = new Animation.AnimationListener() {
+////            @Override
+////            public void onAnimationStart(Animation animation) {
+////            }
+////
+////            @Override
+////            public void onAnimationEnd(Animation animation) {
+////                int value = randomDiceValue();
+////                int res = getResources().getIdentifier("dice_" + value, "drawable", "com.abdullahnaveed.diceanimation");
+////
+////                if (animation == anim1) {
+////                    imageView1.setImageResource(res);
+////                } else if (animation == anim2) {
+////                    imageView2.setImageResource(res);
+////                }
+////            }
+////
+////            @Override
+////            public void onAnimationRepeat(Animation animation) {
+////
+////            }
+////        };
+////
+////        anim1.setAnimationListener(animationListener);
+////        anim2.setAnimationListener(animationListener);
+////
+////        imageView1.startAnimation(anim1);
+////        imageView2.startAnimation(anim2);
+////    }
+////
+////    public static int randomDiceValue() {
+////        return RANDOM.nextInt(6) + 1;
+////    }
+
+    public void buyPopUp(Context context,Property property)
+    {
+        SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
+        ListView listView = new ListView(GameState.getInstance().getContext());
+
         String[] values = new String[] {
-                "Property Name: "+currentProperty.getID(),
-                "Buy Price: "+currentProperty.buyPrice(),
-                "Rent Price: "+currentProperty.getRentalAmount(),
-                "Owner: "+ownerStr,
-                "Colour Group: "+currentProperty.getColourGroup()
+                "Property Name: "+property.getID(),
+                "Buy Price: "+property.buyPrice(),
+                "Rent Price: "+property.getRentalAmount(),
+                "Owner: No Owner",
+                "Colour Group: "+property.getColourGroup()
+        };
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        listView.setAdapter(adapter);
+
+
+        pDialog.setCustomView(listView);
+        pDialog.setConfirmText("Buy");
+        pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sDialog) {
+                if(GameState.getInstance().getCurrentPlayer().getBalance()>=property.buyPrice())
+                {
+                    property.setOwner(GameState.getInstance().getCurrentPlayer());
+                    GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).withdraw(property.buyPrice());
+                    GameState.getInstance().getCurrentPlayer().addToProperties(property);
+                }
+                pDialog.cancel();
+            }
+        });
+        pDialog.show();
+    }
+
+
+    public void buildMortgagePopUp(Context context,Property property)
+    {
+        SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
+        ListView listView = new ListView(GameState.getInstance().getContext());
+
+        String[] values = new String[] {
+                "Property Name: "+property.getID(),
+                "Buy Price: "+property.buyPrice(),
+                "Rent Price: "+property.getRentalAmount(),
+                "Owner: No Owner",
+                "Colour Group: "+property.getColourGroup()
+        };
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        listView.setAdapter(adapter);
+
+
+        pDialog.setCustomView(listView);
+        pDialog.setConfirmText("Build");
+        pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sDialog) {
+                if(GameState.getInstance().getCurrentPlayer().getBalance()>=property.getHousePrice()&&GameState.getInstance().getCurrentPlayer().isGroupOwner(property))
+                {
+                    GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).withdraw(property.getHousePrice());
+                    property.buildHouse();
+                    GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).addToProperties(property);
+                }
+                pDialog.cancel();
+            }
+        });
+
+        pDialog.setCancelText("Mortgage");
+        pDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sDialog) {
+                if(GameState.getInstance().getCurrentPlayer().getBalance()>=property.buyPrice())
+                {
+                    System.out.println(GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).getNumProperties());
+                    property.mortgageProperty();
+                    GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).deposit(property.getMortgageAmount());
+                    GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).removeFromProperties(property);
+                    System.out.println(GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).getNumProperties());
+                    System.out.println(GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).getBalance());
+                }
+                pDialog.cancel();
+            }
+        });
+        pDialog.show();
+    }
+
+
+    public void okPopUp(Context context,Property property)
+    {
+        SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
+        ListView listView = new ListView(GameState.getInstance().getContext());
+
+        String[] values = new String[] {
+                "Property Name: "+property.getID(),
+                "Buy Price: "+property.buyPrice(),
+                "Rent Price: "+property.getRentalAmount(),
+                "Owner: No Owner",
+                "Colour Group: "+property.getColourGroup()
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
         listView.setAdapter(adapter);
@@ -479,52 +680,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         pDialog.setCustomView(listView);
         pDialog.show();
-
-    }
-
-
-
-//    public void diceShow(){
-//        final Animation anim1 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
-//        final Animation anim2 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
-//        final Animation.AnimationListener animationListener = new Animation.AnimationListener() {
-//            @Override
-//            public void onAnimationStart(Animation animation) {
-//            }
-//
-//            @Override
-//            public void onAnimationEnd(Animation animation) {
-//                int value = randomDiceValue();
-//                int res = getResources().getIdentifier("dice_" + value, "drawable", "com.abdullahnaveed.diceanimation");
-//
-//                if (animation == anim1) {
-//                    imageView1.setImageResource(res);
-//                } else if (animation == anim2) {
-//                    imageView2.setImageResource(res);
-//                }
-//            }
-//
-//            @Override
-//            public void onAnimationRepeat(Animation animation) {
-//
-//            }
-//        };
-//
-//        anim1.setAnimationListener(animationListener);
-//        anim2.setAnimationListener(animationListener);
-//
-//        imageView1.startAnimation(anim1);
-//        imageView2.startAnimation(anim2);
-//    }
-//
-//    public static int randomDiceValue() {
-//        return RANDOM.nextInt(6) + 1;
-//    }
-
-
-    public String resourceName(int resourceID)
-    {
-        return getResources().getResourceEntryName(resourceID);
     }
 
 
