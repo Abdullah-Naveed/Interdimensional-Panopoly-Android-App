@@ -7,4 +7,16 @@
     <color name="blue">#1448d6</color>
     <color name="green">#00ff00</color>
     <color name="magenta">#f018e7</color>
+    <color name="backgroundcolor">#fcfcfc</color>
+    <color name="lightgray">#ededed</color>
+    <color name="deeppurple">#7c4dff</color>
+    <color name="rick">#00B4D2</color>
+    <color name="yello">#ffb300</color>
+    <color name="darkblue">#23283a</color>
+    <color name="testcolorblue">#152b38</color>
+    <color name="pink">#fe104d</color>
+    <color name="lightorange">#fdf2df</color>
+    <color name="lightorangedark">#ebd6ab</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>
