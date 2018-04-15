@@ -386,10 +386,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            }
 
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.roll_1) {
             players.get(0).move(1);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.trade) {
             ViewGroup viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
             Player rob=new Player(this,viewGroup,"ROB");
             for(int j=0;j<7;j++)
