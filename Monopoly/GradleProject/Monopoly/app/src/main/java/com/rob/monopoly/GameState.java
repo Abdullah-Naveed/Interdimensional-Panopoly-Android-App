@@ -17,11 +17,12 @@ public class GameState {
         private int[] boardPlayers;
         private ArrayList<Property> properties=new ArrayList<Property>();
         private ArrayList<Player> players=new ArrayList<Player>();
+        private ArrayList<Card> cards=new ArrayList<Card>();
         private ViewGroup viewGroup;
 
 
 
-    private Context context;
+        private Context context;
 
         private GameState(){}
 
@@ -111,5 +112,10 @@ public class GameState {
             this.context = context;
         }
 
+        public ArrayList<Card> getCards() { return cards; }
+
+        public void setCards(ArrayList<Card> cards) { this.cards = cards; }
+
+        public void addCards(Card card) { this.cards.add(card); }
 
 }

@@ -76,29 +76,31 @@ public class KnowledgeBaseModule
 //			AssetManager assetManager=context.getAssets();
 //			System.out.println(assetManager.getLocales());
 			InputStream is = context.getAssets().open("Veales_The_NOC_List.txt");
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			loadKnowledgeBaseFrom(is,0);
 
-			String line;
-
-			while ((line = br.readLine()) != null) {
-				fictionalWorlds.add(line.trim());
-			}
-
-			for (int i=1;i<fictionalWorlds.size();i++) {
-				String[] tokens = fictionalWorlds.get(i).split("\\t");
-				for(String token: tokens){
-
-
-//					System.out.println(token);
-				}
-				break;
-
-			}
-
-			br.close();
-			is.close();
-
-
+//			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+//
+//			String line;
+//
+//			while ((line = br.readLine()) != null) {
+//				fictionalWorlds.add(line.trim());
+//			}
+//
+//			for (int i=1;i<fictionalWorlds.size();i++) {
+//				String[] tokens = fictionalWorlds.get(i).split("\\t");
+//				for(String token: tokens){
+//
+//
+////					System.out.println(token);
+//				}
+//				break;
+//
+//			}
+//
+//			br.close();
+//			is.close();
+//
+//
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
