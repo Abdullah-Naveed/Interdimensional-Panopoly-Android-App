@@ -5,9 +5,14 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TableRow;
 
+import java.util.ArrayList;
 import java.util.Random;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by Robert on 23/03/2018.
@@ -31,6 +36,13 @@ public class UserMover extends AppCompatActivity{
             TableRow subView=(TableRow)viewGroup.getChildAt(0);
             index=index%20;
             View view=subView.getVirtualChildAt(index);
+            if(index==3)
+            {
+                ArrayList<Card> cards=GameState.getInstance().getCards();
+                Random rand=new Random();
+//                cards.get(rand.nextInt(cards.size()-1))
+                cardPopup(new Card());
+            }
             if(index==7)
             {
                 Random random=new Random();
@@ -62,7 +74,11 @@ public class UserMover extends AppCompatActivity{
             if(index==19){view=subView.getVirtualChildAt(0);}
             if(index==35)
             {
-
+                ArrayList<Card> cards=GameState.getInstance().getCards();
+                Random rand=new Random();
+//                cards.get(rand.nextInt(cards.size()-1))
+                cardPopup(new Card());
+                view=subView.getVirtualChildAt(14);
             }
             setVisibility(User, view);
 
@@ -134,7 +150,14 @@ public class UserMover extends AppCompatActivity{
         {
             View view=null;
             TableRow subView=(TableRow)viewGroup.getChildAt(5);
-            if(index==15){view=subView.getVirtualChildAt(0);}
+            if(index==15)
+            {
+                ArrayList<Card> cards=GameState.getInstance().getCards();
+                Random rand=new Random();
+//                cards.get(rand.nextInt(cards.size()-1))
+                cardPopup(new Card());
+                view=subView.getVirtualChildAt(0);
+            }
             if(index==39){view=subView.getVirtualChildAt(14);}
             setVisibility(User, view);
         }
@@ -143,6 +166,13 @@ public class UserMover extends AppCompatActivity{
             int newLocation=0;
             View view=null;
             TableRow subView=(TableRow)viewGroup.getChildAt(6);
+            if(index==3)
+            {
+                ArrayList<Card> cards=GameState.getInstance().getCards();
+                Random rand=new Random();
+//                cards.get(rand.nextInt(cards.size()-1))
+                cardPopup(new Card());
+            }
             if(index==7)
             {
 
@@ -174,7 +204,9 @@ public class UserMover extends AppCompatActivity{
         return 0;
     }
 
-    public void setVisibility(int User, View view)
+
+
+    private void setVisibility(int User, View view)
     {
         switch(User)
         {
@@ -185,7 +217,7 @@ public class UserMover extends AppCompatActivity{
         }
     }
 
-    public void wipe(int User, ViewGroup viewGroup)
+    private void wipe(int User, ViewGroup viewGroup)
     {
         for(int i=0;i<viewGroup.getChildCount();i++)
         {
@@ -193,16 +225,32 @@ public class UserMover extends AppCompatActivity{
             for(int j=0;j<subView.getVirtualChildCount();j++)
             {
                 View view=subView.getVirtualChildAt(j);
-                View colour1=view.findViewById(R.id.colored_bar1);try{colour1.setVisibility(View.INVISIBLE);}catch(Exception e){};
+                switch(User)
+                {
+                    case 1: View colour1=view.findViewById(R.id.colored_bar1);try{colour1.setVisibility(View.INVISIBLE);}catch(Exception e){}break;
+                    case 2: View colour2=view.findViewById(R.id.colored_bar2);try{colour2.setVisibility(View.INVISIBLE);}catch(Exception e){}break;
+                    case 3: View colour3=view.findViewById(R.id.colored_bar3);try{colour3.setVisibility(View.INVISIBLE);}catch(Exception e){}break;
+                    case 4: View colour4=view.findViewById(R.id.colored_bar4);try{colour4.setVisibility(View.INVISIBLE);}catch(Exception e){}break;
+
+                }
             }
         }
     }
 
 
-    void playSound()
+    private void playSound()
     {
         final MediaPlayer mp = MediaPlayer.create(context, R.raw.teleport_sound);
         mp.start();
+    }
+
+    private void cardPopup(Card card) {
+
+        SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
+        pDialog.setTitleText("Card");
+        pDialog.setContentText("TestTestTest");
+        pDialog.show();
+
     }
 
 }

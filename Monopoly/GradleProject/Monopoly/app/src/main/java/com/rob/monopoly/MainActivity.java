@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.rob.monopoly.NOCList.twitterbotics.KnowledgeBaseModule;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -48,11 +50,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //add players
         instance.addPlayers((new Player(this,viewGroup,"Rob")));
-        instance.getPlayers().get(0).setPlayerLocation(21);
+        instance.getPlayers().get(0).setPlayerLocation(33);
         instance.setCurrentPlayer(instance.getPlayers().get(0));
 
-        populateProperties();
+//        populateProperties();
 
+        KnowledgeBaseModule knowledgeBaseModule=new KnowledgeBaseModule(this);
+//        Log.i("kbm",knowledgeBaseModule.getAllFrames().toString());
+        Log.i("kbm",knowledgeBaseModule.getAllKeysWithFieldValue("Category", "Hero").toString());
     }
 
     public ArrayList<Set<String>> populateProperties(){
@@ -86,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         do {
             do {
                 //selecting a random fictional world
-                n = rand.nextInt(fictionalWorldsAL.size());
+                n = rand.nextInt(fictionalWorldsAL.size())+0;
                 int j=0;
                 for(String obj : fictionalWorldsAL)
                 {
@@ -104,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     charactersAL.add(al2.get(i).get(0));
                 }
                 al2.clear();
+//                outerloop:
                 for (String character : charactersAL) {
                     add = database2.get_data(character, "address_1", "NA").get(0).get(2);
 
@@ -117,7 +123,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     if (add.equals("NA")) {
                         continue;
+
                     }
+//                    for (ArrayList<String> arrayList:colourGroups)
+//                    {
+//
+//                        for (String s : arrayList)
+//                        {
+//
+//                            if(!s.equals(add))
+//                            {
+//                                colourGroups.remove(add);
+//                                continue;
+//
+//                            }
+////                            else
+////                            {
+////                                break outerloop;
+////                            }
+//                        }
+//                    }
 
                     addressSet.add(add);
 
@@ -133,6 +158,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             addressAL.clear();
 
         }while(colourGroups.size()!=8);
+
+//        ArrayList<String> compare=new ArrayList<String>();
+//        Set<String> compare2=new HashSet<String>();
+//
+//        for (ArrayList<String> arrayList:colourGroups)
+//        {
+//            for(String s:arrayList)
+//            {
+////                compare.add(s);
+//                compare2.add(s);
+//            }
+//        }
+//
+//        if(!compare.containsAll(new ArrayList<String>(compare2)))
+//        {
+//            populateProperties();
+//        }
 
         Log.i("world:", fictionalWorldsAL.toString());
         Log.i("char:", charactersAL.toString());
@@ -620,7 +662,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Property Name: "+property.getID(),
                 "Buy Price: "+property.buyPrice(),
                 "Rent Price: "+property.getRentalAmount(),
-                "Owner: No Owner",
+                "Owner: "+property.getOwner(),
                 "Colour Group: "+property.getColourGroup()
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
