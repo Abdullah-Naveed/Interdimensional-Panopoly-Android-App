@@ -14,9 +14,6 @@ import java.util.Random;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-/**
- * Created by Robert on 23/03/2018.
- */
 
 public class UserMover extends AppCompatActivity{
 
@@ -41,7 +38,7 @@ public class UserMover extends AppCompatActivity{
                 ArrayList<Card> cards=GameState.getInstance().getCards();
                 Random rand=new Random();
 //                cards.get(rand.nextInt(cards.size()-1))
-                cardPopup(new Card());
+//                cardPopup(new Card());
             }
             if(index==7)
             {
@@ -77,7 +74,7 @@ public class UserMover extends AppCompatActivity{
                 ArrayList<Card> cards=GameState.getInstance().getCards();
                 Random rand=new Random();
 //                cards.get(rand.nextInt(cards.size()-1))
-                cardPopup(new Card());
+//                cardPopup(new Card());
                 view=subView.getVirtualChildAt(14);
             }
             setVisibility(User, view);
@@ -155,7 +152,7 @@ public class UserMover extends AppCompatActivity{
                 ArrayList<Card> cards=GameState.getInstance().getCards();
                 Random rand=new Random();
 //                cards.get(rand.nextInt(cards.size()-1))
-                cardPopup(new Card());
+//                cardPopup(new Card());
                 view=subView.getVirtualChildAt(0);
             }
             if(index==39){view=subView.getVirtualChildAt(14);}
@@ -171,7 +168,7 @@ public class UserMover extends AppCompatActivity{
                 ArrayList<Card> cards=GameState.getInstance().getCards();
                 Random rand=new Random();
 //                cards.get(rand.nextInt(cards.size()-1))
-                cardPopup(new Card());
+//                cardPopup(new Card());
             }
             if(index==7)
             {
@@ -196,7 +193,6 @@ public class UserMover extends AppCompatActivity{
             {
                 view=subView.getVirtualChildAt(Math.abs(index-14));
             }
-
 
             setVisibility(User, view);
             return newLocation;

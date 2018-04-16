@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         instance.addPlayers((new Player(this,viewGroup,"Rob")));
         instance.getPlayers().get(0).setPlayerLocation(21);
         instance.setCurrentPlayer(instance.getPlayers().get(0));
+        instance.addPlayers(new Player(this,viewGroup,"Abdullah"));
 
 //        populateProperties();
 
@@ -395,18 +396,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             players.get(0).move(1);
 
         } else if (id == R.id.trade) {
-            ViewGroup viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
-            Player rob=new Player(this,viewGroup,"ROB");
-            for(int j=0;j<7;j++)
-            {
-                rob.move(j);
-            }
+
 
 
         } else if (id == R.id.nav_manage) {
-            ViewGroup viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
-            Player rob=new Player(this,viewGroup,"ROB");
-            rob.move(2);
+
+            if(GameState.getInstance().getCurrentPlayer().getBalance()<0){
+
+                SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
+                pDialog.setCancelButton("Bankrupt", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        //remove player
+                    }
+                });
+
+                pDialog.setTitle("Your balance is too low!");
+                pDialog.show();
+
+
+            }else{
+                GameState.getInstance().changeToNextPlayer();
+                Log.i("Player",GameState.getInstance().getCurrentPlayer().getID());
+            }
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -477,70 +490,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-
-//    public void test(View v)
-//    {
-//        Log.v("fuck","this");
-//        Toast.makeText(MainActivity.this,"worked",Toast.LENGTH_SHORT).show();
-////        Intent intent=new Intent(this,Main2Activity.class);
-////        startActivity(intent);
-//    }
-
-
-
-
-
-//    public void PopupCustomizedLayout(View view)
-//    {
-//        SweetAlertDialog pDialog=new SweetAlertDialog(this);
-//        ListView listView=new ListView(this);
-//
-//
-//        //need to add new param to property that holds the id of the compound view. compare id against it
-//
-//        View parent=(View)view.getParent();
-//        String viewName=resourceName(parent.getId());
-//
-//        Property currentProperty=new Property("red1","red",100,50,1.2,2);;
-//        for(Property prop:properties)
-//        {
-//            if(viewName==prop.getID())
-//            {
-//                currentProperty=prop;
-//            }
-//        }
-//        String ownerStr=null;
-//        if(currentProperty.getOwner()==null/* and you are currently on that tile,check property location against current player location*/)
-//        {
-//            ownerStr="No Owner";
-//            //call buy popup
-//        }else if(/* and you are currently on that tile,check property location against current player location*/)
-//        {
-//            Player player=currentProperty.getOwner();
-//            //if current owner is you, call build mortgage popup else pay rent pop up
-//        }
-//        else
-//        {
-//            //call ok popup
-//        }
-//        String[] values = new String[] {
-//                "Property Name: "+currentProperty.getID(),
-//                "Buy Price: "+currentProperty.buyPrice(),
-//                "Rent Price: "+currentProperty.getRentalAmount(),
-//                "Owner: "+ownerStr,
-//                "Colour Group: "+currentProperty.getColourGroup()
-//        };
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
-//        listView.setAdapter(adapter);
-//
-//
-//        pDialog.setCustomView(listView);
-//        pDialog.show();
-//
-//    }
-//
-//
-//
     public void diceShow(View view){
         final Animation anim1 = AnimationUtils.loadAnimation(GameState.getInstance().getContext(), R.anim.shake);
         final Animation anim2 = AnimationUtils.loadAnimation(GameState.getInstance().getContext(), R.anim.shake);

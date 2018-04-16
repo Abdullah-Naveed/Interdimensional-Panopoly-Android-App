@@ -12,9 +12,9 @@ import static com.rob.monopoly.MainActivity.players;
 
 public class Player extends UserMover implements Playable{
 
-    private int playerNum=1;
-
-    private int playerLocation =0;
+    private int playerNum = 1;
+    private int playerLocation = 0;
+    private boolean playerWasRemoved = false;
     private ViewGroup viewGroup;
     private String ID;
     private Bank bankAccount=new Bank(1000);
@@ -113,6 +113,14 @@ public class Player extends UserMover implements Playable{
             move(viewGroup, playerLocation,playerNum);
         }
 
+    }
+
+    public boolean boolPlayerWasRemoved() {
+        return playerWasRemoved;
+    }
+
+    public void setPlayerWasRemoved(boolean playerWasRemoved) {
+        this.playerWasRemoved = playerWasRemoved;
     }
 
 }

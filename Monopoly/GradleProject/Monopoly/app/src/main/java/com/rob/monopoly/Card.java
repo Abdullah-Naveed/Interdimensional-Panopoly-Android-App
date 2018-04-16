@@ -12,6 +12,7 @@ public class Card{
         this.message=message;
     }
 
+
     public void runAway(){
 
         Random randomNumber = new Random();
