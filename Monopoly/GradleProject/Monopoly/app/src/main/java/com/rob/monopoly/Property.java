@@ -16,7 +16,6 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
     private double housePriceModifier;
     private int baseRentPrice=0;
     private Player player=null;
-    private int mortgageAmount;
     private boolean isMortgaged=false;
     private boolean isOwned=false;
     private int buyPrice;
@@ -24,12 +23,11 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
     private int location;
     private String compoundViewID;
 
-    public Property(String ID,String colourGroup,int buyPrice,int mortgageAmount,double housePriceModifier,int baseRentPrice,String compoundViewID,int location)
+    public Property(String ID,String colourGroup,int buyPrice,double housePriceModifier,int baseRentPrice,String compoundViewID,int location)
     {
         this.ID=ID;
         this.colourGroup=colourGroup;
         this.buyPrice=buyPrice;
-        this.mortgageAmount=mortgageAmount;
         this.housePriceModifier=housePriceModifier;
         this.baseRentPrice=baseRentPrice;
         this.compoundViewID=compoundViewID;
@@ -107,7 +105,7 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
 
     @Override
     public int getMortgageAmount() {
-        return mortgageAmount;
+        return baseRentPrice/2;
     }
 
 
