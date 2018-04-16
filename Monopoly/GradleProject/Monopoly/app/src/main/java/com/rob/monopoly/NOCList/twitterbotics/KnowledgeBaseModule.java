@@ -2,6 +2,7 @@ package com.rob.monopoly.NOCList.twitterbotics;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -27,12 +28,11 @@ public class KnowledgeBaseModule
 {
 	final static String kdir = "";
 	static Context context=null;
-	private static Vector<String> fictionalWorlds=new Vector<String>();
-//	private static Vector
-//    public static String[] worldsArray;
+	private static Vector<String> fictionalWorlds = new Vector<>();
 
 
-	private static Random RND 		= new Random();
+
+	private static Random RND  = new Random();
 
 	private Hashtable kb = new Hashtable();
 
@@ -119,38 +119,61 @@ public class KnowledgeBaseModule
 		return fieldNames;
 	}
 
-	public Vector<String> getFictionalWorlds()
+	public Vector<String> getFictionalWorlds(Context context)
 	{
+		try{
+			InputStream is = context.getAssets().open("FictionalWorlds.txt");
+			BufferedReader input = new BufferedReader(new InputStreamReader(is, "UTF8"));
+			String line;
+			while ( (line = input.readLine()) != null)  // Read a line at a time
+			{
+				fictionalWorlds.add(line);
+			}
 
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		return fictionalWorlds;
 	}
 
-	public String[] worlds(){
-		Set<String> worlds = new HashSet<>();
-		String rand;
-		Vector<String> characters;
-		String[] worldsArray;
 
-		//infinite loop, fictional worlds string not parsed correctly example   night rises instead of knight rises, so board is always zero
-		do{
-			rand = this.selectRandomlyFrom(this.getFictionalWorlds());
-			characters = this.getAllKeysWithFieldValue("Fictional World", rand);
+	public ArrayList<ArrayList<String>> getGroupLocations(Context context){
 
-			if(rand!=null && characters.size()<=3){
-				worlds.add(rand);
+		ArrayList<String> genres = new ArrayList<>();
+
+		for(int i = 0; i<8; i++){
+			String Worlds = this.selectRandomlyFrom(this.getFictionalWorlds(context));
+			Vector<String> Characters = this.getAllKeysWithFieldValue("Fictional World", Worlds);
+
+			while (Characters.size() < 3) {
+				Worlds = this.selectRandomlyFrom(this.getFictionalWorlds(context));
+				Characters = this.getAllKeysWithFieldValue("Fictional World", Worlds);
+
 			}
-		}while(worlds.size()!=8);
 
-		worldsArray = worlds.toArray(new String[worlds.size()]);
+			genres.add(Characters.firstElement());
 
-		for(String world: worldsArray){
-			System.out.println(world); //gets the genre
 		}
 
-		return worldsArray;
+		String Char1 = this.selectRandomlyFrom(Characters);
 
-//		System.out.println(this.getAllKeysWithFieldValue("Gender","male"));
-	}
+		Vector<String> Address = this.getFieldValues("Adress 1", Char1);
+
+		if(Address == null) {
+
+			Address = this.getFieldValues("Address 2", Char1);
+		}
+
+		if(Address == null) {
+
+			Address = this.getFieldValues("Address 3", Char1);
+		}
+
+
+		return Address.firstElement();
+
+}
 
 
 	// Get the values associated with a specific field of a key concept
