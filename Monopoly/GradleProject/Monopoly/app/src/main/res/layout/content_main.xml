@@ -9,6 +9,24 @@
     tools:context="com.rob.monopoly.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <ImageView
+        android:id="@+id/dice"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="215dp"
+        android:onClick="diceShow"
+        android:src="@drawable/dice_1"/>
+
+    <ImageView
+        android:id="@+id/dice2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="320dp"
+        android:onClick="diceShow"
+        android:src="@drawable/dice_1"/>
+
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/tablelayout"
         xmlns:app="http://schemas.android.com/apk/res-auto"

@@ -21,8 +21,8 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
     private boolean isOwned=false;
     private int buyPrice;
     private String colourGroup;
-    private int location;//add to constructor
-    private String compoundViewID;//add to constructor
+    private int location;
+    private String compoundViewID;
 
     public Property(String ID,String colourGroup,int buyPrice,int mortgageAmount,double housePriceModifier,int baseRentPrice,String compoundViewID,int location)
     {
