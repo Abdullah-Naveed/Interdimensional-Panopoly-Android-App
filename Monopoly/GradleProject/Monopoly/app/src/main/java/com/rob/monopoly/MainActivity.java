@@ -483,52 +483,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //    }
 
 
-    public void PopupCustomizedLayout(View view) {
 
-        View parent = (View) view.getParent();
-        String viewName=GameState.getInstance().getContext().getResources().getResourceEntryName(parent.getId());
-
-        Property currentProperty = null;
-
-        for (Property prop : properties) {
-            if (viewName.equals(prop.getCompoundViewID())) {
-                currentProperty = prop;
-            }
-        }
-
-        String ownerStr=null;
-        if(currentProperty.getOwner()==null&&GameState.getInstance().getCurrentPlayer().getPlayerLocation()==currentProperty.getLocation()) {
-//            //call buy popup
-            buyPopUp(GameState.getInstance().getContext(),currentProperty);
-        }
-        else if(currentProperty.getOwner()==GameState.getInstance().getCurrentPlayer())
-        {
-            buildMortgagePopUp(GameState.getInstance().getContext(),currentProperty);
-        }
-        else
-        {
-//            //call ok popup
-            okPopUp(GameState.getInstance().getCurrentPlayer(),currentProperty);
-        }
-//        String[] values = new String[] {
-//                "Property Name: "+currentProperty.getID(),
-//                "Buy Price: "+currentProperty.buyPrice(),
-//                "Rent Price: "+currentProperty.getRentalAmount(),
-//                "Owner: "+ownerStr,
-//                "Colour Group: "+currentProperty.getColourGroup()
-//        };
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(GameState.getInstance().getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, values);
-//        listView.setAdapter(adapter);
-//
-//
-//        pDialog.setCustomView(listView);
-//        pDialog.show();
-
-
-
-
-
-    }
 
 
 //    public void PopupCustomizedLayout(View view)
@@ -618,6 +573,55 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 ////    public static int randomDiceValue() {
 ////        return RANDOM.nextInt(6) + 1;
 ////    }
+
+
+    public void PopupCustomizedLayout(View view) {
+
+        View parent = (View) view.getParent();
+        String viewName=GameState.getInstance().getContext().getResources().getResourceEntryName(parent.getId());
+
+        Property currentProperty = null;
+
+        for (Property prop : properties) {
+            if (viewName.equals(prop.getCompoundViewID())) {
+                currentProperty = prop;
+            }
+        }
+
+        String ownerStr=null;
+        if(currentProperty.getOwner()==null&&GameState.getInstance().getCurrentPlayer().getPlayerLocation()==currentProperty.getLocation()) {
+//            //call buy popup
+            buyPopUp(GameState.getInstance().getContext(),currentProperty);
+        }
+        else if(currentProperty.getOwner()==GameState.getInstance().getCurrentPlayer())
+        {
+            buildMortgagePopUp(GameState.getInstance().getContext(),currentProperty);
+        }
+        else
+        {
+//            //call ok popup
+            okPopUp(GameState.getInstance().getCurrentPlayer(),currentProperty);
+        }
+//        String[] values = new String[] {
+//                "Property Name: "+currentProperty.getID(),
+//                "Buy Price: "+currentProperty.buyPrice(),
+//                "Rent Price: "+currentProperty.getRentalAmount(),
+//                "Owner: "+ownerStr,
+//                "Colour Group: "+currentProperty.getColourGroup()
+//        };
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(GameState.getInstance().getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, values);
+//        listView.setAdapter(adapter);
+//
+//
+//        pDialog.setCustomView(listView);
+//        pDialog.show();
+
+
+
+
+
+    }
+
 
     public void buyPopUp(Context context,Property property)
     {

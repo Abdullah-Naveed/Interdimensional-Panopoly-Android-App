@@ -19,6 +19,7 @@ import org.w3c.dom.Text;
 public class MainMenuGame extends AppCompatActivity {
     private TextView textView;
     private SeekBar seekBar;
+    public int prog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +29,15 @@ public class MainMenuGame extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu_game);
 
         textView = (TextView) findViewById(R.id.textView);
+        textView.setText("2 Players");
         seekBar = (SeekBar) findViewById(R.id.seekBar);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progress +=2;
+                GameState.getInstance().setNumPlayers(progress);
+                textView.setText("");
                 textView.setText("" + progress  + " Players");
             }
 
