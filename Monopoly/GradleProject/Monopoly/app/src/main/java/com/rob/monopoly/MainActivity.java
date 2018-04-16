@@ -13,8 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -50,18 +53,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //add players
         instance.addPlayers((new Player(this,viewGroup,"Rob")));
-        instance.getPlayers().get(0).setPlayerLocation(33);
+        instance.getPlayers().get(0).setPlayerLocation(21);
         instance.setCurrentPlayer(instance.getPlayers().get(0));
 
 //        populateProperties();
 
         KnowledgeBaseModule knowledgeBaseModule=new KnowledgeBaseModule(this);
 //        Log.i("kbm",knowledgeBaseModule.getAllFrames().toString());
+<<<<<<< HEAD
 //        Log.i("kbm",knowledgeBaseModule.getAllKeysWithFieldValue("Category", "Hero").toString());
 
         System.out.println(knowledgeBaseModule.getGroupLocations(GameState.getInstance().getContext()));
 
             }
+=======
+        Log.i("kbm",knowledgeBaseModule.getAllKeysWithFieldValue("Category", "Hero").toString());
+
+
+    }
+>>>>>>> 45a846da40062af13ea39436c255511251137e59
 
     public ArrayList<Set<String>> populateProperties(){
         viewData database = new viewData(this);
@@ -405,7 +415,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ViewGroup viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
             Player rob=new Player(this,viewGroup,"ROB");
             rob.move(2);
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -540,42 +549,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //
 //
 //
-////    public void diceShow(){
-////        final Animation anim1 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
-////        final Animation anim2 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
-////        final Animation.AnimationListener animationListener = new Animation.AnimationListener() {
-////            @Override
-////            public void onAnimationStart(Animation animation) {
-////            }
-////
-////            @Override
-////            public void onAnimationEnd(Animation animation) {
-////                int value = randomDiceValue();
-////                int res = getResources().getIdentifier("dice_" + value, "drawable", "com.abdullahnaveed.diceanimation");
-////
-////                if (animation == anim1) {
-////                    imageView1.setImageResource(res);
-////                } else if (animation == anim2) {
-////                    imageView2.setImageResource(res);
-////                }
-////            }
-////
-////            @Override
-////            public void onAnimationRepeat(Animation animation) {
-////
-////            }
-////        };
-////
-////        anim1.setAnimationListener(animationListener);
-////        anim2.setAnimationListener(animationListener);
-////
-////        imageView1.startAnimation(anim1);
-////        imageView2.startAnimation(anim2);
-////    }
-////
-////    public static int randomDiceValue() {
-////        return RANDOM.nextInt(6) + 1;
-////    }
+    public void diceShow(View view){
+        final Animation anim1 = AnimationUtils.loadAnimation(GameState.getInstance().getContext(), R.anim.shake);
+        final Animation anim2 = AnimationUtils.loadAnimation(GameState.getInstance().getContext(), R.anim.shake);
+        ImageView imageView1=findViewById(R.id.dice);
+        ImageView imageView2=findViewById(R.id.dice2);
+        final Animation.AnimationListener animationListener = new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                int value = randomDiceValue();
+                int res = getResources().getIdentifier("dice_" + value, "drawable", "com.rob.monopoly");
+
+                if (animation == anim1) {
+                    imageView1.setImageResource(res);
+                } else if (animation == anim2) {
+                    imageView2.setImageResource(res);
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        };
+
+        anim1.setAnimationListener(animationListener);
+        anim2.setAnimationListener(animationListener);
+
+        imageView1.startAnimation(anim1);
+        imageView2.startAnimation(anim2);
+    }
+
+    public static int randomDiceValue() {
+        return new Random().nextInt(6) + 1;
+    }
 
 
     public void PopupCustomizedLayout(View view) {
@@ -605,24 +616,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            //call ok popup
             okPopUp(GameState.getInstance().getCurrentPlayer(),currentProperty);
         }
-//        String[] values = new String[] {
-//                "Property Name: "+currentProperty.getID(),
-//                "Buy Price: "+currentProperty.buyPrice(),
-//                "Rent Price: "+currentProperty.getRentalAmount(),
-//                "Owner: "+ownerStr,
-//                "Colour Group: "+currentProperty.getColourGroup()
-//        };
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(GameState.getInstance().getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, values);
-//        listView.setAdapter(adapter);
-//
-//
-//        pDialog.setCustomView(listView);
-//        pDialog.show();
-
-
-
-
-
     }
 
 
@@ -634,15 +627,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String[] values = new String[] {
                 "Property Name: "+property.getID(),
                 "Buy Price: "+property.buyPrice(),
+                "Mortgage Price: "+property.getMortgageAmount(),
                 "Rent Price: "+property.getRentalAmount(),
-                "Owner: No Owner",
-                "Colour Group: "+property.getColourGroup()
+                "Number of Houses: "+property.getNumHouses(),
+                "Owner: No Owner"
         };
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
         listView.setAdapter(adapter);
-
-
         pDialog.setCustomView(listView);
+
         pDialog.setConfirmText("Buy");
         pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
@@ -650,7 +644,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(GameState.getInstance().getCurrentPlayer().getBalance()>=property.buyPrice())
                 {
                     property.setOwner(GameState.getInstance().getCurrentPlayer());
-                    GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).withdraw(property.buyPrice());
+                    GameState.getInstance().getCurrentPlayer().withdraw(property.buyPrice());
                     GameState.getInstance().getCurrentPlayer().addToProperties(property);
                 }
                 pDialog.cancel();
@@ -668,9 +662,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String[] values = new String[] {
                 "Property Name: "+property.getID(),
                 "Buy Price: "+property.buyPrice(),
+                "Mortgage Price: "+property.getMortgageAmount(),
                 "Rent Price: "+property.getRentalAmount(),
-                "Owner: "+property.getOwner(),
-                "Colour Group: "+property.getColourGroup()
+                "Number of Houses: "+property.getNumHouses(),
+                "Owner: "+property.getOwner()
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
         listView.setAdapter(adapter);
@@ -683,9 +678,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(SweetAlertDialog sDialog) {
                 if(GameState.getInstance().getCurrentPlayer().getBalance()>=property.getHousePrice()&&GameState.getInstance().getCurrentPlayer().isGroupOwner(property))
                 {
-                    GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).withdraw(property.getHousePrice());
+                    GameState.getInstance().getCurrentPlayer().withdraw(property.getHousePrice());
                     property.buildHouse();
-                    GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).addToProperties(property);
                 }
                 pDialog.cancel();
             }
@@ -695,15 +689,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         pDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sDialog) {
-                if(GameState.getInstance().getCurrentPlayer().getBalance()>=property.buyPrice())
+
+                for(int i=0;i<property.getNumHouses();i++)
                 {
-                    System.out.println(GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).getNumProperties());
-                    property.mortgageProperty();
-                    GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).deposit(property.getMortgageAmount());
-                    GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).removeFromProperties(property);
-                    System.out.println(GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).getNumProperties());
-                    System.out.println(GameState.getInstance().getPlayers().get(GameState.getInstance().getPlayers().indexOf(GameState.getInstance().getCurrentPlayer())).getBalance());
+                    GameState.getInstance().getCurrentPlayer().deposit(property.getHousePrice()/2);
+                    property.demolishHouse();
                 }
+                property.mortgageProperty();
+                GameState.getInstance().getCurrentPlayer().deposit(property.getMortgageAmount());
+                GameState.getInstance().getCurrentPlayer().removeFromProperties(property);
+
                 pDialog.cancel();
             }
         });
@@ -719,9 +714,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String[] values = new String[] {
                 "Property Name: "+property.getID(),
                 "Buy Price: "+property.buyPrice(),
+                "Mortgage Price: "+property.getMortgageAmount(),
                 "Rent Price: "+property.getRentalAmount(),
-                "Owner: No Owner",
-                "Colour Group: "+property.getColourGroup()
+                "Number of Houses: "+property.getNumHouses(),
+                "Owner: "+property.getOwner()
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
         listView.setAdapter(adapter);
