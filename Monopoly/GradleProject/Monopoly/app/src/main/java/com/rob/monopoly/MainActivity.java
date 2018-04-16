@@ -200,109 +200,108 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void initialSetting(){
         //red
-        CompoundView compoundView1 = (CompoundView)findViewById(R.id.red1);
+        CompoundView compoundView1 = findViewById(R.id.red1);
         compoundView1.changeImage(1);
         compoundView1.setText("Red property 1");
-//        instance.addProperties(new Property("red1","red",100,50,1.2,2));
-        properties.add(new Property("red1","red",125,65,1.2,2,"red1",21));
-        CompoundView compoundView2 = (CompoundView)findViewById(R.id.red2);
+        properties.add(new Property("red1","red",425,100,85,"red1",24));
+        CompoundView compoundView2 = findViewById(R.id.red2);
         compoundView2.changeImage(1);
         compoundView2.setText("Red property 2");
-//        new Property("red2","red",125,65,1.2,2);
-        CompoundView compoundView3 = (CompoundView)findViewById(R.id.red3);
+        properties.add(new Property("red2","red",400,95,80,"red2",22));
+        CompoundView compoundView3 = findViewById(R.id.red3);
         compoundView3.changeImage(1);
         compoundView3.setText("Red property 3");
-//        new Property("red3","red",150,75,1.2,4);
+        properties.add(new Property("red3","red",375,95,80,"red3",21));
 
         //yellow
-        CompoundView compoundView4 = (CompoundView)findViewById(R.id.yellow1);
+        CompoundView compoundView4 = findViewById(R.id.yellow1);
         compoundView4.changeImage(2);
         compoundView4.setText("Yellow property 1");
-//        new Property("yellow1","yellow",175,85,1.4,6);
-        CompoundView compoundView5 = (CompoundView)findViewById(R.id.yellow2);
+        properties.add(new Property("yellow1","yellow",475,120,105,"yellow1",28));
+        CompoundView compoundView5 = findViewById(R.id.yellow2);
         compoundView5.changeImage(2);
         compoundView5.setText("Yellow property 2");
-//        new Property("yellow2","yellow",200,100,1.4,6);
+        properties.add(new Property("yellow2","yellow",450,125,100,"yellow2",26));
 
         //pink
-        CompoundView compoundView6 = (CompoundView)findViewById(R.id.pink1);
+        CompoundView compoundView6 = findViewById(R.id.pink1);
         compoundView6.changeImage(3);
         compoundView6.setText("Pink property 1");
-//        new Property("pink1","pink",225,100,1.6,8);
-        CompoundView compoundView7 = (CompoundView)findViewById(R.id.pink2);
+        properties.add(new Property("pink1","pink",550,140,125,"pink1",33));
+        CompoundView compoundView7 = findViewById(R.id.pink2);
         compoundView7.changeImage(3);
         compoundView7.setText("Pink property 2");
-//        new Property("pink2","pink",250,125,1.6,8);
-        CompoundView compoundView8 = (CompoundView)findViewById(R.id.pink3);
+        properties.add(new Property("pink2","pink",525,135,120,"pink2",32));
+        CompoundView compoundView8 = findViewById(R.id.pink3);
         compoundView8.changeImage(3);
         compoundView8.setText("Pink property 3");
-//        new Property("pink3","pink",275,135,1.6,10);
+        properties.add(new Property("pink3","pink",500,135,120,"pink3",30));
 
         //green
-        CompoundView compoundView9 = (CompoundView)findViewById(R.id.green1);
+        CompoundView compoundView9 = findViewById(R.id.green1);
         compoundView9.changeImage(4);
         compoundView9.setText("Green property 1");
-//        new Property("green1","green",300,150,1.8,12);
-        CompoundView compoundView10 = (CompoundView)findViewById(R.id.green2);
+        properties.add(new Property("green1","green",350,85,70,"green1",19));
+        CompoundView compoundView10 = findViewById(R.id.green2);
         compoundView10.changeImage(4);
         compoundView10.setText("Green property 2");
-//        new Property("green2","green",325,150,1.8,12);
-        CompoundView compoundView11 = (CompoundView)findViewById(R.id.green3);
+        properties.add(new Property("green2","green",325,80,65,"green2",18));
+        CompoundView compoundView11 = findViewById(R.id.green3);
         compoundView11.changeImage(4);
         compoundView11.setText("Green property 3");
-//        new Property("green3","green",350,175,1.8,14);
+        properties.add(new Property("green3","green",300,80,65,"green3",17));
 
         //blue
-        CompoundView compoundView12 = (CompoundView)findViewById(R.id.blue1);
+        CompoundView compoundView12 = findViewById(R.id.blue1);
         compoundView12.changeImage(5);
         compoundView12.setText("Blue property 1");
-//        new Property("blue1","blue",375,175,2,16);
-        CompoundView compoundView13 = (CompoundView)findViewById(R.id.blue2);
+        properties.add(new Property("blue1","blue",625,170,150,"blue1",39));
+        CompoundView compoundView13 = findViewById(R.id.blue2);
         compoundView13.changeImage(5);
         compoundView13.setText("Blue property 2");
-//        new Property("blue2","blue",400,200,2,16);
-        CompoundView compoundView14 = (CompoundView)findViewById(R.id.blue3);
+        properties.add(new Property("blue2","blue",600,160,140,"blue2",38));
+        CompoundView compoundView14 = findViewById(R.id.blue3);
         compoundView14.changeImage(5);
         compoundView14.setText("Blue property 3");
-//        new Property("blue3","blue",425,200,2,18);
+        properties.add(new Property("blue3","blue",575,160,140,"blue3",37));
 
         //grey
-        CompoundView compoundView15 = (CompoundView)findViewById(R.id.grey1);
+        CompoundView compoundView15 = findViewById(R.id.grey1);
         compoundView15.changeImage(6);
         compoundView15.setText("Grey property 1");
-//        new Property("grey1","grey",450,225,2.2,20);
-        CompoundView compoundView16 = (CompoundView)findViewById(R.id.grey2);
+        properties.add(new Property("grey1","grey",275,70,55,"grey1",13));
+        CompoundView compoundView16 = findViewById(R.id.grey2);
         compoundView16.changeImage(6);
         compoundView16.setText("Grey property 2");
-//        new Property("grey2","grey",475,225,2.2,20);
-        CompoundView compoundView17 = (CompoundView)findViewById(R.id.grey3);
+        properties.add(new Property("grey2","grey",250,65,50,"grey2",12));
+        CompoundView compoundView17 = findViewById(R.id.grey3);
         compoundView17.changeImage(6);
         compoundView17.setText("Grey property 3");
-//        new Property("grey3","grey",500,250,2.2,22);
+        properties.add(new Property("grey3","grey",225,65,50,"grey3",10));
 
         //orange
-        CompoundView compoundView18 = (CompoundView)findViewById(R.id.orange1);
+        CompoundView compoundView18 = findViewById(R.id.orange1);
         compoundView18.changeImage(7);
         compoundView18.setText("Orange property 1");
-//        new Property("orange1","orange",525,250,2.4,24);
-        CompoundView compoundView19 = (CompoundView)findViewById(R.id.orange2);
+        properties.add(new Property("orange1","orange",200,45,35,"orange1",8));
+        CompoundView compoundView19 = findViewById(R.id.orange2);
         compoundView19.changeImage(7);
         compoundView19.setText("Orange property 2");
-//        new Property("orange2","orange",550,275,2.4,24);
+        properties.add(new Property("orange2","orange",175,40,30,"orange2",6));
 
         //brown
-        CompoundView compoundView20 = (CompoundView)findViewById(R.id.brown1);
+        CompoundView compoundView20 = findViewById(R.id.brown1);
         compoundView20.changeImage(8);
         compoundView20.setText("Brown property 1");
-//        new Property("brown1","brown",575,275,2.6,26);
-        CompoundView compoundView21 = (CompoundView)findViewById(R.id.brown2);
+        properties.add(new Property("brown1","brown",150,35,25,"brown1",4));
+        CompoundView compoundView21 = findViewById(R.id.brown2);
         compoundView21.changeImage(8);
         compoundView21.setText("Brown property 2");
-//        new Property("brown2","brown",600,300,2.6,26);
-        CompoundView compoundView22 = (CompoundView)findViewById(R.id.brown3);
+        properties.add(new Property("brown2","brown",125,30,20,"brown1",2));
+        CompoundView compoundView22 = findViewById(R.id.brown3);
         compoundView22.changeImage(8);
-        compoundView21.setText("Brown property 3");
-//        new Property("brown3","brown",625,300,2.6,28);
+        compoundView22.setText("Brown property 3");
+        properties.add(new Property("brown3","brown",100,30,20,"brown3",1));
 
         //chance card
         CompoundView compoundView23 = (CompoundView)findViewById(R.id.card1);
