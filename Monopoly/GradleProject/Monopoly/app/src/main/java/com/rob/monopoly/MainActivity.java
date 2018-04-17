@@ -61,18 +61,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         KnowledgeBaseModule knowledgeBaseModule=new KnowledgeBaseModule(this);
 //        Log.i("kbm",knowledgeBaseModule.getAllFrames().toString());
-<<<<<<< HEAD
 //        Log.i("kbm",knowledgeBaseModule.getAllKeysWithFieldValue("Category", "Hero").toString());
 
         System.out.println(knowledgeBaseModule.getGroupLocations(GameState.getInstance().getContext()));
-
-            }
-=======
         Log.i("kbm",knowledgeBaseModule.getAllKeysWithFieldValue("Category", "Hero").toString());
 
-
     }
->>>>>>> 45a846da40062af13ea39436c255511251137e59
+
 
     public ArrayList<Set<String>> populateProperties(){
         viewData database = new viewData(this);
