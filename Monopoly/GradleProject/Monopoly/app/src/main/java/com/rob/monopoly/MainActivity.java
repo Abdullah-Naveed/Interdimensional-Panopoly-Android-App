@@ -15,10 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rob.monopoly.NOCList.twitterbotics.KnowledgeBaseModule;
@@ -602,6 +604,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
         ListView listView = new ListView(GameState.getInstance().getContext());
 
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+//        {
+//            @Override
+//            public void onItemClick(AdapterView<?> arg0, View view,int position, long arg3)
+//            {
+//                System.out.println(view.getId());
+//                int id=view.getId();
+//                TextView textView=findViewById(id);
+//                System.out.println(textView);
+//                Toast.makeText(GameState.getInstance().getContext(), textView.getText(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
         String[] values = new String[] {
                 "Property Name: "+property.getID(),
                 "Buy Price: "+property.buyPrice(),
@@ -612,6 +627,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
         listView.setAdapter(adapter);
+//        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
 
         pDialog.setCustomView(listView);
