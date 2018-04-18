@@ -36,7 +36,7 @@
             android:text="InterDimensional Panopoly"
             android:textColor="@color/rick"
             android:textAlignment="center"
-            android:textSize="50sp" />
+            android:textSize="45sp" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/l2"

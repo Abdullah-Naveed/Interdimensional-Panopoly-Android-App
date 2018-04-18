@@ -16,9 +16,6 @@ import android.content.Intent;
 
 import android.widget.LinearLayout;
 
-/**
- * Created by Vlad on 14-Apr-18.
- */
 public class SplashScreenMain extends AppCompatActivity {
 
     LinearLayout l1,l2;
@@ -35,7 +32,7 @@ public class SplashScreenMain extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_screen_main);
 
-        introSong = MediaPlayer.create(SplashScreenMain.this,R.raw.intro2);
+        introSong = MediaPlayer.create(SplashScreenMain.this,R.raw.intro);
         introSong.start();
 
         TextView tx = (TextView)findViewById(R.id.textview1);

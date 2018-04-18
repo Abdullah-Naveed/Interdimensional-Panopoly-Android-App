@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class GameState {
 
@@ -14,14 +15,10 @@ public class GameState {
         private Player currentPlayer;
         private int player;
         private int numPlayers;
-        private int[] boardPlayers;
         private ArrayList<Property> properties=new ArrayList<Property>();
         private ArrayList<Player> players=new ArrayList<Player>();
         private ArrayList<Card> cards=new ArrayList<Card>();
         private ViewGroup viewGroup;
-
-
-
         private Context context;
 
         private GameState(){}
@@ -64,12 +61,18 @@ public class GameState {
             this.numPlayers = numPlayers;
         }
 
-        public int[] getBoardPlayers() {
-            return boardPlayers;
+        public void changeToNextPlayer(){
+            currentPlayer = getNextPlayer(currentPlayer);
         }
 
-        public void setBoardPlayers(int[] boardPlayers) {
-            this.boardPlayers = boardPlayers;
+        public void removePlayer(Player currentPlayer) {
+            this.players.get(players.indexOf(currentPlayer)).setPlayerWasRemoved(true);
+            this.players.remove(currentPlayer);
+        }
+
+        public Player getNextPlayer(Player currentPlayer) {
+            int i=players.indexOf(currentPlayer);
+            return this.players.get((i+1)%players.size());
         }
 
         public ArrayList<Property> getProperties() {

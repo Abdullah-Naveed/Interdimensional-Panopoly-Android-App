@@ -14,9 +14,6 @@ import java.util.Random;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-/**
- * Created by Robert on 23/03/2018.
- */
 
 public class UserMover extends AppCompatActivity{
 
@@ -196,7 +193,6 @@ public class UserMover extends AppCompatActivity{
             {
                 view=subView.getVirtualChildAt(Math.abs(index-14));
             }
-
 
             setVisibility(User, view);
             return newLocation;
