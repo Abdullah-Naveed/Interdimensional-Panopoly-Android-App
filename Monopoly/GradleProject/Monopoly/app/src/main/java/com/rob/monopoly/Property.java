@@ -111,7 +111,7 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
 
     @Override
     public void mortgageProperty() {
-        player.deposit(mortgageAmount);
+        player.deposit(buyPrice/2);
         isMortgaged=true;
         isOwned=false;
         player=null;
