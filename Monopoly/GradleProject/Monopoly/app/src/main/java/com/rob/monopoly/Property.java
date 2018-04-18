@@ -105,7 +105,7 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
 
     @Override
     public int getMortgageAmount() {
-        return baseRentPrice/2;
+        return buyPrice/2;
     }
 
 
