@@ -499,6 +499,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final Animation anim2 = AnimationUtils.loadAnimation(GameState.getInstance().getContext(), R.anim.shake);
         ImageView imageView1=findViewById(R.id.dice);
         ImageView imageView2=findViewById(R.id.dice2);
+        int moves=GameState.getInstance().getCurrentPlayer().getPlayerLocation();
         final Animation.AnimationListener animationListener = new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -507,6 +508,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onAnimationEnd(Animation animation) {
                 int value = randomDiceValue();
+                int moves=GameState.getInstance().getCurrentPlayer().getPlayerLocation();
+                GameState.getInstance().getCurrentPlayer().setPlayerLocation(moves+=value);
                 int res = getResources().getIdentifier("dice_" + value, "drawable", "com.rob.monopoly");
 
                 if (animation == anim1) {
@@ -514,6 +517,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } else if (animation == anim2) {
                     imageView2.setImageResource(res);
                 }
+
             }
 
             @Override
@@ -527,6 +531,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         imageView1.startAnimation(anim1);
         imageView2.startAnimation(anim2);
+        moves-=GameState.getInstance().getCurrentPlayer().getPlayerLocation();
+        GameState.getInstance().getCurrentPlayer().move(Math.abs(moves));
     }
 
     public static int randomDiceValue() {
