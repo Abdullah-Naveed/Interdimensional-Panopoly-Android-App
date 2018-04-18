@@ -138,42 +138,43 @@ public class KnowledgeBaseModule
 	}
 
 
-	public ArrayList<ArrayList<String>> getGroupLocations(Context context){
-
-		ArrayList<String> genres = new ArrayList<>();
-
-		for(int i = 0; i<8; i++){
-			String Worlds = this.selectRandomlyFrom(this.getFictionalWorlds(context));
-			Vector<String> Characters = this.getAllKeysWithFieldValue("Fictional World", Worlds);
-
-			while (Characters.size() < 3) {
-				Worlds = this.selectRandomlyFrom(this.getFictionalWorlds(context));
-				Characters = this.getAllKeysWithFieldValue("Fictional World", Worlds);
-
-			}
-
-			genres.add(Characters.firstElement());
-
-		}
-
-		String Char1 = this.selectRandomlyFrom(Characters);
-
-		Vector<String> Address = this.getFieldValues("Adress 1", Char1);
-
-		if(Address == null) {
-
-			Address = this.getFieldValues("Address 2", Char1);
-		}
-
-		if(Address == null) {
-
-			Address = this.getFieldValues("Address 3", Char1);
-		}
-
-
-		return Address.firstElement();
-
-}
+//	public ArrayList<ArrayList<String>> getGroupLocations(Context context){
+//
+//		ArrayList<String> genres = new ArrayList<>();
+//		Vector<String> Characters = new Vector<>();
+//
+//		for(int i = 0; i<8; i++){
+//			String Worlds = this.selectRandomlyFrom(this.getFictionalWorlds(context));
+//			Characters = this.getAllKeysWithFieldValue("Fictional World", Worlds);
+//
+//			while (Characters.size() < 3) {
+//				Worlds = this.selectRandomlyFrom(this.getFictionalWorlds(context));
+//				Characters = this.getAllKeysWithFieldValue("Fictional World", Worlds);
+//
+//			}
+//
+//			genres.add(Characters.firstElement());
+//
+//		}
+//
+//		String Char1 = this.selectRandomlyFrom(Characters);
+//
+//		Vector<String> Address = this.getFieldValues("Adress 1", Char1);
+//
+//		if(Address == null) {
+//
+//			Address = this.getFieldValues("Address 2", Char1);
+//		}
+//
+//		if(Address == null) {
+//
+//			Address = this.getFieldValues("Address 3", Char1);
+//		}
+//
+//
+//		return Address;
+//
+//}
 
 
 	// Get the values associated with a specific field of a key concept
