@@ -2,13 +2,17 @@ package com.rob.monopoly;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -401,7 +405,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.trade) {
 
-
+            tradePopup();
 
         } else if (id == R.id.nav_manage) {
 
@@ -690,6 +694,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         pDialog.setCustomView(listView);
         pDialog.show();
+    }
+
+    public void tradePopup()
+    {
+        Intent startTrading = new Intent(MainActivity.this,Trading.class);
+        startActivity(startTrading);
+
     }
 
 
