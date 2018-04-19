@@ -6,6 +6,13 @@ package com.rob.monopoly.Interfaces;
 
 public interface Taxable {
 
-    int getTaxAmount();
-    void payTax();
+    int getHouseTaxAmount();
+    int getPropertiesTaxAmount();
+    int getBalanceTax();
+    int getRandomTax();
+    void payHouseTax();
+    void payPropertyTax();
+    void payBalanceTax();
+    void payRandomTax();
+    
 }
