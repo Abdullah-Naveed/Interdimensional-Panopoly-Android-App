@@ -61,6 +61,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //gamestate add players, current player and numPlayers
 
         //add players
+        Bundle bundle = getIntent().getExtras();
+        int numPlayers=(int)bundle.get("NumPlayers");
+        System.out.println(numPlayers);
+        for(int i=0;i<numPlayers;i++)
+        {
+            instance.addPlayers((new Player(this,viewGroup,"i")));
+        }
+        System.out.println(instance.getNumPlayers());
         instance.addPlayers((new Player(this,viewGroup,"Rob")));
         instance.getPlayers().get(0).setPlayerLocation(21);
         instance.setCurrentPlayer(instance.getPlayers().get(0));
@@ -558,14 +566,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
         ListView listView = new ListView(GameState.getInstance().getContext());
-
+        String owner=property.getOwner().toString();
+        if(property.getOwner()==null)
+        {
+            owner="No Owner";
+        }
         String[] values = new String[] {
                 "Property Name: "+property.getID(),
                 "Buy Price: "+property.buyPrice(),
                 "Mortgage Price: "+property.getMortgageAmount(),
                 "Rent Price: "+property.getRentalAmount(),
                 "Number of Houses: "+property.getNumHouses(),
-                "Owner: "+property.getOwner()
+                "Owner: "+owner
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
         listView.setAdapter(adapter);

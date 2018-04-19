@@ -97,6 +97,7 @@ public class GameState {
 
         public void addPlayers(Player player){
             this.players.add(player);
+            this.numPlayers++;
         }
 
         public ViewGroup getViewGroup() {
