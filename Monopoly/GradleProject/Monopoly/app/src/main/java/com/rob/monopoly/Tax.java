@@ -1,9 +1,11 @@
 package com.rob.monopoly;
 
+import com.rob.monopoly.Interfaces.Taxable;
+
 import java.util.Iterator;
 import java.util.Random;
 
-public class Tax implements Taxable{
+public class Tax implements Taxable {
 
 	private int taxModifier1 = 10;
 	private int taxModifier2 = 20;

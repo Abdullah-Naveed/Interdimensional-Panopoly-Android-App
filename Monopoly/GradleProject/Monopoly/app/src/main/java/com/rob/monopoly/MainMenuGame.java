@@ -59,6 +59,7 @@ public class MainMenuGame extends AppCompatActivity {
     public void startGame(View view){
 
         Intent startGame = new Intent(MainMenuGame.this,MainActivity.class);
+        startGame.putExtra("NumPlayers",Integer.parseInt(textView.getText().toString()));
         startActivity(startGame);
 
     }
