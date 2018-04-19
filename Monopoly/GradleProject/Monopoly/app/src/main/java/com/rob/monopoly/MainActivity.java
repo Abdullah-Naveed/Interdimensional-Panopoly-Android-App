@@ -26,7 +26,10 @@ import android.widget.Toast;
 import com.rob.monopoly.NOCList.twitterbotics.KnowledgeBaseModule;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -59,246 +62,122 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         instance.setCurrentPlayer(instance.getPlayers().get(0));
         instance.addPlayers(new Player(this,viewGroup,"Abdullah"));
 
-//        populateProperties();
-
-        KnowledgeBaseModule knowledgeBaseModule=new KnowledgeBaseModule(this);
-//        Log.i("kbm",knowledgeBaseModule.getAllFrames().toString());
-//        Log.i("kbm",knowledgeBaseModule.getAllKeysWithFieldValue("Category", "Hero").toString());
-
-//        /System.out.println(knowledgeBaseModule.getGroupLocations(GameState.getInstance().getContext()));
-//        Log.i("kbm",knowledgeBaseModule.getAllKeysWithFieldValue("Category", "Hero").toString());
-
     }
 
-
-    public ArrayList<Set<String>> populateProperties(){
-        viewData database = new viewData(this);
-        database.loadMultiValuedData("");
-
-        viewData database2 = new viewData(this);
-        database2.loadSingleValuedData("");
-
-        ArrayList<ArrayList<String>> al = new ArrayList<>();
-        ArrayList<ArrayList<String>> al2 = new ArrayList<>();
-        ArrayList<String> addressAL;
-        ArrayList<String> charactersAL;
-        Set<String> addressSet = new HashSet<>();
-
-        Set<String> fictionalWorldsAL = new HashSet<>();
-
-        ArrayList<ArrayList<String>> colourGroups = new ArrayList<>();
-
-        Random rand = new Random();
-        int  n;
-        String randomWorld = "";
-        String add = "";
-
-        //getting all fictional worlds
-        al.addAll(database.get_data("NA","Fictional World","NA"));
-        for(int i=0; i<al.size(); i++){
-            fictionalWorldsAL.add(al.get(i).get(2));
-        }
-        al.clear();
-        do {
-            do {
-                //selecting a random fictional world
-                n = rand.nextInt(fictionalWorldsAL.size())+0;
-                int j=0;
-                for(String obj : fictionalWorldsAL)
-                {
-                    if (j == n){
-                        randomWorld = obj;
-                        fictionalWorldsAL.remove(obj);
-                        break;
-                    }
-                    j++;
-                }
-
-                al2.addAll(database.get_data("NA", "NA", randomWorld));
-                charactersAL = new ArrayList<>();
-                for (int i = 0; i < al2.size(); i++) {
-                    charactersAL.add(al2.get(i).get(0));
-                }
-                al2.clear();
-//                outerloop:
-                for (String character : charactersAL) {
-                    add = database2.get_data(character, "address_1", "NA").get(0).get(2);
-
-                    if (add.equals("NA")) {
-                        add = database2.get_data(character, "address_2", "NA").get(0).get(2);
-                    }
-
-                    if (add.equals("NA")) {
-                        add = database2.get_data(character, "address_3", "NA").get(0).get(2);
-                    }
-
-                    if (add.equals("NA")) {
-                        continue;
-
-                    }
-//                    for (ArrayList<String> arrayList:colourGroups)
-//                    {
-//
-//                        for (String s : arrayList)
-//                        {
-//
-//                            if(!s.equals(add))
-//                            {
-//                                colourGroups.remove(add);
-//                                continue;
-//
-//                            }
-////                            else
-////                            {
-////                                break outerloop;
-////                            }
-//                        }
-//                    }
-
-                    addressSet.add(add);
-
-                }
-
-            } while (addressSet.size() < 3);
-
-//            charactersAL.clear();
-            //converting the set to an arrayList
-            addressAL = new ArrayList<>(addressSet);
-            colourGroups.add(new ArrayList<String>(addressAL));
-            addressSet.clear();
-            addressAL.clear();
-
-        }while(colourGroups.size()!=8);
-
-//        ArrayList<String> compare=new ArrayList<String>();
-//        Set<String> compare2=new HashSet<String>();
-//
-//        for (ArrayList<String> arrayList:colourGroups)
-//        {
-//            for(String s:arrayList)
-//            {
-////                compare.add(s);
-//                compare2.add(s);
-//            }
-//        }
-//
-//        if(!compare.containsAll(new ArrayList<String>(compare2)))
-//        {
-//            populateProperties();
-//        }
-
-        Log.i("world:", fictionalWorldsAL.toString());
-        Log.i("char:", charactersAL.toString());
-        Log.i("add:", addressSet.toString());
-        Log.i("colourGroups:", colourGroups.toString());
-
-        return null;
-    }
 
     public void initialSetting(){
         //red
+        KnowledgeBaseModule knowledgeBaseModule=new KnowledgeBaseModule(this);
+        HashMap<String,ArrayList<String>> colourLocations = new LinkedHashMap<>(knowledgeBaseModule.getLocations(this));
+
+        ArrayList<String> groupGenres = new ArrayList<>();
+
+        for(Map.Entry<String, ArrayList<String>> entry: colourLocations.entrySet()){
+            groupGenres.add(entry.getKey());
+        }
+
         CompoundView compoundView1 = findViewById(R.id.red1);
         compoundView1.changeImage(1);
-        compoundView1.setText("Red property 1");
-        properties.add(new Property("red1","red",425,100,85,"red1",24));
+        compoundView1.setText(colourLocations.get(groupGenres.get(0)).toArray()[0].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(0)).toArray()[0].toString(),"red",425,100,85,"red1",24));
         CompoundView compoundView2 = findViewById(R.id.red2);
         compoundView2.changeImage(1);
-        compoundView2.setText("Red property 2");
+        compoundView2.setText(colourLocations.get(groupGenres.get(0)).toArray()[1].toString());
         properties.add(new Property("red2","red",400,95,80,"red2",22));
         CompoundView compoundView3 = findViewById(R.id.red3);
         compoundView3.changeImage(1);
-        compoundView3.setText("Red property 3");
+        compoundView3.setText(colourLocations.get(groupGenres.get(0)).toArray()[2].toString());
         properties.add(new Property("red3","red",375,95,80,"red3",21));
 
         //yellow
         CompoundView compoundView4 = findViewById(R.id.yellow1);
         compoundView4.changeImage(2);
-        compoundView4.setText("Yellow property 1");
-        properties.add(new Property("yellow1","yellow",475,120,105,"yellow1",28));
+        compoundView4.setText(colourLocations.get(groupGenres.get(1)).toArray()[0].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(1)).toArray()[0].toString(),"yellow",475,120,105,"yellow1",28));
         CompoundView compoundView5 = findViewById(R.id.yellow2);
         compoundView5.changeImage(2);
-        compoundView5.setText("Yellow property 2");
-        properties.add(new Property("yellow2","yellow",450,125,100,"yellow2",26));
+        compoundView5.setText(colourLocations.get(groupGenres.get(1)).toArray()[1].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(1)).toArray()[1].toString(),"yellow",450,125,100,"yellow2",26));
 
         //pink
         CompoundView compoundView6 = findViewById(R.id.pink1);
         compoundView6.changeImage(3);
-        compoundView6.setText("Pink property 1");
-        properties.add(new Property("pink1","pink",550,140,125,"pink1",33));
+        compoundView6.setText(colourLocations.get(groupGenres.get(2)).toArray()[0].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(2)).toArray()[0].toString(),"pink",550,140,125,"pink1",33));
         CompoundView compoundView7 = findViewById(R.id.pink2);
         compoundView7.changeImage(3);
-        compoundView7.setText("Pink property 2");
-        properties.add(new Property("pink2","pink",525,135,120,"pink2",32));
+        compoundView7.setText(colourLocations.get(groupGenres.get(2)).toArray()[1].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(2)).toArray()[1].toString(),"pink",525,135,120,"pink2",32));
         CompoundView compoundView8 = findViewById(R.id.pink3);
         compoundView8.changeImage(3);
-        compoundView8.setText("Pink property 3");
-        properties.add(new Property("pink3","pink",500,135,120,"pink3",30));
+        compoundView8.setText(colourLocations.get(groupGenres.get(2)).toArray()[2].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(2)).toArray()[2].toString(),"pink",500,135,120,"pink3",30));
 
         //green
         CompoundView compoundView9 = findViewById(R.id.green1);
         compoundView9.changeImage(4);
-        compoundView9.setText("Green property 1");
-        properties.add(new Property("green1","green",350,85,70,"green1",19));
+        compoundView9.setText(colourLocations.get(groupGenres.get(3)).toArray()[0].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(3)).toArray()[0].toString(),"green",350,85,70,"green1",19));
         CompoundView compoundView10 = findViewById(R.id.green2);
         compoundView10.changeImage(4);
-        compoundView10.setText("Green property 2");
-        properties.add(new Property("green2","green",325,80,65,"green2",18));
+        compoundView10.setText(colourLocations.get(groupGenres.get(3)).toArray()[1].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(3)).toArray()[1].toString(),"green",325,80,65,"green2",18));
         CompoundView compoundView11 = findViewById(R.id.green3);
         compoundView11.changeImage(4);
-        compoundView11.setText("Green property 3");
-        properties.add(new Property("green3","green",300,80,65,"green3",17));
+        compoundView11.setText(colourLocations.get(groupGenres.get(3)).toArray()[2].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(3)).toArray()[2].toString(),"green",300,80,65,"green3",17));
 
         //blue
         CompoundView compoundView12 = findViewById(R.id.blue1);
         compoundView12.changeImage(5);
-        compoundView12.setText("Blue property 1");
-        properties.add(new Property("blue1","blue",625,170,150,"blue1",39));
+        compoundView12.setText(colourLocations.get(groupGenres.get(4)).toArray()[0].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(4)).toArray()[0].toString(),"blue",625,170,150,"blue1",39));
         CompoundView compoundView13 = findViewById(R.id.blue2);
         compoundView13.changeImage(5);
-        compoundView13.setText("Blue property 2");
-        properties.add(new Property("blue2","blue",600,160,140,"blue2",38));
+        compoundView13.setText(colourLocations.get(groupGenres.get(4)).toArray()[1].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(4)).toArray()[1].toString(),"blue",600,160,140,"blue2",38));
         CompoundView compoundView14 = findViewById(R.id.blue3);
         compoundView14.changeImage(5);
-        compoundView14.setText("Blue property 3");
-        properties.add(new Property("blue3","blue",575,160,140,"blue3",37));
+        compoundView14.setText(colourLocations.get(groupGenres.get(4)).toArray()[2].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(4)).toArray()[2].toString(),"blue",575,160,140,"blue3",37));
 
         //grey
         CompoundView compoundView15 = findViewById(R.id.grey1);
         compoundView15.changeImage(6);
-        compoundView15.setText("Grey property 1");
-        properties.add(new Property("grey1","grey",275,70,55,"grey1",13));
+        compoundView15.setText(colourLocations.get(groupGenres.get(5)).toArray()[0].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(5)).toArray()[0].toString(),"grey",275,70,55,"grey1",13));
         CompoundView compoundView16 = findViewById(R.id.grey2);
         compoundView16.changeImage(6);
-        compoundView16.setText("Grey property 2");
-        properties.add(new Property("grey2","grey",250,65,50,"grey2",12));
+        compoundView16.setText(colourLocations.get(groupGenres.get(5)).toArray()[1].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(5)).toArray()[1].toString(),"grey",250,65,50,"grey2",12));
         CompoundView compoundView17 = findViewById(R.id.grey3);
         compoundView17.changeImage(6);
-        compoundView17.setText("Grey property 3");
-        properties.add(new Property("grey3","grey",225,65,50,"grey3",10));
+        compoundView17.setText(colourLocations.get(groupGenres.get(5)).toArray()[2].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(5)).toArray()[2].toString(),"grey",225,65,50,"grey3",10));
 
         //orange
         CompoundView compoundView18 = findViewById(R.id.orange1);
         compoundView18.changeImage(7);
-        compoundView18.setText("Orange property 1");
-        properties.add(new Property("orange1","orange",200,45,35,"orange1",8));
+        compoundView18.setText(colourLocations.get(groupGenres.get(6)).toArray()[0].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(6)).toArray()[0].toString(),"orange",200,45,35,"orange1",8));
         CompoundView compoundView19 = findViewById(R.id.orange2);
         compoundView19.changeImage(7);
-        compoundView19.setText("Orange property 2");
-        properties.add(new Property("orange2","orange",175,40,30,"orange2",6));
+        compoundView19.setText(colourLocations.get(groupGenres.get(6)).toArray()[1].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(6)).toArray()[1].toString(),"orange",175,40,30,"orange2",6));
 
         //brown
         CompoundView compoundView20 = findViewById(R.id.brown1);
         compoundView20.changeImage(8);
-        compoundView20.setText("Brown property 1");
-        properties.add(new Property("brown1","brown",150,35,25,"brown1",4));
+        compoundView20.setText(colourLocations.get(groupGenres.get(7)).toArray()[0].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(7)).toArray()[0].toString(),"brown",150,35,25,"brown1",4));
         CompoundView compoundView21 = findViewById(R.id.brown2);
         compoundView21.changeImage(8);
-        compoundView21.setText("Brown property 2");
-        properties.add(new Property("brown2","brown",125,30,20,"brown1",2));
+        compoundView21.setText(colourLocations.get(groupGenres.get(7)).toArray()[2].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(7)).toArray()[2].toString(),"brown",125,30,20,"brown1",2));
         CompoundView compoundView22 = findViewById(R.id.brown3);
         compoundView22.changeImage(8);
-        compoundView22.setText("Brown property 3");
-        properties.add(new Property("brown3","brown",100,30,20,"brown3",1));
+        compoundView22.setText(colourLocations.get(groupGenres.get(7)).toArray()[2].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(7)).toArray()[2].toString(),"brown",100,30,20,"brown3",1));
 
         //chance card
         CompoundView compoundView23 = (CompoundView)findViewById(R.id.card1);
