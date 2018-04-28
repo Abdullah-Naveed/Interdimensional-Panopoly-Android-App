@@ -96,11 +96,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         CompoundView compoundView2 = findViewById(R.id.red2);
         compoundView2.changeImage(1);
         compoundView2.setText(colourLocations.get(groupGenres.get(0)).toArray()[1].toString());
-        properties.add(new Property("red2","red",400,95,80,"red2",22));
+        properties.add(new Property(colourLocations.get(groupGenres.get(0)).toArray()[1].toString(),"red",400,95,80,"red2",22));
         CompoundView compoundView3 = findViewById(R.id.red3);
         compoundView3.changeImage(1);
         compoundView3.setText(colourLocations.get(groupGenres.get(0)).toArray()[2].toString());
-        properties.add(new Property("red3","red",375,95,80,"red3",24));
+        properties.add(new Property(colourLocations.get(groupGenres.get(0)).toArray()[2].toString(),"red",375,95,80,"red3",24));
 
         //yellow
         CompoundView compoundView4 = findViewById(R.id.yellow1);
@@ -185,8 +185,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         properties.add(new Property(colourLocations.get(groupGenres.get(7)).toArray()[0].toString(),"brown",150,35,25,"brown1",1));
         CompoundView compoundView21 = findViewById(R.id.brown2);
         compoundView21.changeImage(8);
-        compoundView21.setText(colourLocations.get(groupGenres.get(7)).toArray()[2].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(7)).toArray()[2].toString(),"brown",125,30,20,"brown1",2));
+        compoundView21.setText(colourLocations.get(groupGenres.get(7)).toArray()[1].toString());
+        properties.add(new Property(colourLocations.get(groupGenres.get(7)).toArray()[1].toString(),"brown",125,30,20,"brown2",2));
         CompoundView compoundView22 = findViewById(R.id.brown3);
         compoundView22.changeImage(8);
         compoundView22.setText(colourLocations.get(groupGenres.get(7)).toArray()[2].toString());
@@ -283,13 +283,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             i+=RANDOM.nextInt(6) + 1;
 //            for(int j=0;j<i;j++)
 //            {
-                players.get(0).move(i);
+//                players.get(0).move(i);
+                GameState.getInstance().getCurrentPlayer().move(i);
+                System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
                 alertMovedButton(i);
 //            }
 
 
         } else if (id == R.id.roll_1) {
-            players.get(0).move(1);
+            GameState.getInstance().getCurrentPlayer().move(1);
 
         } else if (id == R.id.trade) {
 
@@ -441,12 +443,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         View parent = (View) view.getParent();
         String viewName=GameState.getInstance().getContext().getResources().getResourceEntryName(parent.getId());
+        System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
 
         Property currentProperty = null;
 
         for (Property prop : properties) {
             if (viewName.equals(prop.getCompoundViewID())) {
                 currentProperty = prop;
+                System.out.println(currentProperty.getLocation());
             }
         }
 

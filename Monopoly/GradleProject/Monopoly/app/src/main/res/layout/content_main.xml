@@ -151,7 +151,7 @@
 
 
             <com.rob.monopoly.CompoundView
-                android:id="@+id/green1"
+                android:id="@+id/green3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:rotation="90"
@@ -246,7 +246,7 @@
 
 
             <com.rob.monopoly.CompoundView
-                android:id="@+id/green3"
+                android:id="@+id/green1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:rotation="90"
@@ -400,7 +400,7 @@
                 />
 
             <com.rob.monopoly.CompoundView
-                android:id="@+id/grey1"
+                android:id="@+id/grey3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:customViewTitle="My Title" />
@@ -418,7 +418,7 @@
                 app:customViewTitle="" />
 
             <com.rob.monopoly.CompoundView
-                android:id="@+id/grey3"
+                android:id="@+id/grey1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:customViewTitle="My Title" />
@@ -430,7 +430,7 @@
                 app:customViewTitle="" />
 
             <com.rob.monopoly.CompoundView
-                android:id="@+id/orange1"
+                android:id="@+id/orange2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:customViewTitle="My Title" />
@@ -442,7 +442,7 @@
                 app:customViewTitle="" />
 
             <com.rob.monopoly.CompoundView
-                android:id="@+id/orange2"
+                android:id="@+id/orange1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:customViewTitle="My Title" />
@@ -454,7 +454,7 @@
                 app:customViewTitle="" />
 
             <com.rob.monopoly.CompoundView
-                android:id="@+id/brown1"
+                android:id="@+id/brown3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:customViewTitle="My Title" />
@@ -472,7 +472,7 @@
                 app:customViewTitle="My Title" />
 
             <com.rob.monopoly.CompoundView
-                android:id="@+id/brown3"
+                android:id="@+id/brown1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:customViewTitle="Other Title" />
