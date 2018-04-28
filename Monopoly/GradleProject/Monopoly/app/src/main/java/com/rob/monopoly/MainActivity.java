@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void initialSetting(){
         //red
         KnowledgeBaseModule knowledgeBaseModule=new KnowledgeBaseModule(this);
-        HashMap<String,ArrayList<String>> colourLocations = new LinkedHashMap<>(knowledgeBaseModule.getLocations(this));
+        HashMap<String,ArrayList<String>> colourLocations = new LinkedHashMap<String,ArrayList<String>>(knowledgeBaseModule.getLocations(this));
 
         ArrayList<String> groupGenres = new ArrayList<>();
 
@@ -296,26 +296,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_manage) {
 
-            if(GameState.getInstance().getCurrentPlayer().getBalance()<0){
+//            if(GameState.getInstance().getCurrentPlayer().getBalance()<0){
 
-                SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
-                pDialog.setCancelButton("Bankrupt", new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        //remove player
-                    }
+            SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
+            pDialog.setCancelButton("I've had a change of heart", sweetAlertDialog -> {
+                    pDialog.cancel();
                 });
 
-                pDialog.setTitle("Your balance is too low!");
+            pDialog.setConfirmButton("Yes take my soul", sweetAlertDialog -> {
+
+                    GameState.getInstance().removePlayer(GameState.getInstance().getCurrentPlayer());
+
+                    pDialog.cancel();
+            });
+
+                pDialog.setTitle("Are u sure u wanna LOSE hahahahaha");
                 pDialog.show();
 
 
-            }else{
+            }
+            else{
                 GameState.getInstance().changeToNextPlayer();
                 Log.i("Player",GameState.getInstance().getCurrentPlayer().getID());
             }
 
-        }
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

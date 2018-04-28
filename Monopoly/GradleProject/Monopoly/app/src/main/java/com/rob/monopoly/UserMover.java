@@ -23,9 +23,18 @@ public class UserMover extends AppCompatActivity{
         this.context = context;
     }
 
-
     public int move(ViewGroup viewGroup, int index, int User)
     {
+        GameState.getInstance().getCurrentPlayer().withdraw(2000);
+        if(GameState.getInstance().getCurrentPlayer().getBalance() <= 0){
+
+            SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
+            pDialog.setContentText("Hey loser ur out of money ha ha ha u need 2 sell sum stuff lol");
+            pDialog.show();
+
+            return 0;
+        }
+
         wipe(User,viewGroup);
         if(index>=20&&index<=34)
         {
