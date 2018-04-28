@@ -63,17 +63,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //add players
         Bundle bundle = getIntent().getExtras();
         int numPlayers=(int)bundle.get("NumPlayers");
-        System.out.println(numPlayers);
+        initialPlayers(numPlayers);
+        instance.setCurrentPlayer(instance.getPlayerWithInt(0));
+
+    }
+
+    public void initialPlayers(int numPlayers)
+    {
         for(int i=0;i<numPlayers;i++)
         {
-            instance.addPlayers((new Player(this,viewGroup,"i")));
+            instance.addPlayers((new Player(this,viewGroup,"Player "+i,i)));
+            instance.setCurrentPlayer(instance.getPlayerWithInt(i));
+            instance.getPlayerWithInt(i).move(0);
         }
-        System.out.println(instance.getNumPlayers());
-        instance.addPlayers((new Player(this,viewGroup,"Rob")));
-        instance.getPlayers().get(0).setPlayerLocation(21);
-        instance.setCurrentPlayer(instance.getPlayers().get(0));
-        instance.addPlayers(new Player(this,viewGroup,"Abdullah"));
-
     }
 
 

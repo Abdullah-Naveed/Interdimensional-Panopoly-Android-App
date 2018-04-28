@@ -25,7 +25,7 @@ public class UserMover extends AppCompatActivity{
 
     public int move(ViewGroup viewGroup, int index, int User)
     {
-        GameState.getInstance().getCurrentPlayer().withdraw(2000);
+//        GameState.getInstance().getCurrentPlayer().withdraw(2000);
         if(GameState.getInstance().getCurrentPlayer().getBalance() <= 0){
 
             SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
@@ -215,10 +215,10 @@ public class UserMover extends AppCompatActivity{
     {
         switch(User)
         {
-            case 1:View colour1=view.findViewById(R.id.colored_bar1);try{colour1.setVisibility(View.VISIBLE);}catch(Exception e){};break;
-            case 2:View colour2=view.findViewById(R.id.colored_bar2);try{colour2.setVisibility(View.VISIBLE);}catch(Exception e){};break;
-            case 3:View colour3=view.findViewById(R.id.colored_bar3);try{colour3.setVisibility(View.VISIBLE);}catch(Exception e){};break;
-            case 4:View colour4=view.findViewById(R.id.colored_bar4);try{colour4.setVisibility(View.VISIBLE);}catch(Exception e){};break;
+            case 0:View colour1=view.findViewById(R.id.colored_bar1);try{colour1.setVisibility(View.VISIBLE);}catch(Exception e){};break;
+            case 1:View colour2=view.findViewById(R.id.colored_bar2);try{colour2.setVisibility(View.VISIBLE);}catch(Exception e){};break;
+            case 2:View colour3=view.findViewById(R.id.colored_bar3);try{colour3.setVisibility(View.VISIBLE);}catch(Exception e){};break;
+            case 3:View colour4=view.findViewById(R.id.colored_bar4);try{colour4.setVisibility(View.VISIBLE);}catch(Exception e){};break;
         }
     }
 
@@ -232,10 +232,10 @@ public class UserMover extends AppCompatActivity{
                 View view=subView.getVirtualChildAt(j);
                 switch(User)
                 {
-                    case 1: View colour1=view.findViewById(R.id.colored_bar1);try{colour1.setVisibility(View.INVISIBLE);}catch(Exception e){}break;
-                    case 2: View colour2=view.findViewById(R.id.colored_bar2);try{colour2.setVisibility(View.INVISIBLE);}catch(Exception e){}break;
-                    case 3: View colour3=view.findViewById(R.id.colored_bar3);try{colour3.setVisibility(View.INVISIBLE);}catch(Exception e){}break;
-                    case 4: View colour4=view.findViewById(R.id.colored_bar4);try{colour4.setVisibility(View.INVISIBLE);}catch(Exception e){}break;
+                    case 0: View colour1=view.findViewById(R.id.colored_bar1);try{colour1.setVisibility(View.INVISIBLE);}catch(Exception e){}break;
+                    case 1: View colour2=view.findViewById(R.id.colored_bar2);try{colour2.setVisibility(View.INVISIBLE);}catch(Exception e){}break;
+                    case 2: View colour3=view.findViewById(R.id.colored_bar3);try{colour3.setVisibility(View.INVISIBLE);}catch(Exception e){}break;
+                    case 3: View colour4=view.findViewById(R.id.colored_bar4);try{colour4.setVisibility(View.INVISIBLE);}catch(Exception e){}break;
 
                 }
             }

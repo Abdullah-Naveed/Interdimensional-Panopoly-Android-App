@@ -20,11 +20,12 @@ public class Player extends UserMover implements Playable{
     private Bank bankAccount=new Bank(1000);
     private ArrayList<Property> properties=new ArrayList<Property>();
 
-    public Player(Context context,ViewGroup viewGroup, String ID)
+    public Player(Context context,ViewGroup viewGroup, String ID,int playerNum)
     {
         super(context);
         this.viewGroup=viewGroup;
         this.ID=ID;
+        this.playerNum=playerNum;
         bankAccount=new Bank(2000);
         players.add(this);
     }

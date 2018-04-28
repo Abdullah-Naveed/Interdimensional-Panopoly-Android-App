@@ -36,6 +36,7 @@ public class GameState {
             return instance;
         }
 
+        public Player getPlayerWithInt(int i) { return this.players.get(i); }
 
         public Player getCurrentPlayer() {
             return currentPlayer;
