@@ -54,20 +54,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         initialSetting();
 
-        instance=GameState.getInstance();
-        viewGroup=(ViewGroup) findViewById(R.id.tablelayout);
+        instance = GameState.getInstance();
+        viewGroup = (ViewGroup) findViewById(R.id.tablelayout);
         instance.setViewGroup(viewGroup);
         instance.setContext(this);
         //gamestate add players, current player and numPlayers
 
         //add players
         Bundle bundle = getIntent().getExtras();
-        int numPlayers=(int)bundle.get("NumPlayers");
+        int numPlayers = (int) bundle.get("NumPlayers");
         initialPlayers(numPlayers);
         instance.setCurrentPlayer(instance.getPlayerWithInt(0));
 
     }
-
     public void initialPlayers(int numPlayers)
     {
         for(int i=0;i<numPlayers;i++)
@@ -573,10 +572,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
         ListView listView = new ListView(GameState.getInstance().getContext());
-        String owner=property.getOwner().toString();
+        String owner=null;
         if(property.getOwner()==null)
         {
             owner="No Owner";
+        }
+        else
+        {
+            owner=property.getOwner().getID();
         }
         String[] values = new String[] {
                 "Property Name: "+property.getID(),
@@ -596,8 +599,70 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void tradePopup()
     {
-        Intent startTrading = new Intent(MainActivity.this,Trading.class);
-        startActivity(startTrading);
+//        Intent startTrading = new Intent(MainActivity.this,Trading.class);
+//        startActivity(startTrading);
+
+        AlertDialog dialog;
+
+        //following code will be in your activity.java file
+
+        CharSequence[] items = new CharSequence[GameState.getInstance().getCurrentPlayer().getNumProperties()];
+        ArrayList<Property> properties=GameState.getInstance().getCurrentPlayer().getProperties();
+        int i=0;
+        for(Property property:properties)
+        {
+            items[i]=property.getID();
+            i++;
+        }
+
+
+        // arraylist to keep the selected items
+        final ArrayList seletedItems=new ArrayList();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select The Difficulty Level");
+        builder.setMultiChoiceItems(items, null,
+                new DialogInterface.OnMultiChoiceClickListener() {
+                    // indexSelected contains the index of item (of which checkbox checked)
+                    @Override
+                    public void onClick(DialogInterface dialog, int indexSelected,
+                                        boolean isChecked) {
+                        if (isChecked) {
+                            // If the user checked the item, add it to the selected items
+                            // write your code when user checked the checkbox
+                            seletedItems.add(indexSelected);
+                        } else if (seletedItems.contains(indexSelected)) {
+                            // Else, if the item is already in the array, remove it
+                            // write your code when user Uchecked the checkbox
+                            seletedItems.remove(Integer.valueOf(indexSelected));
+                        }
+                    }
+                })
+                // Set the action buttons
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Your code when user clicked on OK
+                        //  You can write the code  to save the selected item here
+                        System.out.println(items);
+                        System.out.println(seletedItems);
+
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Your code when user clicked on Cancel
+
+                    }
+                });
+
+        System.out.println(seletedItems);
+        System.out.println(items);
+
+        dialog = builder.create();//AlertDialog dialog; create like this outside onClick
+        dialog.show();
+
 
     }
 
