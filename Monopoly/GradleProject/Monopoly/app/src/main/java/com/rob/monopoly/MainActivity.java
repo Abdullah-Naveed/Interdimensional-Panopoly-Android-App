@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         CompoundView compoundView1 = findViewById(R.id.red1);
         compoundView1.changeImage(1);
         compoundView1.setText(colourLocations.get(groupGenres.get(0)).toArray()[0].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(0)).toArray()[0].toString(),"red",425,100,85,"red1",24));
+        properties.add(new Property(colourLocations.get(groupGenres.get(0)).toArray()[0].toString(),"red",425,100,85,"red1",21));
         CompoundView compoundView2 = findViewById(R.id.red2);
         compoundView2.changeImage(1);
         compoundView2.setText(colourLocations.get(groupGenres.get(0)).toArray()[1].toString());
@@ -99,23 +99,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         CompoundView compoundView3 = findViewById(R.id.red3);
         compoundView3.changeImage(1);
         compoundView3.setText(colourLocations.get(groupGenres.get(0)).toArray()[2].toString());
-        properties.add(new Property("red3","red",375,95,80,"red3",21));
+        properties.add(new Property("red3","red",375,95,80,"red3",24));
 
         //yellow
         CompoundView compoundView4 = findViewById(R.id.yellow1);
         compoundView4.changeImage(2);
         compoundView4.setText(colourLocations.get(groupGenres.get(1)).toArray()[0].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(1)).toArray()[0].toString(),"yellow",475,120,105,"yellow1",28));
+        properties.add(new Property(colourLocations.get(groupGenres.get(1)).toArray()[0].toString(),"yellow",475,120,105,"yellow1",26));
         CompoundView compoundView5 = findViewById(R.id.yellow2);
         compoundView5.changeImage(2);
         compoundView5.setText(colourLocations.get(groupGenres.get(1)).toArray()[1].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(1)).toArray()[1].toString(),"yellow",450,125,100,"yellow2",26));
+        properties.add(new Property(colourLocations.get(groupGenres.get(1)).toArray()[1].toString(),"yellow",450,125,100,"yellow2",28));
 
         //pink
         CompoundView compoundView6 = findViewById(R.id.pink1);
         compoundView6.changeImage(3);
         compoundView6.setText(colourLocations.get(groupGenres.get(2)).toArray()[0].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(2)).toArray()[0].toString(),"pink",550,140,125,"pink1",33));
+        properties.add(new Property(colourLocations.get(groupGenres.get(2)).toArray()[0].toString(),"pink",550,140,125,"pink1",30));
         CompoundView compoundView7 = findViewById(R.id.pink2);
         compoundView7.changeImage(3);
         compoundView7.setText(colourLocations.get(groupGenres.get(2)).toArray()[1].toString());
@@ -123,13 +123,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         CompoundView compoundView8 = findViewById(R.id.pink3);
         compoundView8.changeImage(3);
         compoundView8.setText(colourLocations.get(groupGenres.get(2)).toArray()[2].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(2)).toArray()[2].toString(),"pink",500,135,120,"pink3",30));
+        properties.add(new Property(colourLocations.get(groupGenres.get(2)).toArray()[2].toString(),"pink",500,135,120,"pink3",33));
 
         //green
         CompoundView compoundView9 = findViewById(R.id.green1);
         compoundView9.changeImage(4);
         compoundView9.setText(colourLocations.get(groupGenres.get(3)).toArray()[0].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(3)).toArray()[0].toString(),"green",350,85,70,"green1",19));
+        properties.add(new Property(colourLocations.get(groupGenres.get(3)).toArray()[0].toString(),"green",350,85,70,"green1",17));
         CompoundView compoundView10 = findViewById(R.id.green2);
         compoundView10.changeImage(4);
         compoundView10.setText(colourLocations.get(groupGenres.get(3)).toArray()[1].toString());
@@ -137,13 +137,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         CompoundView compoundView11 = findViewById(R.id.green3);
         compoundView11.changeImage(4);
         compoundView11.setText(colourLocations.get(groupGenres.get(3)).toArray()[2].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(3)).toArray()[2].toString(),"green",300,80,65,"green3",17));
+        properties.add(new Property(colourLocations.get(groupGenres.get(3)).toArray()[2].toString(),"green",300,80,65,"green3",19));
 
         //blue
         CompoundView compoundView12 = findViewById(R.id.blue1);
         compoundView12.changeImage(5);
         compoundView12.setText(colourLocations.get(groupGenres.get(4)).toArray()[0].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(4)).toArray()[0].toString(),"blue",625,170,150,"blue1",39));
+        properties.add(new Property(colourLocations.get(groupGenres.get(4)).toArray()[0].toString(),"blue",625,170,150,"blue1",37));
         CompoundView compoundView13 = findViewById(R.id.blue2);
         compoundView13.changeImage(5);
         compoundView13.setText(colourLocations.get(groupGenres.get(4)).toArray()[1].toString());
@@ -151,13 +151,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         CompoundView compoundView14 = findViewById(R.id.blue3);
         compoundView14.changeImage(5);
         compoundView14.setText(colourLocations.get(groupGenres.get(4)).toArray()[2].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(4)).toArray()[2].toString(),"blue",575,160,140,"blue3",37));
+        properties.add(new Property(colourLocations.get(groupGenres.get(4)).toArray()[2].toString(),"blue",575,160,140,"blue3",39));
 
         //grey
         CompoundView compoundView15 = findViewById(R.id.grey1);
         compoundView15.changeImage(6);
         compoundView15.setText(colourLocations.get(groupGenres.get(5)).toArray()[0].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(5)).toArray()[0].toString(),"grey",275,70,55,"grey1",13));
+        properties.add(new Property(colourLocations.get(groupGenres.get(5)).toArray()[0].toString(),"grey",275,70,55,"grey1",10));
         CompoundView compoundView16 = findViewById(R.id.grey2);
         compoundView16.changeImage(6);
         compoundView16.setText(colourLocations.get(groupGenres.get(5)).toArray()[1].toString());
@@ -165,23 +165,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         CompoundView compoundView17 = findViewById(R.id.grey3);
         compoundView17.changeImage(6);
         compoundView17.setText(colourLocations.get(groupGenres.get(5)).toArray()[2].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(5)).toArray()[2].toString(),"grey",225,65,50,"grey3",10));
+        properties.add(new Property(colourLocations.get(groupGenres.get(5)).toArray()[2].toString(),"grey",225,65,50,"grey3",13));
 
         //orange
         CompoundView compoundView18 = findViewById(R.id.orange1);
         compoundView18.changeImage(7);
         compoundView18.setText(colourLocations.get(groupGenres.get(6)).toArray()[0].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(6)).toArray()[0].toString(),"orange",200,45,35,"orange1",8));
+        properties.add(new Property(colourLocations.get(groupGenres.get(6)).toArray()[0].toString(),"orange",200,45,35,"orange1",6));
         CompoundView compoundView19 = findViewById(R.id.orange2);
         compoundView19.changeImage(7);
         compoundView19.setText(colourLocations.get(groupGenres.get(6)).toArray()[1].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(6)).toArray()[1].toString(),"orange",175,40,30,"orange2",6));
+        properties.add(new Property(colourLocations.get(groupGenres.get(6)).toArray()[1].toString(),"orange",175,40,30,"orange2",8));
 
         //brown
         CompoundView compoundView20 = findViewById(R.id.brown1);
         compoundView20.changeImage(8);
         compoundView20.setText(colourLocations.get(groupGenres.get(7)).toArray()[0].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(7)).toArray()[0].toString(),"brown",150,35,25,"brown1",4));
+        properties.add(new Property(colourLocations.get(groupGenres.get(7)).toArray()[0].toString(),"brown",150,35,25,"brown1",1));
         CompoundView compoundView21 = findViewById(R.id.brown2);
         compoundView21.changeImage(8);
         compoundView21.setText(colourLocations.get(groupGenres.get(7)).toArray()[2].toString());
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         CompoundView compoundView22 = findViewById(R.id.brown3);
         compoundView22.changeImage(8);
         compoundView22.setText(colourLocations.get(groupGenres.get(7)).toArray()[2].toString());
-        properties.add(new Property(colourLocations.get(groupGenres.get(7)).toArray()[2].toString(),"brown",100,30,20,"brown3",1));
+        properties.add(new Property(colourLocations.get(groupGenres.get(7)).toArray()[2].toString(),"brown",100,30,20,"brown3",4));
 
         //chance card
         CompoundView compoundView23 = (CompoundView)findViewById(R.id.card1);
