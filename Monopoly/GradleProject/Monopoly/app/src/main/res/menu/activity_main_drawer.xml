@@ -9,17 +9,17 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Roll" />
         <item
-            android:id="@+id/roll_1"
+            android:id="@+id/end_turn"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Roll 1" />
+            android:title="End Turn" />
         <item
-            android:id="@+id/trade"
+            android:id="@+id/trade_properties"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Trade" />
+            android:title="Trade Properties" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/bankrupt"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Bankrupt" />
     </group>
 
 
