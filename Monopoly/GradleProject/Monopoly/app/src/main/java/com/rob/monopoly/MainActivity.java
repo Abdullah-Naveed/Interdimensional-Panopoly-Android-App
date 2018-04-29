@@ -37,6 +37,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -662,6 +664,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             selectedProperties.add(properties.get((int)i));
                         }
                         choosePlayerPopUp(selectedProperties);
+                        dialog.cancel();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -703,6 +706,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     for(Player p : GameState.getInstance().getPlayers()){
                         if(p.getID()==items2[which]){
                             choseOtherPlayerProperties(p);
+                            dialog.cancel();
                         }
                     }
                 }
@@ -759,8 +763,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             {
                                 selectedProperties.add(properties.get((int)i));
                             }
+
 //                            choosePlayerPopUp(selectedProperties);
 //                            new dialog to agree
+                            dialog.cancel();
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
