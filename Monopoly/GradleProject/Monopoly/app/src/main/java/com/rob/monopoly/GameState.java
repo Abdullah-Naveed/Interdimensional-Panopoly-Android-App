@@ -88,6 +88,17 @@ public class GameState {
             this.properties.add(property);
         }
 
+        public Property setPropertyOwner(String propertyID,Player player) {
+            for(Property property:properties)
+            {
+                if(property.getID().equals(propertyID))
+                {
+                    property.setOwner(player);
+                }
+            }
+            return null;
+        }
+
         public ArrayList<Player> getPlayers() {
             return players;
         }

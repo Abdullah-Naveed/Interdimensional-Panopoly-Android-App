@@ -30,7 +30,9 @@ import android.widget.Toast;
 import com.rob.monopoly.NOCList.twitterbotics.KnowledgeBaseModule;
 import com.sdsmdg.tastytoast.TastyToast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -469,7 +471,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Property currentProperty = null;
 
-        for (Property prop : properties) {
+        for (Property prop : GameState.getInstance().getProperties()) {
             if (viewName.equals(prop.getCompoundViewID())) {
                 currentProperty = prop;
                 System.out.println(currentProperty.getLocation());
@@ -501,7 +503,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String[] values = new String[] {
                 "Property Name: "+property.getID(),
                 "Buy Price: "+property.buyPrice(),
-                "Mortgage Price: "+property.getMortgageAmount(),
                 "Rent Price: "+property.getRentalAmount(),
                 "Number of Houses: "+property.getNumHouses(),
                 "Owner: No Owner"
@@ -536,7 +537,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String[] values = new String[] {
                 "Property Name: "+property.getID(),
                 "Buy Price: "+property.buyPrice(),
-                "Mortgage Price: "+property.getMortgageAmount(),
                 "Rent Price: "+property.getRentalAmount(),
                 "Number of Houses: "+property.getNumHouses(),
                 "Owner: "+property.getOwner()
@@ -597,7 +597,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String[] values = new String[] {
                 "Property Name: "+property.getID(),
                 "Buy Price: "+property.buyPrice(),
-                "Mortgage Price: "+property.getMortgageAmount(),
                 "Rent Price: "+property.getRentalAmount(),
                 "Number of Houses: "+property.getNumHouses(),
                 "Owner: "+owner
@@ -705,7 +704,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     for(Player p : GameState.getInstance().getPlayers()){
                         if(p.getID()==items2[which]){
-                            choseOtherPlayerProperties(p);
+                            choseOtherPlayerProperties(p,selectedProperties);
                             dialog.cancel();
                         }
                     }
@@ -720,7 +719,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void choseOtherPlayerProperties(Player player) {
+    private void choseOtherPlayerProperties(Player player, ArrayList<Property> selectedP) {
 
         AlertDialog.Builder builder2 = new AlertDialog.Builder(GameState.getInstance().getContext());
         builder2.setTitle("Choose The Other Properties To Trade With");
@@ -764,8 +763,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 selectedProperties.add(properties.get((int)i));
                             }
 
-//                            choosePlayerPopUp(selectedProperties);
 //                            new dialog to agree
+                            agreementBetweenPlayers(player, selectedP,selectedProperties);
+
+
+
                             dialog.cancel();
                         }
                     })
@@ -781,6 +783,54 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             e.printStackTrace();
         }
+
+    }
+
+    private void agreementBetweenPlayers(Player player, ArrayList<Property> firstProperties, ArrayList<Property> secondProperties) {
+
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(GameState.getInstance().getContext());
+        builder2.setTitle(player.getID() + ", Do you agree to this trade? ");
+
+        builder2.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                //function to do the trading between the players
+                tradeProperties(player, firstProperties, secondProperties);
+                dialogInterface.dismiss();
+
+            }
+        });
+
+        builder2.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+
+        AlertDialog tradeDialog2=builder2.create();
+        tradeDialog2.show();
+
+
+    }
+
+    private void tradeProperties(Player player, ArrayList<Property> firstProperties, ArrayList<Property> secondProperties) {
+
+        for(Property property : firstProperties){
+            GameState.getInstance().getCurrentPlayer().removeFromProperties(property);
+            player.addToProperties(property);
+            GameState.getInstance().setPropertyOwner(property.getID(),player);
+        }
+
+        for(Property property : secondProperties){
+            player.removeFromProperties(property);
+            GameState.getInstance().getCurrentPlayer().addToProperties(property);
+            GameState.getInstance().setPropertyOwner(property.getID(),GameState.getInstance().getCurrentPlayer());
+        }
+
+        TastyToast.makeText(getApplicationContext(), "Trade Successful", TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
 
     }
 
