@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //add players
         Bundle bundle = getIntent().getExtras();
         int numPlayers = (int) bundle.get("NumPlayers");
+//        diceShow(new View(this));
         initialPlayers(numPlayers);
         instance.setCurrentPlayer(instance.getPlayerWithInt(0));
 
@@ -398,40 +399,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final Animation anim2 = AnimationUtils.loadAnimation(GameState.getInstance().getContext(), R.anim.shake);
         ImageView imageView1=findViewById(R.id.dice);
         ImageView imageView2=findViewById(R.id.dice2);
-        int moves=GameState.getInstance().getCurrentPlayer().getPlayerLocation();
-        final Animation.AnimationListener animationListener = new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                int value = randomDiceValue();
-                int moves=GameState.getInstance().getCurrentPlayer().getPlayerLocation();
-                GameState.getInstance().getCurrentPlayer().setPlayerLocation(moves+=value);
-                int res = getResources().getIdentifier("dice_" + value, "drawable", "com.rob.monopoly");
-
-                if (animation == anim1) {
-                    imageView1.setImageResource(res);
-                } else if (animation == anim2) {
-                    imageView2.setImageResource(res);
+        try
+        {
+            int moves=GameState.getInstance().getCurrentPlayer().getPlayerLocation();
+            final Animation.AnimationListener animationListener = new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
                 }
 
-            }
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    int value = randomDiceValue();
+                    int moves=GameState.getInstance().getCurrentPlayer().getPlayerLocation();
+                    GameState.getInstance().getCurrentPlayer().setPlayerLocation(moves+=value);
+                    int res = getResources().getIdentifier("dice_" + value, "drawable", "com.rob.monopoly");
 
-            @Override
-            public void onAnimationRepeat(Animation animation) {
+                    if (animation == anim1) {
+                        imageView1.setImageResource(res);
+                    } else if (animation == anim2) {
+                        imageView2.setImageResource(res);
+                    }
 
-            }
-        };
+                }
 
-        anim1.setAnimationListener(animationListener);
-        anim2.setAnimationListener(animationListener);
+                @Override
+                public void onAnimationRepeat(Animation animation) {
 
-        imageView1.startAnimation(anim1);
-        imageView2.startAnimation(anim2);
-        moves-=GameState.getInstance().getCurrentPlayer().getPlayerLocation();
-        GameState.getInstance().getCurrentPlayer().move(Math.abs(moves));
+                }
+            };
+
+            anim1.setAnimationListener(animationListener);
+            anim2.setAnimationListener(animationListener);
+
+            imageView1.startAnimation(anim1);
+            imageView2.startAnimation(anim2);
+            moves-=GameState.getInstance().getCurrentPlayer().getPlayerLocation();
+            GameState.getInstance().getCurrentPlayer().move(Math.abs(moves));
+        }catch(NullPointerException e)
+        {
+
+        }
+
     }
 
     public static int randomDiceValue() {
@@ -606,12 +614,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        Intent startTrading = new Intent(MainActivity.this,Trading.class);
 //        startActivity(startTrading);
 
-        AlertDialog dialog;
+        AlertDialog tradeDialog;
 
         //following code will be in your activity.java file
 
         CharSequence[] items = new CharSequence[GameState.getInstance().getCurrentPlayer().getNumProperties()];
         ArrayList<Property> properties=GameState.getInstance().getCurrentPlayer().getProperties();
+        ArrayList<Property> selectedProperties=new ArrayList<>();
         int i=0;
         for(Property property:properties)
         {
@@ -624,7 +633,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final ArrayList seletedItems=new ArrayList();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select The Difficulty Level");
+        builder.setTitle("Select What Properties You Wanna Trade");
         builder.setMultiChoiceItems(items, null,
                 new DialogInterface.OnMultiChoiceClickListener() {
                     // indexSelected contains the index of item (of which checkbox checked)
@@ -643,13 +652,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 })
                 // Set the action buttons
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Next", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         //  Your code when user clicked on OK
                         //  You can write the code  to save the selected item here
-                        System.out.println(items);
-                        System.out.println(seletedItems);
+                        for(Object i:seletedItems)
+                        {
+                            selectedProperties.add(properties.get((int)i));
+                        }
+                        for(Property prop:selectedProperties)
+                        {
+                            System.out.println(prop.getID());
+                        }
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(GameState.getInstance().getContext());
+                        builder.setTitle("test");
+                        CharSequence[] items = new CharSequence[GameState.getInstance().getNumPlayers()];
+                        int i=0;
+                        for(Player player:GameState.getInstance().getPlayers())
+                        {
+                            if(GameState.getInstance().getCurrentPlayer()!=player)
+                            {
+                                items[i]=player.getID();
+                                i++;
+                            }
+
+                        }
+                        ArrayList<Player> players=new ArrayList<>();
+                        builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        AlertDialog tradeDialog;
+                        tradeDialog=builder.create();
+                        tradeDialog.show();
+
 
                     }
                 })
@@ -661,11 +701,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
 
-        System.out.println(seletedItems);
-        System.out.println(items);
-
-        dialog = builder.create();//AlertDialog dialog; create like this outside onClick
-        dialog.show();
+        tradeDialog = builder.create();//AlertDialog dialog; create like this outside onClick
+        tradeDialog.show();
 
 
     }
