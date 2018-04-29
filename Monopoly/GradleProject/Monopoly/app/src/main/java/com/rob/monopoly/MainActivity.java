@@ -615,6 +615,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        startActivity(startTrading);
 
         AlertDialog tradeDialog;
+        final boolean secondPopup=false;
 
         //following code will be in your activity.java file
 
@@ -632,7 +633,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // arraylist to keep the selected items
         final ArrayList seletedItems=new ArrayList();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(GameState.getInstance().getContext());
         builder.setTitle("Select What Properties You Wanna Trade");
         builder.setMultiChoiceItems(items, null,
                 new DialogInterface.OnMultiChoiceClickListener() {
@@ -661,34 +662,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         {
                             selectedProperties.add(properties.get((int)i));
                         }
-                        for(Property prop:selectedProperties)
-                        {
-                            System.out.println(prop.getID());
-                        }
+                        choosePlayerPopUp(selectedProperties);
+//                        for(Property prop:selectedProperties)
+//                        {
+//                            System.out.println(prop.getID());
+//                        }
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(GameState.getInstance().getContext());
-                        builder.setTitle("test");
-                        CharSequence[] items = new CharSequence[GameState.getInstance().getNumPlayers()];
-                        int i=0;
-                        for(Player player:GameState.getInstance().getPlayers())
-                        {
-                            if(GameState.getInstance().getCurrentPlayer()!=player)
-                            {
-                                items[i]=player.getID();
-                                i++;
-                            }
 
-                        }
-                        ArrayList<Player> players=new ArrayList<>();
-                        builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        AlertDialog tradeDialog;
-                        tradeDialog=builder.create();
-                        tradeDialog.show();
+//                        builder.setPositiveButton("Next", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int whichButton) {
+////                                dialog.dismiss();
+//                                int selectedPosition = ((AlertDialog)dialog).getListView().getCheckedItemPosition();
+//                                // Do something useful withe the position of the selected radio button
+//                                System.out.println(selectedPosition);
+//                            }
+//                        });
+//                        AlertDialog tradeDialog2=builder.create();
+//                        tradeDialog2.show();
 
 
                     }
@@ -697,13 +687,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         //  Your code when user clicked on Cancel
-
                     }
                 });
 
         tradeDialog = builder.create();//AlertDialog dialog; create like this outside onClick
         tradeDialog.show();
 
+    }
+
+    private void choosePlayerPopUp(ArrayList<Property> selectedProperties) {
+        for(Property property:selectedProperties)
+        {
+            System.out.println(property.getID());
+        }
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(GameState.getInstance().getContext());
+        builder2.setTitle("Choose the player you would like to trade with");
+        System.out.println(GameState.getInstance().getNumPlayers());
+        CharSequence[] items2 = new CharSequence[GameState.getInstance().getNumPlayers()-1];
+        int j=0;
+        for(Player player:GameState.getInstance().getPlayers())
+        {
+            if(GameState.getInstance().getCurrentPlayer()!=player)
+            {
+                items2[j]=player.getID();
+                j++;
+            }
+
+        }
+        ArrayList<Player> players=new ArrayList<>();
+        try
+        {
+            builder2.setSingleChoiceItems(items2, 1, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            AlertDialog tradeDialog2=builder2.create();
+            tradeDialog2.show();
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
 
     }
 

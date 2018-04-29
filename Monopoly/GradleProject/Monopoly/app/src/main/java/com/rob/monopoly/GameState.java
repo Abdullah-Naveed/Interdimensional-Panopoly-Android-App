@@ -55,7 +55,7 @@ public class GameState {
         }
 
         public int getNumPlayers() {
-            return numPlayers;
+            return players.size();
         }
 
         public void setNumPlayers(int numPlayers) {
@@ -98,7 +98,6 @@ public class GameState {
 
         public void addPlayers(Player player){
             this.players.add(player);
-            this.numPlayers++;
         }
 
         public ViewGroup getViewGroup() {
