@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rob.monopoly.NOCList.twitterbotics.KnowledgeBaseModule;
+import com.sdsmdg.tastytoast.TastyToast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -292,8 +293,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         } else if (id == R.id.end_turn) {
-//            GameState.getInstance().getCurrentPlayer().move(1);
-            GameState.getInstance().changeToNextPlayer();
+            if(GameState.getInstance().getCurrentPlayer().getBalance()<=0)
+            {
+                SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
+                pDialog.setTitleText("You Cant't End Turn With A Negative Balance");
+                pDialog.show();
+            }
+            else
+            {
+                GameState.getInstance().changeToNextPlayer();
+                TastyToast.makeText(getApplicationContext(), "Changed To Next Player", TastyToast.LENGTH_LONG, TastyToast.INFO);
+            }
+
+
         } else if (id == R.id.trade_properties) {
 
             tradePopup();
@@ -518,19 +530,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
         ListView listView = new ListView(GameState.getInstance().getContext());
-
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-//        {
-//            @Override
-//            public void onItemClick(AdapterView<?> arg0, View view,int position, long arg3)
-//            {
-//                System.out.println(view.getId());
-//                int id=view.getId();
-//                TextView textView=findViewById(id);
-//                System.out.println(textView);
-//                Toast.makeText(GameState.getInstance().getContext(), textView.getText(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
         String[] values = new String[] {
                 "Property Name: "+property.getID(),
