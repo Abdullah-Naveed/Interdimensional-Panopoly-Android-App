@@ -54,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ViewGroup viewGroup=null;
     GameState instance=null;
 
+    public int diceRoll = 0;
+    public int diceRoll1 = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -287,16 +290,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
         if (id == R.id.roll) {
-            Random RANDOM = new Random();
-            int i = RANDOM.nextInt(6) + 1;
-            i += RANDOM.nextInt(6) + 1;
+            if(!GameState.getInstance().getCurrentPlayer().isInJail()) {
 
-            GameState.getInstance().getCurrentPlayer().move(i);
-            System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
-            alertMovedButton(i);
-            checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+                Random RANDOM = new Random();
+                diceRoll = RANDOM.nextInt(6) + 1;
+                diceRoll1 = RANDOM.nextInt(6) + 1;
 
+                int i = diceRoll + diceRoll1;
+
+                GameState.getInstance().getCurrentPlayer().move(i);
+                System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+                checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+
+            }
+
+            else{
+
+                Random RANDOM = new Random();
+                diceRoll = RANDOM.nextInt(6) + 1;
+                diceRoll1 = RANDOM.nextInt(6) + 1;
+                int i = diceRoll + diceRoll1;
+
+                if(diceRoll == diceRoll1){
+
+                    GameState.getInstance().getCurrentPlayer().move(i);
+                    System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+                    checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+                    GameState.getInstance().getCurrentPlayer().setInJail(false);
+
+                }
+
+            }
 
         } else if (id == R.id.end_turn) {
             if (GameState.getInstance().getCurrentPlayer().getBalance() <= 0) {

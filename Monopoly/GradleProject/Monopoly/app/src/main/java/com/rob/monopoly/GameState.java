@@ -14,8 +14,6 @@ public class GameState {
 
         private static GameState instance;
 
-
-
         private Player currentPlayer;
         private int player;
         private int numPlayers;
@@ -24,7 +22,6 @@ public class GameState {
         private ArrayList<Card> cards=new ArrayList<Card>();
         private ViewGroup viewGroup;
         private Context context;
-
 
 
     private Activity activity;

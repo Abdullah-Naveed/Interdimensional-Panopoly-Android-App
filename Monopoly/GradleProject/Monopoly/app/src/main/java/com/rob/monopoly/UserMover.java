@@ -74,9 +74,7 @@ public class UserMover extends AppCompatActivity{
                 subView=(TableRow)viewGroup.getChildAt(6);
                 view=subView.getVirtualChildAt(Math.abs(0));
                 newLocation=0;
-
-//                inJailFunctionality();
-
+                GameState.getInstance().getCurrentPlayer().setInJail(true);
             }
 
 
@@ -273,6 +271,4 @@ public class UserMover extends AppCompatActivity{
         pDialog.show();
 
     }
-
-
 }

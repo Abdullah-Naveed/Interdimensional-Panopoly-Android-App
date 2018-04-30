@@ -15,6 +15,7 @@ public class Player extends UserMover implements Playable{
     private int playerNum = 1;
     private int playerLocation = 0;
     private boolean playerWasRemoved = false;
+    private boolean isInJail = false;
     private ViewGroup viewGroup;
     private String ID;
     private Bank bankAccount=new Bank(1000);
@@ -44,7 +45,11 @@ public class Player extends UserMover implements Playable{
     @Override
     public boolean isInJail()
     {
-        return false;
+        return isInJail;
+    }
+
+    public void setInJail(boolean inJail) {
+        this.isInJail = inJail;
     }
 
     @Override
