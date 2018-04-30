@@ -10,9 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TableRow;
 
+import com.rob.monopoly.Interfaces.Functional;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Vector;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -184,11 +187,12 @@ public class UserMover extends AppCompatActivity{
 
             if(index==3)
             {
-                ArrayList<Card> cards=GameState.getInstance().getCards();
-                Random rand=new Random();
+                cardPopup();
+//                ArrayList<Card> cards=GameState.getInstance().getCards();
+//                Random rand=new Random();
 
-                Card myCard = new Card();
-                myCard.runAway();
+//                Card myCard = new Card();
+//                myCard.runAway();
 
 //                cards.get(rand.nextInt(cards.size()-1))
 //                cardPopup(new Card());
@@ -236,7 +240,7 @@ public class UserMover extends AppCompatActivity{
         }
     }
 
-    private void wipe(int User, ViewGroup viewGroup)
+    public void wipe(int User, ViewGroup viewGroup)
     {
         for(int i=0;i<viewGroup.getChildCount();i++)
         {
@@ -263,11 +267,17 @@ public class UserMover extends AppCompatActivity{
         mp.start();
     }
 
-    private void cardPopup(Card card) {
+    private void cardPopup() {
 
+        FunctionProbe functionProbe=new FunctionProbe();
+        Vector<Method> methods=functionProbe.findMethods(Card.class, Functional.class);
+        Random RANDOM = new Random();
+//        int i = RANDOM.nextInt(6) + 1;
+        int i=0;
+        System.out.println(methods);
         SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
         pDialog.setTitleText("Card");
-        pDialog.setContentText("TestTestTest");
+        pDialog.setContentText(functionProbe.invokeMarked(methods.elementAt(1)).toString()+"\n");
         pDialog.show();
 
     }

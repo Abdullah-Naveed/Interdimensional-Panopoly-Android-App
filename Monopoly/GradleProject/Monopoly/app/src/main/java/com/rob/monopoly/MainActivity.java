@@ -354,8 +354,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             pDialog.setConfirmButton("Yes take my soul", sweetAlertDialog -> {
 
+                UserMover userMover=new UserMover(GameState.getInstance().getContext());
+                userMover.wipe(GameState.getInstance().getCurrentPlayer().getPlayerNum(),viewGroup);
                 GameState.getInstance().removePlayer(GameState.getInstance().getCurrentPlayer());
-
+                if (GameState.getInstance().getCurrentPlayer().getBalance() <= 0) {
+                    SweetAlertDialog dialog = new SweetAlertDialog(GameState.getInstance().getContext());
+                    dialog.setTitleText("You Cant't End Turn With A Negative Balance");
+                    dialog.show();
+                } else {
+                    GameState.getInstance().changeToNextPlayer();
+                    TastyToast.makeText(getApplicationContext(), "Changed To Next Player", TastyToast.LENGTH_LONG, TastyToast.INFO);
+                }
                 pDialog.cancel();
             });
 
@@ -528,6 +537,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                System.out.println(currentProperty.getLocation());
             }
         }
+
+        if(currentProperty==null) { return; }
 
         if (currentProperty.getOwner() == null && GameState.getInstance().getCurrentPlayer().getPlayerLocation() == currentProperty.getLocation()) {
 //            //call buy popup

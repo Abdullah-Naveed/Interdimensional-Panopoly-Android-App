@@ -31,6 +31,10 @@ public class Player extends UserMover implements Playable{
         players.add(this);
     }
 
+    public int getPlayerNum() {
+        return playerNum;
+    }
+
     @Override
     public String getID()
     {

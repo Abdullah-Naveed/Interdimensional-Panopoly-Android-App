@@ -1,5 +1,6 @@
 package com.rob.monopoly;
 
+import com.rob.monopoly.Interfaces.Functional;
 import com.rob.monopoly.NOCList.twitterbotics.KnowledgeBaseModule;
 
 import java.util.ArrayList;
@@ -102,8 +103,9 @@ public class Card{
         GameState.getInstance().getCurrentPlayer().move(i);
         System.out.println("You see " + villain + " and "+ possPro +" " + villainsWeapon + " so you run away as far as you can. You move " + i + " places and find yourself in a new location" );
 	}
-	
-	public void hospital(){
+
+	@Functional
+	public String hospital(){
 		
 		if (NOC.hasFieldValue("Gender", killer, "female"))
 		{
@@ -112,10 +114,11 @@ public class Card{
 		}
 		
 		GameState.getInstance().getCurrentPlayer().withdraw(150);
-		System.out.println("you get into a massive fight with " + killer + " in which you break your leg. You have to pay 150 to get a cast at the hospital.");
+		return "You get into a massive fight with " + killer + " in which you break your leg. You have to pay 150 to get a cast at the hospital.";
     }
-	
-	public void birthday(){
+
+    @Functional
+	public String birthday(){
 
 		if (NOC.hasFieldValue("Gender", billionaire, "female"))
 		{
@@ -123,7 +126,7 @@ public class Card{
 			possPro = "her";
 		}
 		GameState.getInstance().getCurrentPlayer().deposit(200);
-		System.out.println("It's your birthday! " + billionaire + " sent you a card that had 200 in it.");
+		return "It's your birthday! " + billionaire + " sent you a card that had 200 in it.";
     }
 
     public void birthday2(){
