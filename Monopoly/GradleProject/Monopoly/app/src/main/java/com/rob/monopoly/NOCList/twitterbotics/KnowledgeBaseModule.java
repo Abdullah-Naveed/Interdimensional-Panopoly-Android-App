@@ -775,7 +775,6 @@ public class KnowledgeBaseModule {
 		String RandomWorld = "";
 		HashMap<String, ArrayList<String>> colourLocations = new HashMap<>();
 
-
 		Worlds = this.getFictionalWorlds(context);
 
 		for (String str : Worlds) {
@@ -831,6 +830,9 @@ public class KnowledgeBaseModule {
 
 			colourLocations.put(RandomWorld, uniqueAddressAL);
 		}
+
+//		System.out.println(this.getAllKeysWithFieldValue("Negative Talking Points", "fat"));
+
 		return colourLocations;
 	}
 

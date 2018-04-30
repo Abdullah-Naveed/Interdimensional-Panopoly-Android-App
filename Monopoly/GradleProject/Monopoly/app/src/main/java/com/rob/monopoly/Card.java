@@ -8,8 +8,12 @@ import java.util.Vector;
 
 public class Card{
 
+	public Card(){
+
+	}
+
     KnowledgeBaseModule NOC=new KnowledgeBaseModule(GameState.getInstance().getContext());
-	
+
 	Vector Heroes = NOC.getAllKeysWithFieldValue("Category", "Hero");
 	Vector Villains = NOC.getAllKeysWithFieldValue("Category", "Villain");
 	Vector Comedians = NOC.getAllKeysWithFieldValue("Category", "Comedian");
@@ -21,15 +25,16 @@ public class Card{
 	Vector Detectives = NOC.getAllKeysWithFieldValue("Category", "Detective");
 	Vector Billionaires = NOC.getAllKeysWithFieldValue("Category", "Billionaire");
 	Vector Killers = NOC.getAllKeysWithFieldValue("Category", "Killer");
-	Vector Judges = NOC.getAllKeysWithFieldValue("Category", "Judge");
+//	Vector Judges = NOC.getAllKeysWithFieldValue("Category", "Judge");
 	Vector Athletes = NOC.getAllKeysWithFieldValue("Category", "Athlete");
 	Vector Actors = NOC.getAllKeysWithFieldValue("Category", "Actor");
 	Vector Fictional = NOC.getAllKeysWithFieldValue("Fictive Status", "fictional");
 	Vector fatPeople = NOC.getAllKeysWithFieldValue("Negative Talking Points", "fat");
-	
+
+
 	Vector Male = NOC.getAllKeysWithFieldValue("Gender", "male");
 	Vector Female = NOC.getAllKeysWithFieldValue("Gender", "female");
-	
+
 	String fatPerson = NOC.selectRandomlyFrom(fatPeople);
 	String killer = NOC.selectRandomlyFrom(Killers);
 	String billionaire = NOC.selectRandomlyFrom(Billionaires);
@@ -40,47 +45,47 @@ public class Card{
 	String athlete = NOC.selectRandomlyFrom(Athletes);
 	String magician = NOC.selectRandomlyFrom(Magicians);
 	String comedian = NOC.selectRandomlyFrom(Comedians);
-	String judge = NOC.selectRandomlyFrom(Judges);
+//	String judge = NOC.selectRandomlyFrom(Judges);
 	String actor = NOC.selectRandomlyFrom(Actors);
 	String director = NOC.selectRandomlyFrom(Directors);
 
-	Vector<String> judgesPositiveTraitChoices = NOC.getFieldValues("Positive Talking Points", judge);
+//	Vector<String> judgesPositiveTraitChoices = NOC.getFieldValues("Positive Talking Points", judge);
 	Vector<String> directorsPositiveTraitChoices = NOC.getFieldValues("Positive Talking Points", director);
 	Vector<String> actorsPositiveTraitChoices = NOC.getFieldValues("Positive Talking Points", actor);
-	
+
 	Vector<String> mansPositiveTraitChoice = NOC.getFieldValues("Positive Talking Points", man);
 	Vector<String> mansNegativeTraitChoice = NOC.getFieldValues("Negative Talking Points", man);
 	Vector<String> mansActivityChoice = NOC.getFieldValues("Typical Activity", man);
-	
+
 	Vector<String> villainsWeaponChoice = NOC.getFieldValues("Weapon of Choice", villain);
 	Vector<String> villainsNegativeTraitChoice = NOC.getFieldValues("Negative Talking Points", villain);
-	
+
 	Vector<String> femalesClothingChoice = NOC.getFieldValues("Seen Wearing", female);
 	Vector<String> femalesPositiveTraitChoice = NOC.getFieldValues("Positive Talking Points", female);
-	
+
 	Vector<String> athletesNegativeChoices = NOC.getFieldValues("Negative Talking Points", athlete);
-	
+
 	Vector<String> billionairesCarChoises = NOC.getFieldValues("Vehicle of Choice", billionaire);
 	Vector<String> billionariesClothesChoices = NOC.getFieldValues("Seen Wearing", billionaire);
 
-	String judgesPositivePoint = NOC.selectRandomlyFrom(judgesPositiveTraitChoices);
+//	String judgesPositivePoint = NOC.selectRandomlyFrom(judgesPositiveTraitChoices);
 	String actorsPositivePoint = NOC.selectRandomlyFrom(actorsPositiveTraitChoices);
 	String directorsPositivePoint = NOC.selectRandomlyFrom(directorsPositiveTraitChoices);
-	
+
 	String mansPositivePoint = NOC.selectRandomlyFrom(mansPositiveTraitChoice);
 	String mansNegativePoints = NOC.selectRandomlyFrom(mansNegativeTraitChoice);
 	String menActivities = NOC.selectRandomlyFrom(mansActivityChoice);
-	
+
 	String villainsWeapon = NOC.selectRandomlyFrom(villainsWeaponChoice);
-	
+
 	String billionairesCar = NOC.selectRandomlyFrom(billionairesCarChoises);
 	String billionairesClothes = NOC.selectRandomlyFrom(billionariesClothesChoices);
-	
+
 	String athletesNegativePoints = NOC.selectRandomlyFrom(athletesNegativeChoices);
-	
+
 	String femalesClothing = NOC.selectRandomlyFrom(femalesClothingChoice);
 	String femalesPositiveTrait = NOC.selectRandomlyFrom(femalesPositiveTraitChoice);
-	
+
 	String pronoun   = "he";
 	String possPro	 = "his";
 	
@@ -230,10 +235,10 @@ public class Card{
     	System.out.println("You end up stealing the " + billionairesClothes + " from a known billionaire named " + billionaire + ", which you end up selling on eBay for a whopping 250. Sure it's not like " + pronoun + " would care anyways since " + pronoun + " owns a " + billionairesCar + ".");
     }
 
-   public void bowling(){
-	GameState.getInstance().getCurrentPlayer().withdraw(40);
-       	System.out.println("You go bowling with the " + directorsPositivePoint + " " + director + ", the " + actorsPositivePoint + " " + actor + " and " + judge + ", who's known to be " + judgesPositivePoint + ". You pay for everyone's game which costs you 40." );
-   }
+//   public void bowling(){
+//	GameState.getInstance().getCurrentPlayer().withdraw(40);
+//       	System.out.println("You go bowling with the " + directorsPositivePoint + " " + director + ", the " + actorsPositivePoint + " " + actor + " and " + judge + ", who's known to be " + judgesPositivePoint + ". You pay for everyone's game which costs you 40." );
+//   }
 
    public void onlineShop(){
 	   //GameState.getInstance().getCurrentPlayer().withdraw(50);
@@ -381,6 +386,7 @@ public class Card{
 	 // GameState.getInstance().getCurrentPlayer().withdraw(25);
 	  
   }
+
 
    
     // Possible ideas for chance card //

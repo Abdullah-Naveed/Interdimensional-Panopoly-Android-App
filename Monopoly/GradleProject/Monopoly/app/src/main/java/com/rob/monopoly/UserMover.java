@@ -3,12 +3,14 @@ package com.rob.monopoly;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TableRow;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -46,6 +48,7 @@ public class UserMover extends AppCompatActivity{
             {
                 ArrayList<Card> cards=GameState.getInstance().getCards();
                 Random rand=new Random();
+
 //                cards.get(rand.nextInt(cards.size()-1))
 //                cardPopup(new Card());
             }
@@ -176,6 +179,10 @@ public class UserMover extends AppCompatActivity{
             {
                 ArrayList<Card> cards=GameState.getInstance().getCards();
                 Random rand=new Random();
+
+                Card myCard = new Card();
+                myCard.runAway();
+
 //                cards.get(rand.nextInt(cards.size()-1))
 //                cardPopup(new Card());
             }
