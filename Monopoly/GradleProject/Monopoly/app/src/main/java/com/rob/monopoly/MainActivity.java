@@ -347,7 +347,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }else{TastyToast.makeText(getApplicationContext(), "Sorry BRAH you have already rolled unlucky", TastyToast.LENGTH_LONG, TastyToast.INFO);}
 
         } else if (id == R.id.end_turn) {
-            if(GameState.getInstance().getNumPlayers()>1){
                 GameState.getInstance().getCurrentPlayer().setHasRolled(false);
                 if (GameState.getInstance().getCurrentPlayer().getBalance() <= 0) {
                     SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
@@ -357,7 +356,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     GameState.getInstance().changeToNextPlayer();
                     TastyToast.makeText(getApplicationContext(), "Changed To Next Player", TastyToast.LENGTH_LONG, TastyToast.INFO);
                 }
-            }else{
+
+        } else if (id == R.id.trade_properties) {
+
+            tradePopup();
+
+        } else if (id == R.id.trade_money_properties) {
+
+            tradeMoneyPopup();
+
+        } else if (id == R.id.bankrupt) {
+
+//            if(GameState.getInstance().getCurrentPlayer().getBalance()<0){
+            if(GameState.getInstance().getNumPlayers()>1){
+                SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
+                pDialog.setCancelButton("I've had a change of heart", sweetAlertDialog -> {
+                    pDialog.cancel();
+                });
+
+                pDialog.setConfirmButton("Yes take my soul", sweetAlertDialog -> {
+
+                    UserMover userMover=new UserMover(GameState.getInstance().getContext());
+                    userMover.wipe(GameState.getInstance().getCurrentPlayer().getPlayerNum(),viewGroup);
+                    GameState.getInstance().removePlayer(GameState.getInstance().getCurrentPlayer());
+                    if (GameState.getInstance().getCurrentPlayer().getBalance() <= 0) {
+                        SweetAlertDialog dialog = new SweetAlertDialog(GameState.getInstance().getContext());
+                        dialog.setTitleText("You Cant't End Turn With A Negative Balance");
+                        dialog.show();
+                    } else {
+                        GameState.getInstance().changeToNextPlayer();
+                        TastyToast.makeText(getApplicationContext(), "Changed To Next Player", TastyToast.LENGTH_LONG, TastyToast.INFO);
+                    }
+                    pDialog.cancel();
+                });
+
+                pDialog.setTitle("Are u sure u wanna LOSE hahahahaha");
+                pDialog.show();
+
+            }
+            else{
                 SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
                 pDialog.setTitleText("CONGRATS U WON IT ONLY TOOK US 3 MONTHS OF DEPRESSION TO MAKE THIS FUN GAME FOR YOU");
                 pDialog.show();
@@ -375,43 +412,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 });
             }
-
-        } else if (id == R.id.trade_properties) {
-
-            tradePopup();
-
-        } else if (id == R.id.trade_money_properties) {
-
-            tradeMoneyPopup();
-
-        } else if (id == R.id.bankrupt) {
-
-//            if(GameState.getInstance().getCurrentPlayer().getBalance()<0){
-
-            SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
-            pDialog.setCancelButton("I've had a change of heart", sweetAlertDialog -> {
-                pDialog.cancel();
-            });
-
-            pDialog.setConfirmButton("Yes take my soul", sweetAlertDialog -> {
-
-                UserMover userMover=new UserMover(GameState.getInstance().getContext());
-                userMover.wipe(GameState.getInstance().getCurrentPlayer().getPlayerNum(),viewGroup);
-                GameState.getInstance().removePlayer(GameState.getInstance().getCurrentPlayer());
-                if (GameState.getInstance().getCurrentPlayer().getBalance() <= 0) {
-                    SweetAlertDialog dialog = new SweetAlertDialog(GameState.getInstance().getContext());
-                    dialog.setTitleText("You Cant't End Turn With A Negative Balance");
-                    dialog.show();
-                } else {
-                    GameState.getInstance().changeToNextPlayer();
-                    TastyToast.makeText(getApplicationContext(), "Changed To Next Player", TastyToast.LENGTH_LONG, TastyToast.INFO);
-                }
-                pDialog.cancel();
-            });
-
-            pDialog.setTitle("Are u sure u wanna LOSE hahahahaha");
-            pDialog.show();
-
 //            else{
 //                GameState.getInstance().changeToNextPlayer();
 //                Log.i("Player",GameState.getInstance().getCurrentPlayer().getID());

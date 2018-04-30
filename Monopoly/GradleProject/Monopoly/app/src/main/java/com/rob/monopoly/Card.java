@@ -1,5 +1,6 @@
 package com.rob.monopoly;
 
+import com.rob.monopoly.Interfaces.Functional;
 import com.rob.monopoly.NOCList.twitterbotics.KnowledgeBaseModule;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class Card{
 
 	}
 
-    KnowledgeBaseModule NOC=new KnowledgeBaseModule(GameState.getInstance().getContext());
+    static KnowledgeBaseModule NOC=new KnowledgeBaseModule(GameState.getInstance().getContext());
 
 	private String str = "";
 	
@@ -354,14 +355,14 @@ public class Card{
     	return str;
     	
    	}
-    
-    	public String droppingMoney(){
-    	GameState.getInstance().getNextPlayer().withdraw(50);
-    	GameState.getInstance().getCurrentPlayer().deposit(50);
-    	
-    	str = "The player infront of you dropped 50 euro. You, " + killer + ", " + athlete + " and " + female + " race for it, but you get there first." ;
-    	return str;
-    	}
+//    NEEDS TO BE FIXED //
+//    	public String droppingMoney(){
+//    	GameState.getInstance().getNextPlayer().withdraw(50);
+//    	GameState.getInstance().getCurrentPlayer().deposit(50);
+//
+//    	str = "The player infront of you dropped 50 euro. You, " + killer + ", " + athlete + " and " + female + " race for it, but you get there first." ;
+//    	return str;
+//    	}
     
 	@Functional
     	public String geeks(){
@@ -404,7 +405,7 @@ public class Card{
    	public String moneyBack(){
 	
 	GameState.getInstance().getCurrentPlayer().deposit(50);
-	Hero gave you a little present for being a loyal fan
+//	Hero gave you a little present for being a loyal fan
 	   
 	Vector<String> villainsAddress1 = NOC.getFieldValues("Address 1", villain);
 	Vector<String> villainsAddress2 = NOC.getFieldValues("Address 2", villain);
