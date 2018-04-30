@@ -76,7 +76,7 @@ public class UserMover extends AppCompatActivity{
             if(index==14){
                 subView=(TableRow)viewGroup.getChildAt(6);
                 view=subView.getVirtualChildAt(Math.abs(0));
-                newLocation=0;
+                newLocation=14;
                 GameState.getInstance().getCurrentPlayer().setInJail(true);
             }
 

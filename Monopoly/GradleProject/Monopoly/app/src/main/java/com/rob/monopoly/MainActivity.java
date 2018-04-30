@@ -292,48 +292,89 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.roll) {
-            if(!GameState.getInstance().getCurrentPlayer().isInJail()) {
 
-                Random RANDOM = new Random();
-                diceRoll = RANDOM.nextInt(6) + 1;
-                diceRoll1 = RANDOM.nextInt(6) + 1;
+            if (!GameState.getInstance().getCurrentPlayer().isHasRolled()) {
 
-                int i = diceRoll + diceRoll1;
+                if (!GameState.getInstance().getCurrentPlayer().isInJail()) {
 
-                GameState.getInstance().getCurrentPlayer().move(i);
-                System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
-                checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+                    Random RANDOM = new Random();
+                    diceRoll = RANDOM.nextInt(6) + 1;
+                    diceRoll1 = RANDOM.nextInt(6) + 1;
 
-            }
-
-            else{
-
-                Random RANDOM = new Random();
-                diceRoll = RANDOM.nextInt(6) + 1;
-                diceRoll1 = RANDOM.nextInt(6) + 1;
-                int i = diceRoll + diceRoll1;
-
-                if(diceRoll == diceRoll1){
+                    int i = diceRoll + diceRoll1;
 
                     GameState.getInstance().getCurrentPlayer().move(i);
                     System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
                     checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
-                    GameState.getInstance().getCurrentPlayer().setInJail(false);
+
+                } else {
+
+                    Random RANDOM = new Random();
+                    diceRoll = RANDOM.nextInt(6) + 1;
+                    diceRoll1 = RANDOM.nextInt(6) + 1;
+                    int i = diceRoll + diceRoll1;
+
+                    if (diceRoll == diceRoll1) {
+
+                        GameState.getInstance().getCurrentPlayer().move(i);
+                        System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+                        checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+                        GameState.getInstance().getCurrentPlayer().setInJail(false);
+
+                    } else {
+                        SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
+                        pDialog.setTitleText("You didn't roll a double, pay 50 euro if you want to get out of Jail");
+                        pDialog.show();
+
+                        pDialog.setCancelButton("No I don't want pay", sweetAlertDialog -> {
+                            pDialog.cancel();
+                        });
+
+                        pDialog.setConfirmButton("Yes here you go", sweetAlertDialog -> {
+
+                            GameState.getInstance().getCurrentPlayer().withdraw(50);
+                            GameState.getInstance().getCurrentPlayer().setInJail(false);
+                            TastyToast.makeText(getApplicationContext(), "Thank You.You are free to leave on your next turn", TastyToast.LENGTH_LONG, TastyToast.INFO);
+
+                            pDialog.cancel();
+                        });
+
+                    }
 
                 }
 
-            }
+                GameState.getInstance().getCurrentPlayer().setHasRolled(true);
+            }else{TastyToast.makeText(getApplicationContext(), "Sorry BRAH you have already rolled unlucky", TastyToast.LENGTH_LONG, TastyToast.INFO);}
 
         } else if (id == R.id.end_turn) {
-            if (GameState.getInstance().getCurrentPlayer().getBalance() <= 0) {
+            if(GameState.getInstance().getNumPlayers()>1){
+                GameState.getInstance().getCurrentPlayer().setHasRolled(false);
+                if (GameState.getInstance().getCurrentPlayer().getBalance() <= 0) {
+                    SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
+                    pDialog.setTitleText("You Cant't End Turn With A Negative Balance");
+                    pDialog.show();
+                } else {
+                    GameState.getInstance().changeToNextPlayer();
+                    TastyToast.makeText(getApplicationContext(), "Changed To Next Player", TastyToast.LENGTH_LONG, TastyToast.INFO);
+                }
+            }else{
                 SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
-                pDialog.setTitleText("You Cant't End Turn With A Negative Balance");
+                pDialog.setTitleText("CONGRATS U WON IT ONLY TOOK US 3 MONTHS OF DEPRESSION TO MAKE THIS FUN GAME FOR YOU");
                 pDialog.show();
-            } else {
-                GameState.getInstance().changeToNextPlayer();
-                TastyToast.makeText(getApplicationContext(), "Changed To Next Player", TastyToast.LENGTH_LONG, TastyToast.INFO);
-            }
 
+                pDialog.setConfirmButton("Im Sorry?", sweetAlertDialog -> {
+
+                    this.finish();
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
+                    int pid = android.os.Process.myPid();
+                    android.os.Process.killProcess(pid);
+
+                });
+            }
 
         } else if (id == R.id.trade_properties) {
 
