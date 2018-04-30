@@ -70,6 +70,14 @@ public class UserMover extends AppCompatActivity{
                 }
                 playSound();
             }
+            if(index==14){
+                subView=(TableRow)viewGroup.getChildAt(6);
+                view=subView.getVirtualChildAt(Math.abs(0));
+                newLocation=0;
+
+//                inJailFunctionality();
+
+            }
 
 
             setVisibility(User, view);
@@ -175,6 +183,7 @@ public class UserMover extends AppCompatActivity{
             int newLocation=0;
             View view=null;
             TableRow subView=(TableRow)viewGroup.getChildAt(6);
+
             if(index==3)
             {
                 ArrayList<Card> cards=GameState.getInstance().getCards();
@@ -264,5 +273,6 @@ public class UserMover extends AppCompatActivity{
         pDialog.show();
 
     }
+
 
 }
