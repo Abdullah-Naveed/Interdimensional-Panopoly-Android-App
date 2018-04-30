@@ -1,6 +1,7 @@
 package com.rob.monopoly;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -196,6 +197,12 @@ public class UserMover extends AppCompatActivity{
 
 //                cards.get(rand.nextInt(cards.size()-1))
 //                cardPopup(new Card());
+            }
+            if(index==5)
+            {
+
+                MainActivity.miniGame(GameState.getInstance().getActivity());
+
             }
             if(index==7)
             {

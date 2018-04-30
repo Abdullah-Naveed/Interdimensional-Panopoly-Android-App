@@ -419,6 +419,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.roll_1){
             GameState.getInstance().getCurrentPlayer().move(1);
             checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -717,6 +718,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         TradeMoneyPopUp tradePopUp=new TradeMoneyPopUp();
         tradePopUp.tradeMoneyPopup();
+    }
+
+    public static void miniGame(Activity activity)
+    {
+        Intent startGame = new Intent(GameState.getInstance().getContext(), GuessTheFictionalWorld.class);
+        activity.startActivity(startGame);
+        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
 
