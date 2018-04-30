@@ -1,12 +1,14 @@
 package com.rob.monopoly;
 
+import com.rob.monopoly.NOCList.twitterbotics.KnowledgeBaseModule;
+
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Vector;
 
 public class Card{
-String kdir = "C:\\Users\\ErikBurka\\Desktop\\NOC-LIST\\";
-	
-	KnowledgeBaseModule NOC = new KnowledgeBaseModule(kdir + "Veale's The NOC List.txt", 0);
+
+    KnowledgeBaseModule NOC=new KnowledgeBaseModule(GameState.getInstance().getContext());
 	
 	Vector Heroes = NOC.getAllKeysWithFieldValue("Category", "Hero");
 	Vector Villains = NOC.getAllKeysWithFieldValue("Category", "Villain");
@@ -118,12 +120,12 @@ String kdir = "C:\\Users\\ErikBurka\\Desktop\\NOC-LIST\\";
 		GameState.getInstance().getCurrentPlayer().deposit(200);
 		System.out.println("It's your birthday! " + billionaire + " sent you a card that had 200 in it.");
     }
-	
+
     public void birthday2(){
-    	
+
     	int i = GameState.getInstance().getNumPlayers();
         GameState.getInstance().getCurrentPlayer().deposit(i*50);
-    	
+
     	if (NOC.hasFieldValue("Gender", villain, "female"))
 		{
 			pronoun = "she";
@@ -132,26 +134,26 @@ String kdir = "C:\\Users\\ErikBurka\\Desktop\\NOC-LIST\\";
 
         System.out.println("You made friends with " + villain + " who threatened every player playing the game with " + possPro + " " + villainsWeapon + " to make sure they give you a birthday present. You receive " + i + " from every player.");
     }
-    
+
     public void christmas(){
-    	
+
     	int i = GameState.getInstance().getNumPlayers();
     	GameState.getInstance().getCurrentPlayer().withdraw(i*20);
-	    
+
     	System.out.println("Your lovely and " + mansPositivePoint + " friend " + man + " reminded you it's time for Kris Kindle. The presents end up costing you " + i );
     }
-    
+
     public void christmas2(){
     	int i = GameState.getInstance().getNumPlayers();
     	GameState.getInstance().getCurrentPlayer().deposit(i*30);
-	    
+
     	System.out.println("Although you've been unpopular this week on twitter for slating " + fatPerson + " for being fat, all the players have been thoughtful and sent you 30 each." );
     }
-    
+
     public void wildNight(){
     	Random randomNumber = new Random();
         int i = randomNumber.nextInt(10)+1;
-        
+
         if(femalesClothing == null){
     		femalesClothing = "Underwear";
     	}
@@ -176,19 +178,19 @@ String kdir = "C:\\Users\\ErikBurka\\Desktop\\NOC-LIST\\";
 			pronoun = "she";
 			possPro = "her";
 		}
-    	
+
     	GameState.getInstance().getCurrentPlayer().deposit(125);
     	System.out.println("You enter a sports competition in which you face the famous athlete " + athlete + ". You use the fact that " + pronoun + " is " + athletesNegativePoints + " to your advantage and manage to win the competition and a nice prize of 150.");
     }
 
     public void backToStart(){
-    	
+
     	if (NOC.hasFieldValue("Gender", magician, "female"))
 		{
 			pronoun = "she";
 			possPro = "her";
 		}
-    	
+
     	GameState.getInstance().getCurrentPlayer().setPlayerLocation(0);
     	GameState.getInstance().getCurrentPlayer().deposit(200);
 
@@ -202,7 +204,7 @@ String kdir = "C:\\Users\\ErikBurka\\Desktop\\NOC-LIST\\";
 			pronoun = "she";
 			possPro = "her";
 		}
-    	
+
     	System.out.println("You get pickpocketed by " + villain + ". " + pronoun + " manages to steal 100 from your pocket.");
     }
 
@@ -217,13 +219,13 @@ String kdir = "C:\\Users\\ErikBurka\\Desktop\\NOC-LIST\\";
     }
 
     public void stealing(){
-    	
+
     	if (NOC.hasFieldValue("Gender", billionaire, "female"))
 		{
 			pronoun = "she";
 			possPro = "her";
 		}
-    	
+
     	GameState.getInstance().getCurrentPlayer().deposit(125);
     	System.out.println("You end up stealing the " + billionairesClothes + " from a known billionaire named " + billionaire + ", which you end up selling on eBay for a whopping 250. Sure it's not like " + pronoun + " would care anyways since " + pronoun + " owns a " + billionairesCar + ".");
     }
