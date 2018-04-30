@@ -20,6 +20,10 @@
             android:id="@+id/bankrupt"
             android:icon="@drawable/ic_menu_manage"
             android:title="Bankrupt" />
+        <item
+            android:id="@+id/roll_1"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Roll_1" />
     </group>
 
 

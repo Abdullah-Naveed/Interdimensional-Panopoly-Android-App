@@ -284,27 +284,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.roll) {
-            Random RANDOM=new Random();
-            int i=RANDOM.nextInt(6) + 1;
-            i+=RANDOM.nextInt(6) + 1;
-//            for(int j=0;j<i;j++)
-//            {
-//                players.get(0).move(i);
-                GameState.getInstance().getCurrentPlayer().move(i);
-                System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
-                alertMovedButton(i);
-//            }
+            Random RANDOM = new Random();
+            int i = RANDOM.nextInt(6) + 1;
+            i += RANDOM.nextInt(6) + 1;
+
+            GameState.getInstance().getCurrentPlayer().move(i);
+            System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+            alertMovedButton(i);
+            checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
 
 
         } else if (id == R.id.end_turn) {
-            if(GameState.getInstance().getCurrentPlayer().getBalance()<=0)
-            {
+            if (GameState.getInstance().getCurrentPlayer().getBalance() <= 0) {
                 SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
                 pDialog.setTitleText("You Cant't End Turn With A Negative Balance");
                 pDialog.show();
-            }
-            else
-            {
+            } else {
                 GameState.getInstance().changeToNextPlayer();
                 TastyToast.makeText(getApplicationContext(), "Changed To Next Player", TastyToast.LENGTH_LONG, TastyToast.INFO);
             }
@@ -320,31 +315,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
             pDialog.setCancelButton("I've had a change of heart", sweetAlertDialog -> {
-                    pDialog.cancel();
-                });
+                pDialog.cancel();
+            });
 
             pDialog.setConfirmButton("Yes take my soul", sweetAlertDialog -> {
 
-                    GameState.getInstance().removePlayer(GameState.getInstance().getCurrentPlayer());
+                GameState.getInstance().removePlayer(GameState.getInstance().getCurrentPlayer());
 
-                    pDialog.cancel();
+                pDialog.cancel();
             });
 
-                pDialog.setTitle("Are u sure u wanna LOSE hahahahaha");
-                pDialog.show();
+            pDialog.setTitle("Are u sure u wanna LOSE hahahahaha");
+            pDialog.show();
 
-
-            }
-            else{
-                GameState.getInstance().changeToNextPlayer();
-                Log.i("Player",GameState.getInstance().getCurrentPlayer().getID());
-            }
-
-//        }
+//            else{
+//                GameState.getInstance().changeToNextPlayer();
+//                Log.i("Player",GameState.getInstance().getCurrentPlayer().getID());
+//            }
+        } else if (id == R.id.roll_1){
+            GameState.getInstance().getCurrentPlayer().move(1);
+            checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void checkRent(int playerLocation) {
+        Property currentProperty=null;
+        for(Property property:GameState.getInstance().getProperties())
+        {
+            if(property.getLocation()==playerLocation)
+            {
+                currentProperty=property;
+            }
+        }
+        if(GameState.getInstance().getCurrentPlayer()!=currentProperty.getOwner()&&currentProperty.getOwner()!=null)
+        {
+            currentProperty.getOwner().deposit(currentProperty.getRentalAmount());
+            currentProperty.payRent(GameState.getInstance().getCurrentPlayer());
+            TastyToast.makeText(GameState.getInstance().getContext(),"You Have Payed To Live Another Day",TastyToast.LENGTH_LONG,TastyToast.WARNING).show();
+
+        }
+
     }
 
 
@@ -466,8 +480,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void PopupCustomizedLayout(View view) {
 
         View parent = (View) view.getParent();
-        String viewName=GameState.getInstance().getContext().getResources().getResourceEntryName(parent.getId());
-        System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+        String viewName = GameState.getInstance().getContext().getResources().getResourceEntryName(parent.getId());
 
         Property currentProperty = null;
 
@@ -478,16 +491,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
 
-        String ownerStr=null;
-        if(currentProperty.getOwner()==null&&GameState.getInstance().getCurrentPlayer().getPlayerLocation()==currentProperty.getLocation()) {
+        if (currentProperty.getOwner() == null && GameState.getInstance().getCurrentPlayer().getPlayerLocation() == currentProperty.getLocation()) {
 //            //call buy popup
-            buyPopUp(GameState.getInstance().getContext(),currentProperty);
-        }
-        else if(currentProperty.getOwner()==GameState.getInstance().getCurrentPlayer())
-        {
-            buildMortgagePopUp(GameState.getInstance().getContext(),currentProperty);
-        }
-        else
+            buyPopUp(GameState.getInstance().getContext(), currentProperty);
+        } else if (currentProperty.getOwner() == GameState.getInstance().getCurrentPlayer()) {
+            buildMortgagePopUp(GameState.getInstance().getContext(), currentProperty);
+        } else
         {
 //            //call ok popup
             okPopUp(GameState.getInstance().getCurrentPlayer(),currentProperty);
