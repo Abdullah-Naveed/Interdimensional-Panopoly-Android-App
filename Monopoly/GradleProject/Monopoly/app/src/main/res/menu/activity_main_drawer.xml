@@ -17,6 +17,10 @@
             android:icon="@drawable/ic_loop_black_24px"
             android:title="Trade Properties" />
         <item
+            android:id="@+id/trade_money_properties"
+            android:icon="@drawable/ic_loop_black_24px"
+            android:title="Trade Properties for Money" />
+        <item
             android:id="@+id/bankrupt"
             android:icon="@drawable/ic_money_off_black_24px"
             android:title="Bankrupt" />

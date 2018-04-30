@@ -313,6 +313,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             tradePopup();
 
+        } else if (id == R.id.trade_money_properties) {
+
+            tradeMoneyPopup();
+
         } else if (id == R.id.bankrupt) {
 
 //            if(GameState.getInstance().getCurrentPlayer().getBalance()<0){
@@ -630,6 +634,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         TradePopUp tradePopUp=new TradePopUp();
         tradePopUp.tradePopup();
+    }
+
+    public void tradeMoneyPopup()
+    {
+        TradeMoneyPopUp tradePopUp=new TradeMoneyPopUp();
+        tradePopUp.tradeMoneyPopup();
     }
 
 
