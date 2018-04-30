@@ -351,13 +351,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 currentProperty=property;
             }
         }
-        if(GameState.getInstance().getCurrentPlayer()!=currentProperty.getOwner()&&currentProperty.getOwner()!=null)
+        if(currentProperty!=null)
         {
-            currentProperty.getOwner().deposit(currentProperty.getRentalAmount());
-            currentProperty.payRent(GameState.getInstance().getCurrentPlayer());
-            TastyToast.makeText(GameState.getInstance().getContext(),"You Have Payed To Live Another Day",TastyToast.LENGTH_LONG,TastyToast.WARNING).show();
+            if(GameState.getInstance().getCurrentPlayer()!=currentProperty.getOwner()&&currentProperty.getOwner()!=null)
+            {
+                currentProperty.getOwner().deposit(currentProperty.getRentalAmount());
+                currentProperty.payRent(GameState.getInstance().getCurrentPlayer());
+                TastyToast.makeText(GameState.getInstance().getContext(),"You Have Payed To Live Another Day",TastyToast.LENGTH_LONG,TastyToast.WARNING).show();
 
+            }
         }
+
 
     }
 
