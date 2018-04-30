@@ -1,5 +1,6 @@
 package com.rob.monopoly;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -44,6 +45,8 @@ import java.util.TimerTask;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static java.security.AccessController.getContext;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static ArrayList<Property> properties=new ArrayList<Property>();
@@ -57,12 +60,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        initialSetting();
 
         instance = GameState.getInstance();
         viewGroup = (ViewGroup) findViewById(R.id.tablelayout);
         instance.setViewGroup(viewGroup);
         instance.setContext(this);
+        instance.setActivity(this);
+        initialSetting();
         //gamestate add players, current player and numPlayers
 
         //add players
@@ -309,6 +313,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             tradePopup();
 
+        } else if (id == R.id.trade_money_properties) {
+
+            tradeMoneyPopup();
+
         } else if (id == R.id.bankrupt) {
 
 //            if(GameState.getInstance().getCurrentPlayer().getBalance()<0){
@@ -351,13 +359,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 currentProperty=property;
             }
         }
-        if(GameState.getInstance().getCurrentPlayer()!=currentProperty.getOwner()&&currentProperty.getOwner()!=null)
+        if(currentProperty!=null)
         {
-            currentProperty.getOwner().deposit(currentProperty.getRentalAmount());
-            currentProperty.payRent(GameState.getInstance().getCurrentPlayer());
-            TastyToast.makeText(GameState.getInstance().getContext(),"You Have Payed To Live Another Day",TastyToast.LENGTH_LONG,TastyToast.WARNING).show();
+            if(GameState.getInstance().getCurrentPlayer()!=currentProperty.getOwner()&&currentProperty.getOwner()!=null)
+            {
+                currentProperty.getOwner().deposit(currentProperty.getRentalAmount());
+                currentProperty.payRent(GameState.getInstance().getCurrentPlayer());
+                TastyToast.makeText(GameState.getInstance().getContext(),"You Have Paid To Live Another Day",TastyToast.LENGTH_LONG,TastyToast.WARNING).show();
 
+            }
         }
+
 
     }
 
@@ -487,7 +499,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         for (Property prop : GameState.getInstance().getProperties()) {
             if (viewName.equals(prop.getCompoundViewID())) {
                 currentProperty = prop;
-                System.out.println(currentProperty.getLocation());
+//                System.out.println(currentProperty.getLocation());
             }
         }
 
@@ -622,6 +634,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         TradePopUp tradePopUp=new TradePopUp();
         tradePopUp.tradePopup();
+    }
+
+    public void tradeMoneyPopup()
+    {
+        TradeMoneyPopUp tradePopUp=new TradeMoneyPopUp();
+        tradePopUp.tradeMoneyPopup();
     }
 
 

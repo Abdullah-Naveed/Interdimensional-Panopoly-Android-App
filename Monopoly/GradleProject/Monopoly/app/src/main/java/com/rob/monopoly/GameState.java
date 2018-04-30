@@ -1,7 +1,11 @@
 package com.rob.monopoly;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.design.widget.NavigationView;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,6 +25,10 @@ public class GameState {
         private ViewGroup viewGroup;
         private Context context;
 
+
+
+    private Activity activity;
+
         private GameState(){}
 
         //static block initialization for exception handling
@@ -30,6 +38,14 @@ public class GameState {
             }catch(Exception e){
                 throw new RuntimeException("Exception occured in creating singleton instance");
             }
+        }
+
+        public Activity getActivity() {
+            return activity;
+        }
+
+        public void setActivity(Activity activity) {
+            this.activity = activity;
         }
 
         public static GameState getInstance(){
@@ -44,6 +60,13 @@ public class GameState {
 
         public void setCurrentPlayer(Player currentPlayer) {
             this.currentPlayer = currentPlayer;
+            NavigationView navigationView = (NavigationView) this.activity.findViewById(R.id.nav_view);
+            View hView =  navigationView.getHeaderView(0);
+            TextView nav_user = (TextView)hView.findViewById(R.id.player);
+            nav_user.setText(currentPlayer.getID());
+            TextView nav_balance = (TextView)hView.findViewById(R.id.balance);
+            String bal=Integer.toString(currentPlayer.getBalance());
+            nav_balance.setText("Balance: "+bal);
         }
 
         public int getPlayer() {
@@ -64,6 +87,13 @@ public class GameState {
 
         public void changeToNextPlayer(){
             currentPlayer = getNextPlayer(currentPlayer);
+            NavigationView navigationView = (NavigationView) this.activity.findViewById(R.id.nav_view);
+            View hView =  navigationView.getHeaderView(0);
+            TextView nav_user = (TextView)hView.findViewById(R.id.player);
+            nav_user.setText(currentPlayer.getID());
+            TextView nav_balance = (TextView)hView.findViewById(R.id.balance);
+            String bal=Integer.toString(currentPlayer.getBalance());
+            nav_balance.setText("Balance: "+bal);
         }
 
         public void removePlayer(Player currentPlayer) {
