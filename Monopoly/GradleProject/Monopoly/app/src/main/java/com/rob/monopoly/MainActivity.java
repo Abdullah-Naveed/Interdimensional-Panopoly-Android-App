@@ -368,7 +368,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.bankrupt) {
 
 //            if(GameState.getInstance().getCurrentPlayer().getBalance()<0){
-            if(GameState.getInstance().getNumPlayers()>1){
+            if(GameState.getInstance().getNumPlayers()>=2){
                 SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
                 pDialog.setCancelButton("I've had a change of heart", sweetAlertDialog -> {
                     pDialog.cancel();
@@ -379,15 +379,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     UserMover userMover=new UserMover(GameState.getInstance().getContext());
                     userMover.wipe(GameState.getInstance().getCurrentPlayer().getPlayerNum(),viewGroup);
                     GameState.getInstance().removePlayer(GameState.getInstance().getCurrentPlayer());
-                    if (GameState.getInstance().getCurrentPlayer().getBalance() <= 0) {
-                        SweetAlertDialog dialog = new SweetAlertDialog(GameState.getInstance().getContext());
-                        dialog.setTitleText("You Cant't End Turn With A Negative Balance");
-                        dialog.show();
-                    } else {
-                        GameState.getInstance().changeToNextPlayer();
-                        TastyToast.makeText(getApplicationContext(), "Changed To Next Player", TastyToast.LENGTH_LONG, TastyToast.INFO);
-                    }
+                    TastyToast.makeText(getApplicationContext(), "Changed To Next Player", TastyToast.LENGTH_LONG, TastyToast.INFO);
                     pDialog.cancel();
+
+                    if(GameState.getInstance().getNumPlayers()==1)
+                    {
+                        SweetAlertDialog Dialog = new SweetAlertDialog(GameState.getInstance().getContext());
+                        Dialog.setTitleText("CONGRATS U WON IT ONLY TOOK US 3 MONTHS OF DEPRESSION TO MAKE THIS FUN GAME FOR YOU");
+                        Dialog.show();
+
+                        Dialog.setConfirmButton("Im Sorry?", sweetAlertDialog2 -> {
+
+                            this.finish();
+                            Intent intent = new Intent(Intent.ACTION_MAIN);
+                            intent.addCategory(Intent.CATEGORY_HOME);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+
+                            int pid = android.os.Process.myPid();
+                            android.os.Process.killProcess(pid);
+
+                        });
+                    }
+
                 });
 
                 pDialog.setTitle("Are u sure u wanna LOSE hahahahaha");
@@ -395,22 +409,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
             else{
-                SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
-                pDialog.setTitleText("CONGRATS U WON IT ONLY TOOK US 3 MONTHS OF DEPRESSION TO MAKE THIS FUN GAME FOR YOU");
-                pDialog.show();
 
-                pDialog.setConfirmButton("Im Sorry?", sweetAlertDialog -> {
-
-                    this.finish();
-                    Intent intent = new Intent(Intent.ACTION_MAIN);
-                    intent.addCategory(Intent.CATEGORY_HOME);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-
-                    int pid = android.os.Process.myPid();
-                    android.os.Process.killProcess(pid);
-
-                });
             }
 //            else{
 //                GameState.getInstance().changeToNextPlayer();

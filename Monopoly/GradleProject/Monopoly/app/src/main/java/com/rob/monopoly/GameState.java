@@ -94,7 +94,7 @@ public class GameState {
         }
 
         public void removePlayer(Player currentPlayer) {
-            this.players.get(players.indexOf(currentPlayer)).setPlayerWasRemoved(true);
+            changeToNextPlayer();
             this.players.remove(currentPlayer);
         }
 
