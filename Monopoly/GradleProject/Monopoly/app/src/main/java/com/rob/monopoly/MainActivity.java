@@ -95,13 +95,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        //System.out.println(Players);
 
         KnowledgeBaseModule NOC = GameState.getInstance().getKnowledgeBaseModule();
-        Vector<String> worlds = NOC.getFictionalWorlds(this);
+        Vector<String> allPlayers = NOC.getAllFrames();
         Vector<String> players;
         String player;
 
         for(int i=0;i<numPlayers;i++)
         {
-            String world = NOC.selectRandomlyFrom(worlds);
+            String world = NOC.selectRandomlyFrom(allPlayers);
             players = NOC.getAllKeysWithFieldValue("Fictional World",world);
             player = NOC.selectRandomlyFrom(players);
             instance.addPlayers((new Player(this,viewGroup,player,i)));
