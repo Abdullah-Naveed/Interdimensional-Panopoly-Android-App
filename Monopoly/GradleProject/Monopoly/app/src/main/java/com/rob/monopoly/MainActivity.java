@@ -351,7 +351,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.bankrupt) {
 
-//            if(GameState.getInstance().getCurrentPlayer().getBalance()<0){
             if (GameState.getInstance().getNumPlayers() >= 2) {
                 SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
                 pDialog.setCancelButton("I've had a change of heart", sweetAlertDialog -> {
@@ -393,10 +392,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } else {
 
             }
-//            else{
-//                GameState.getInstance().changeToNextPlayer();
-//                Log.i("Player",GameState.getInstance().getCurrentPlayer().getID());
-//            }
         }else if(id == R.id.refresh){
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             View hView =  navigationView.getHeaderView(0);
@@ -435,66 +430,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
-
-
-    public void alertMovedButton(int moved) {
-
-        new AlertDialog.Builder(MainActivity.this)
-                .setMessage("You moved "+moved+" places")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        dialog.cancel();
-                    }
-                }).show();
-    }
-
-
-
-    public void alertPersistentDialog(){
-
-        final AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this)
-                .setTitle("The Code of a Ninja")
-                .setMessage("This is a persistent AlertDialog")
-                .setPositiveButton("Show Toast", null) // null to override the onClick
-                .setNegativeButton("Dismiss", null)
-                .setCancelable(false)
-                .create();
-
-        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-
-            @Override
-            public void onShow(DialogInterface dialog) {
-
-                Button btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                btnPositive.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-
-                        Toast.makeText(MainActivity.this,"Not Dismissed",Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
-
-                Button btnNegative = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-                btnNegative.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-
-                        // dismiss once everything is ok
-                        alertDialog.dismiss();
-                    }
-                });
-            }
-        });
-
-        // don't forget to show it
-        alertDialog.show();
-
-    }
+    
 
     public void diceShow(View view) {
         final Animation anim1 = AnimationUtils.loadAnimation(GameState.getInstance().getContext(), R.anim.shake);
@@ -709,8 +645,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
         listView.setAdapter(adapter);
-//        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
 
         pDialog.setCustomView(listView);
         pDialog.setConfirmText("Build");
