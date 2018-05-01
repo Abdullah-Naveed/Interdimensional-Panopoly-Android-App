@@ -342,7 +342,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.bankrupt) {
 
 //            if(GameState.getInstance().getCurrentPlayer().getBalance()<0){
-            if(GameState.getInstance().getNumPlayers()>=2){
+            if (GameState.getInstance().getNumPlayers() >= 2) {
                 SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
                 pDialog.setCancelButton("I've had a change of heart", sweetAlertDialog -> {
                     pDialog.cancel();
@@ -350,14 +350,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 pDialog.setConfirmButton("Yes take my soul", sweetAlertDialog -> {
 
-                    UserMover userMover=new UserMover(GameState.getInstance().getContext());
-                    userMover.wipe(GameState.getInstance().getCurrentPlayer().getPlayerNum(),viewGroup);
+                    UserMover userMover = new UserMover(GameState.getInstance().getContext());
+                    userMover.wipe(GameState.getInstance().getCurrentPlayer().getPlayerNum(), viewGroup);
                     GameState.getInstance().removePlayer(GameState.getInstance().getCurrentPlayer());
                     TastyToast.makeText(getApplicationContext(), "Changed To Next Player", TastyToast.LENGTH_LONG, TastyToast.INFO);
                     pDialog.cancel();
 
-                    if(GameState.getInstance().getNumPlayers()==1)
-                    {
+                    if (GameState.getInstance().getNumPlayers() == 1) {
                         SweetAlertDialog Dialog = new SweetAlertDialog(GameState.getInstance().getContext());
                         Dialog.setTitleText("CONGRATS U WON IT ONLY TOOK US 3 MONTHS OF DEPRESSION TO MAKE THIS FUN GAME FOR YOU");
                         Dialog.show();
@@ -381,14 +380,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 pDialog.setTitle("Are u sure u wanna LOSE hahahahaha");
                 pDialog.show();
 
-            }
-            else{
+            } else {
 
             }
 //            else{
 //                GameState.getInstance().changeToNextPlayer();
 //                Log.i("Player",GameState.getInstance().getCurrentPlayer().getID());
 //            }
+        }else if(id == R.id.refresh){
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            View hView =  navigationView.getHeaderView(0);
+            TextView nav_balance = (TextView)hView.findViewById(R.id.balance);
+            String bal=Integer.toString(GameState.getInstance().getCurrentPlayer().getBalance());
+            nav_balance.setText("Balance: "+bal);
         } else if (id == R.id.roll_1){
             GameState.getInstance().getCurrentPlayer().move(5);
             checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
