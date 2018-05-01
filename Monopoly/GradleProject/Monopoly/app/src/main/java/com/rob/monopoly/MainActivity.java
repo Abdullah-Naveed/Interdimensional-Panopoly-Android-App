@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         KnowledgeBaseModule NOC = GameState.getInstance().getKnowledgeBaseModule();
         Vector<String> allPlayers = NOC.getAllFrames();
-        Vector<String> players;
 
         for(int i=0;i<numPlayers;i++)
         {
