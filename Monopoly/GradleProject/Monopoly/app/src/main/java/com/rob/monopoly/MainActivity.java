@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         for(int i=0;i<numPlayers;i++)
         {
             String player = NOC.selectRandomlyFrom(allPlayers);
-            instance.addPlayers((new Player(this,viewGroup,player,i)));
+            instance.addPlayers((new Player(this,viewGroup,player+" - Player "+i,i)));
             instance.setCurrentPlayer(instance.getPlayerWithInt(i));
             instance.getPlayerWithInt(i).move(0);
         }

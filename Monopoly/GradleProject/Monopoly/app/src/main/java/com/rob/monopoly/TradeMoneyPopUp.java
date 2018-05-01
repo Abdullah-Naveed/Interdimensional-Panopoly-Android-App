@@ -67,7 +67,7 @@ public class TradeMoneyPopUp {
     private void choosePlayerPopUp(String price) {
 
         AlertDialog.Builder builder2 = new AlertDialog.Builder(GameState.getInstance().getContext());
-        builder2.setTitle("Choose the player you would like to sell your property to with");
+        builder2.setTitle("Choose the player you would like to sell your property to");
         CharSequence[] items2 = new CharSequence[GameState.getInstance().getNumPlayers()-1];
         int j=0;
         for(Player player:GameState.getInstance().getPlayers())
@@ -202,11 +202,11 @@ public class TradeMoneyPopUp {
 
         for(Property property : properties){
             player.removeFromProperties(property); //remove property from players property list
-            player.deposit(Integer.parseInt(price)); //deposit to players account
-            GameState.getInstance().getCurrentPlayer().withdraw(Integer.parseInt(price));
-
             GameState.getInstance().setPropertyOwner(property.getID(),GameState.getInstance().getCurrentPlayer());
+            GameState.getInstance().getCurrentPlayer().addToProperties(property);
         }
+        GameState.getInstance().getCurrentPlayer().withdraw(Integer.parseInt(price));
+        player.deposit(Integer.parseInt(price)); //deposit to players account
 
         TastyToast.makeText(GameState.getInstance().getContext(), "Trade Successful", TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
 
