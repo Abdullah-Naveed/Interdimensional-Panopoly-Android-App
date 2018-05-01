@@ -501,6 +501,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 int i = diceRoll + diceRoll1;
 
+                TastyToast.makeText(GameState.getInstance().getContext(),"You Have Moved " + i + " Spaces.",TastyToast.LENGTH_LONG,TastyToast.SUCCESS).show();
+
 
                 try {
                     final Animation.AnimationListener animationListener = new Animation.AnimationListener() {
