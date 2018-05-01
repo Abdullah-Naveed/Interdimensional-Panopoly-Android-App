@@ -56,6 +56,14 @@ public class UserMover extends AppCompatActivity{
 //                cards.get(rand.nextInt(cards.size()-1))
 //                cardPopup(new Card());
             }
+            if(index==5)
+            {
+                MainActivity.miniGame(GameState.getInstance().getActivity());
+            }
+            if(index==9)
+            {
+                MainActivity.miniGame(GameState.getInstance().getActivity());
+            }
             if(index==7)
             {
                 Random random=new Random();
@@ -200,13 +208,11 @@ public class UserMover extends AppCompatActivity{
             }
             if(index==5)
             {
-
                 MainActivity.miniGame(GameState.getInstance().getActivity());
-
             }
             if(index==9)
             {
-                MainActivity.miniGame2(GameState.getInstance().getActivity());
+                MainActivity.miniGame(GameState.getInstance().getActivity());
             }
             if(index==7)
             {
