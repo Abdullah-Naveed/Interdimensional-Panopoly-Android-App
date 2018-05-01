@@ -87,11 +87,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         KnowledgeBaseModule NOC = GameState.getInstance().getKnowledgeBaseModule();
         Vector<String> allPlayers = NOC.getAllFrames();
+        String[] playerColours = {"Blue","Red","Green","Pink"};
 
         for(int i=0;i<numPlayers;i++)
         {
             String player = NOC.selectRandomlyFrom(allPlayers);
-            instance.addPlayers((new Player(this,viewGroup,player+" - Player "+i,i)));
+            instance.addPlayers((new Player(this,viewGroup,player+" - Player "+i+ " - " + playerColours[i],i)));
             instance.setCurrentPlayer(instance.getPlayerWithInt(i));
             instance.getPlayerWithInt(i).move(0);
         }
