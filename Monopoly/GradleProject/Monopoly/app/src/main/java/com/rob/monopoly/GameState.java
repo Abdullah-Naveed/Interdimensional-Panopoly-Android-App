@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.rob.monopoly.NOCList.twitterbotics.KnowledgeBaseModule;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -22,6 +24,7 @@ public class GameState {
         private ArrayList<Card> cards=new ArrayList<Card>();
         private ViewGroup viewGroup;
         private Context context;
+        private KnowledgeBaseModule knowledgeBaseModule;
 
 
     private Activity activity;
@@ -159,5 +162,13 @@ public class GameState {
         public void setCards(ArrayList<Card> cards) { this.cards = cards; }
 
         public void addCards(Card card) { this.cards.add(card); }
+
+        public KnowledgeBaseModule getKnowledgeBaseModule() {
+            return knowledgeBaseModule;
+        }
+
+        public void setKnowledgeBaseModule(Context context) {
+            this.knowledgeBaseModule = new KnowledgeBaseModule(context);
+        }
 
 }
