@@ -42,6 +42,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -83,9 +84,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     public void initialPlayers(int numPlayers)
     {
+
+//        int numOfPlayers = 4;
+//        //System.out.println(Fictional);
+//        ArrayList<String> Players = new ArrayList<String>();
+//        for(int i = 0; i < numOfPlayers; i++) {
+//            String PlayerNames = NOC.selectRandomlyFrom(Fictional);
+//            Players.add(i, PlayerNames);
+//        }
+//        //System.out.println(Players);
+
+        KnowledgeBaseModule NOC=new KnowledgeBaseModule(this);
+        Vector<String> worlds = NOC.getFictionalWorlds(this);
+        Vector<String> players;
+        String player;
+
         for(int i=0;i<numPlayers;i++)
         {
-            instance.addPlayers((new Player(this,viewGroup,"Player "+i,i)));
+            String world = NOC.selectRandomlyFrom(worlds);
+            players = NOC.getAllKeysWithFieldValue("Fictional World",world);
+            player = NOC.selectRandomlyFrom(players);
+            instance.addPlayers((new Player(this,viewGroup,player,i)));
             instance.setCurrentPlayer(instance.getPlayerWithInt(i));
             instance.getPlayerWithInt(i).move(0);
         }
