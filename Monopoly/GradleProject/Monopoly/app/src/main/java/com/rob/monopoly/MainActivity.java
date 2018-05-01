@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        }
 //        //System.out.println(Players);
 
-        KnowledgeBaseModule NOC=new KnowledgeBaseModule(this);
+        KnowledgeBaseModule NOC = GameState.getInstance().getKnowledgeBaseModule();
         Vector<String> worlds = NOC.getFictionalWorlds(this);
         Vector<String> players;
         String player;
@@ -113,8 +113,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void initialSetting(){
         //red
-        KnowledgeBaseModule knowledgeBaseModule=GameState.getInstance().getKnowledgeBaseModule();
-        HashMap<String,ArrayList<String>> colourLocations = new LinkedHashMap<String,ArrayList<String>>(knowledgeBaseModule.getLocations(this));
+        KnowledgeBaseModule NOC=GameState.getInstance().getKnowledgeBaseModule();
+        HashMap<String,ArrayList<String>> colourLocations = new LinkedHashMap<String,ArrayList<String>>(NOC.getLocations(this));
 
         ArrayList<String> groupGenres = new ArrayList<>();
 
