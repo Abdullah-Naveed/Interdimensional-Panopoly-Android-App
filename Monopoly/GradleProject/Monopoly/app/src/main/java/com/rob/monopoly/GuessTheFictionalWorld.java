@@ -73,11 +73,11 @@ public class GuessTheFictionalWorld extends AppCompatActivity {
 
                 if(answers.get(0).equals(answer)){
                     GameState.getInstance().getCurrentPlayer().deposit(50);
-                    TastyToast.makeText(this, "Fairplay, you're not as dumb as you look!! Here is 50 bucks",TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
+                    TastyToast.makeText(this, "Fairplay, you're not as dumb as you look!! Here is 50 euro",TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
 
                 }else{
                     GameState.getInstance().getCurrentPlayer().withdraw(50);
-                    TastyToast.makeText(this, "YOU HAM!!! Give Me 50 bucks",TastyToast.LENGTH_LONG, TastyToast.ERROR);
+                    TastyToast.makeText(this, "YOU HAM!!! Give Me 50 euro",TastyToast.LENGTH_LONG, TastyToast.ERROR);
 
                 }
 
@@ -86,11 +86,11 @@ public class GuessTheFictionalWorld extends AppCompatActivity {
 
                 if(answers.get(1).equals(answer)){
                     GameState.getInstance().getCurrentPlayer().deposit(50);
-                    TastyToast.makeText(this, "Fairplay, you're not as dumb as you look!! Here is 50 bucks",TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
+                    TastyToast.makeText(this, "Fairplay, you're not as dumb as you look!! Here is 50 euro",TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
 
                 }else{
                     GameState.getInstance().getCurrentPlayer().withdraw(50);
-                    TastyToast.makeText(this, "YOU HAM!!! Give Me 50 bucks",TastyToast.LENGTH_LONG, TastyToast.ERROR);
+                    TastyToast.makeText(this, "YOU HAM!!! Give Me 50 euro",TastyToast.LENGTH_LONG, TastyToast.ERROR);
 
                 }
 
@@ -99,11 +99,11 @@ public class GuessTheFictionalWorld extends AppCompatActivity {
 
                 if(answers.get(2).equals(answer)){
                     GameState.getInstance().getCurrentPlayer().deposit(50);
-                    TastyToast.makeText(this, "Fairplay, you're not as dumb as you look!! Here is 50 bucks",TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
+                    TastyToast.makeText(this, "Fairplay, you're not as dumb as you look!! Here is 50 euro",TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
 
                 }else{
                     GameState.getInstance().getCurrentPlayer().withdraw(50);
-                    TastyToast.makeText(this, "YOU HAM!!! Give Me 50 bucks",TastyToast.LENGTH_LONG, TastyToast.ERROR);
+                    TastyToast.makeText(this, "YOU HAM!!! Give Me 50 euro",TastyToast.LENGTH_LONG, TastyToast.ERROR);
 
                 }
 
@@ -112,11 +112,11 @@ public class GuessTheFictionalWorld extends AppCompatActivity {
 
                 if(answers.get(3).equals(answer)){
                     GameState.getInstance().getCurrentPlayer().deposit(50);
-                    TastyToast.makeText(this, "Fairplay, you're not as dumb as you look!! Here is 50 bucks",TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
+                    TastyToast.makeText(this, "Fairplay, you're not as dumb as you look!! Here is 50 euro",TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
 
                 }else{
                     GameState.getInstance().getCurrentPlayer().withdraw(50);
-                    TastyToast.makeText(this, "YOU HAM!!! Give Me 50 bucks",TastyToast.LENGTH_LONG, TastyToast.ERROR);
+                    TastyToast.makeText(this, "YOU HAM!!! Give Me 50 euro",TastyToast.LENGTH_LONG, TastyToast.ERROR);
 
                 }
 
