@@ -37,6 +37,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -46,7 +47,6 @@ import java.util.Vector;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -298,62 +298,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.roll) {
-
-            if (!GameState.getInstance().getCurrentPlayer().isHasRolled()) {
-
-                if (!GameState.getInstance().getCurrentPlayer().isInJail()) {
-
-                    Random RANDOM = new Random();
-                    diceRoll = RANDOM.nextInt(6) + 1;
-                    diceRoll1 = RANDOM.nextInt(6) + 1;
-
-                    int i = diceRoll + diceRoll1;
-
-                    GameState.getInstance().getCurrentPlayer().move(i);
-                    System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
-                    checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
-
-                } else {
-
-                    Random RANDOM = new Random();
-                    diceRoll = RANDOM.nextInt(6) + 1;
-                    diceRoll1 = RANDOM.nextInt(6) + 1;
-                    int i = diceRoll + diceRoll1;
-
-                    if (diceRoll == diceRoll1) {
-
-                        GameState.getInstance().getCurrentPlayer().move(i);
-                        System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
-                        checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
-                        GameState.getInstance().getCurrentPlayer().setInJail(false);
-
-                    } else {
-                        SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
-                        pDialog.setTitleText("You didn't roll a double, pay 50 euro if you want to get out of Jail");
-                        pDialog.show();
-
-                        pDialog.setCancelButton("No I don't want pay", sweetAlertDialog -> {
-                            pDialog.cancel();
-                        });
-
-                        pDialog.setConfirmButton("Yes here you go", sweetAlertDialog -> {
-
-                            GameState.getInstance().getCurrentPlayer().withdraw(50);
-                            GameState.getInstance().getCurrentPlayer().setInJail(false);
-                            TastyToast.makeText(getApplicationContext(), "Thank You.You are free to leave on your next turn", TastyToast.LENGTH_LONG, TastyToast.INFO);
-
-                            pDialog.cancel();
-                        });
-
-                    }
-
-                }
-
-                GameState.getInstance().getCurrentPlayer().setHasRolled(true);
-            }else{TastyToast.makeText(getApplicationContext(), "Sorry BRAH you have already rolled unlucky", TastyToast.LENGTH_LONG, TastyToast.INFO);}
-
-        } else if (id == R.id.end_turn) {
+        if (id == R.id.end_turn) {
             if (GameState.getInstance().getCurrentPlayer().isHasRolled()) {
                 GameState.getInstance().getCurrentPlayer().setHasRolled(false);
                 if (GameState.getInstance().getCurrentPlayer().getBalance() <= 0) {
@@ -369,6 +314,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
         }else if (id == R.id.properties) {
+            SweetAlertDialog pDialog=new SweetAlertDialog(GameState.getInstance().getContext(),SweetAlertDialog.NORMAL_TYPE);
+            List list=GameState.getInstance().getCurrentPlayer().getProperties();
+            Object[] array=list.toArray(new Property[list.size()]);
+            Property[] properties=new Property[array.length];
+            String[] stringsProp=new String[array.length];
+            for(int i=0;i<array.length;i++)
+            {
+                properties[i]=(Property)array[i];
+                stringsProp[i]=properties[i].getID();
+            }
+            ListView listView = new ListView(GameState.getInstance().getContext());
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, stringsProp);
+            listView.setAdapter(adapter);
+            pDialog.setCustomView(listView);
+            pDialog.show();
+            pDialog.findViewById(R.id.confirm_button).setVisibility(View.GONE);
 
         } else if (id == R.id.trade_properties) {
 
@@ -525,57 +486,137 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    public void diceShow(View view){
+    public void diceShow(View view) {
         final Animation anim1 = AnimationUtils.loadAnimation(GameState.getInstance().getContext(), R.anim.shake);
         final Animation anim2 = AnimationUtils.loadAnimation(GameState.getInstance().getContext(), R.anim.shake);
-        ImageView imageView1=findViewById(R.id.dice);
-        ImageView imageView2=findViewById(R.id.dice2);
+        ImageView imageView1 = findViewById(R.id.dice);
+        ImageView imageView2 = findViewById(R.id.dice2);
 
-        try
-        {
+        if (!GameState.getInstance().getCurrentPlayer().isHasRolled()) {
 
-            final Animation.AnimationListener animationListener = new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
+            if (!GameState.getInstance().getCurrentPlayer().isInJail()) {
 
-                }
+                Random RANDOM = new Random();
+                diceRoll = RANDOM.nextInt(6) + 1;
+                diceRoll1 = RANDOM.nextInt(6) + 1;
 
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    int value = randomDiceValue();
-                    GameState.getInstance().getCurrentPlayer().move(value);
-                    int res = getResources().getIdentifier("dice_" + value, "drawable", "com.rob.monopoly");
+                int i = diceRoll + diceRoll1;
 
-                    if (animation == anim1) {
-                        imageView1.setImageResource(res);
-                    } else if (animation == anim2) {
-                        imageView2.setImageResource(res);
+
+                try {
+                    final Animation.AnimationListener animationListener = new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            if (animation == anim1) {
+                                int res = getResources().getIdentifier("dice_" + diceRoll, "drawable", "com.rob.monopoly");
+                                imageView1.setImageResource(res);
+                            } else if (animation == anim2) {
+                                int res = getResources().getIdentifier("dice_" + diceRoll1, "drawable", "com.rob.monopoly");
+                                imageView2.setImageResource(res);
+                            }
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+                        }
+                    };
+
+                    anim1.setAnimationListener(animationListener);
+                    anim2.setAnimationListener(animationListener);
+
+                    imageView1.startAnimation(anim1);
+                    imageView2.startAnimation(anim2);
+
+                    }catch(NullPointerException e)
+                    {
+
                     }
+
+                    GameState.getInstance().getCurrentPlayer().move(i);
+                    System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+                    checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+
+                } else{
+
+                    Random RANDOM = new Random();
+                    diceRoll = RANDOM.nextInt(6) + 1;
+                    diceRoll1 = RANDOM.nextInt(6) + 1;
+                    int i = diceRoll + diceRoll1;
+
+                    try {
+                        final Animation.AnimationListener animationListener = new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                if (animation == anim1) {
+                                    int res = getResources().getIdentifier("dice_" + diceRoll, "drawable", "com.rob.monopoly");
+                                    imageView1.setImageResource(res);
+                                } else if (animation == anim2) {
+                                    int res = getResources().getIdentifier("dice_" + diceRoll1, "drawable", "com.rob.monopoly");
+                                    imageView2.setImageResource(res);
+                                }
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+                            }
+                        };
+
+                        anim1.setAnimationListener(animationListener);
+                        anim2.setAnimationListener(animationListener);
+
+                        imageView1.startAnimation(anim1);
+                        imageView2.startAnimation(anim2);
+
+                    }catch(NullPointerException e)
+                    {
+
+                    }
+
+
+                    if (diceRoll == diceRoll1) {
+
+                        GameState.getInstance().getCurrentPlayer().move(i);
+                        System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+                        checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+                        GameState.getInstance().getCurrentPlayer().setInJail(false);
+
+                    } else {
+                        SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
+                        pDialog.setTitleText("You didn't roll a double, pay 50 euro if you want to get out of Jail");
+                        pDialog.show();
+
+                        pDialog.setCancelButton("No I don't want pay", sweetAlertDialog -> {
+                            pDialog.cancel();
+                        });
+
+                        pDialog.setConfirmButton("Yes here you go", sweetAlertDialog -> {
+
+                            GameState.getInstance().getCurrentPlayer().withdraw(50);
+                            GameState.getInstance().getCurrentPlayer().setInJail(false);
+                            TastyToast.makeText(getApplicationContext(), "Thank You.You are free to leave on your next turn", TastyToast.LENGTH_LONG, TastyToast.INFO);
+
+                            pDialog.cancel();
+                        });
+
+                    }
+
                 }
 
-                @Override
-                public void onAnimationRepeat(Animation animation) {
+                GameState.getInstance().getCurrentPlayer().setHasRolled(true);
+            } else {
+                TastyToast.makeText(getApplicationContext(), "Sorry BRAH you have already rolled unlucky", TastyToast.LENGTH_LONG, TastyToast.INFO);
+            }
 
-                }
-            };
-
-            anim1.setAnimationListener(animationListener);
-            anim2.setAnimationListener(animationListener);
-
-            imageView1.startAnimation(anim1);
-            imageView2.startAnimation(anim2);
-
-        }catch(NullPointerException e)
-        {
 
         }
-
-    }
-
-    public static int randomDiceValue() {
-        return new Random().nextInt(6) + 1;
-    }
-
 
     public void PopupCustomizedLayout(View view) {
 
