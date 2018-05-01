@@ -45,8 +45,16 @@ public class GuessTheFictionalWorld extends AppCompatActivity {
         answers.add(dFictionalWorld = NOC.selectRandomlyFrom(fictionalWorlds));
         Collections.shuffle(answers);
 
-        Vector<String> character = NOC.getAllKeysWithFieldValue("Fictional World", answers.get(0));
-        answer=answers.get(0);
+        Vector<String> character;
+        int j=0;
+        do {
+            character = NOC.getAllKeysWithFieldValue("Fictional World", answers.get(j));
+            answer=answers.get(j);
+            j++;
+        }
+        while(character.size()==0);
+        if(character==null)
+
         Collections.shuffle(answers);
         TextView nocTextView = findViewById(R.id.nocTextView);
 

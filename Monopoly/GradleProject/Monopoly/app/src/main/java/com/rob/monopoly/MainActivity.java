@@ -390,7 +390,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                Log.i("Player",GameState.getInstance().getCurrentPlayer().getID());
 //            }
         } else if (id == R.id.roll_1){
-            GameState.getInstance().getCurrentPlayer().move(1);
+            GameState.getInstance().getCurrentPlayer().move(5);
             checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
 
         }
