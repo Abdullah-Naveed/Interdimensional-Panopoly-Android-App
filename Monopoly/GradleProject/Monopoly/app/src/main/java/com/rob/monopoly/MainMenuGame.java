@@ -12,9 +12,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
-/**
- * Created by Vlad on 14-Apr-18.
- */
+
 
 public class MainMenuGame extends AppCompatActivity {
     private TextView textView;

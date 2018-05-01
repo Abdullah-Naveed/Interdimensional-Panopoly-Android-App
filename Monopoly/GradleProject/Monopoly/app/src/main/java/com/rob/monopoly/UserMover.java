@@ -204,6 +204,10 @@ public class UserMover extends AppCompatActivity{
                 MainActivity.miniGame(GameState.getInstance().getActivity());
 
             }
+            if(index==9)
+            {
+                MainActivity.miniGame2(GameState.getInstance().getActivity());
+            }
             if(index==7)
             {
 
