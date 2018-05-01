@@ -16,6 +16,9 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+
+    GameState gameState=GameState.getInstance();
+
     @Test
     public void useAppContext() throws Exception {
         // Context of the app under test.
