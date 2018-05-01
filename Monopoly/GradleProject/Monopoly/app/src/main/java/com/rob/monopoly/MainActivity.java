@@ -66,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+        gameIntroduction();
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -317,22 +320,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
         }else if (id == R.id.properties) {
-            SweetAlertDialog pDialog=new SweetAlertDialog(GameState.getInstance().getContext(),SweetAlertDialog.NORMAL_TYPE);
-            List list=GameState.getInstance().getCurrentPlayer().getProperties();
-            Object[] array=list.toArray(new Property[list.size()]);
-            Property[] properties=new Property[array.length];
-            String[] stringsProp=new String[array.length];
-            for(int i=0;i<array.length;i++)
-            {
-                properties[i]=(Property)array[i];
-                stringsProp[i]=properties[i].getID();
+            if(GameState.getInstance().getCurrentPlayer().getProperties().size()==0){
+                TastyToast.makeText(this, "Have you tried buying a property?", TastyToast.LENGTH_LONG, TastyToast.CONFUSING);
+            }else{
+                SweetAlertDialog pDialog=new SweetAlertDialog(GameState.getInstance().getContext(),SweetAlertDialog.NORMAL_TYPE);
+                List list=GameState.getInstance().getCurrentPlayer().getProperties();
+                Object[] array=list.toArray(new Property[list.size()]);
+                Property[] properties=new Property[array.length];
+                String[] stringsProp=new String[array.length];
+                for(int i=0;i<array.length;i++)
+                {
+                    properties[i]=(Property)array[i];
+                    stringsProp[i]=properties[i].getID();
+                }
+                ListView listView = new ListView(GameState.getInstance().getContext());
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, stringsProp);
+                listView.setAdapter(adapter);
+                pDialog.setCustomView(listView);
+                pDialog.show();
+                pDialog.findViewById(R.id.confirm_button).setVisibility(View.GONE);
             }
-            ListView listView = new ListView(GameState.getInstance().getContext());
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, stringsProp);
-            listView.setAdapter(adapter);
-            pDialog.setCustomView(listView);
-            pDialog.show();
-            pDialog.findViewById(R.id.confirm_button).setVisibility(View.GONE);
 
         } else if (id == R.id.trade_properties) {
 
@@ -778,6 +785,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         TradeMoneyPopUp tradePopUp=new TradeMoneyPopUp();
         tradePopUp.tradeMoneyPopup();
+    }
+
+    public void gameIntroduction(){
+        SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
+        pDialog.setTitle("Game Introduction");
+        pDialog.setContentText("");
+
+        pDialog.setCancelButton("Okay", sweetAlertDialog -> {
+            pDialog.cancel();
+        });
+
+        pDialog.show();
     }
 
     public static void miniGame(Activity activity)
