@@ -415,18 +415,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 currentProperty.getOwner().deposit(currentProperty.getRentalAmount());
                 currentProperty.payRent(GameState.getInstance().getCurrentPlayer());
-                TastyToast.makeText(GameState.getInstance().getContext(),"You Have Paid To Live Another Day",TastyToast.LENGTH_LONG,TastyToast.WARNING).show();
+            TastyToast.makeText(GameState.getInstance().getContext(),"You Have Paid Rent!",TastyToast.LENGTH_LONG,TastyToast.WARNING).show();
 
             }
         }
 
-
     }
 
 
-    /*
-    * AlertDialog with one action button.
-    */
     public void alertMovedButton(int moved) {
 
         new AlertDialog.Builder(MainActivity.this)
