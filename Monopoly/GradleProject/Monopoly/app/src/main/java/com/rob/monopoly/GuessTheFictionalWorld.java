@@ -36,7 +36,7 @@ public class GuessTheFictionalWorld extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guess_the_fictional_world);
         Random rand = new Random();
-        KnowledgeBaseModule NOC = new KnowledgeBaseModule(GameState.getInstance().getContext());
+        KnowledgeBaseModule NOC = GameState.getInstance().getKnowledgeBaseModule();
         Vector<String> fictionalWorlds = NOC.getFictionalWorlds(GameState.getInstance().getContext());
 
         answers.add(aFictionalWorld = NOC.selectRandomlyFrom(fictionalWorlds));

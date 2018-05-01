@@ -367,6 +367,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }else{TastyToast.makeText(getApplicationContext(), "Sorry BRAH you have already rolled unlucky", TastyToast.LENGTH_LONG, TastyToast.INFO);}
 
         } else if (id == R.id.end_turn) {
+            if(GameState.getInstance().getCurrentPlayer().isHasRolled()) {
                 GameState.getInstance().getCurrentPlayer().setHasRolled(false);
                 if (GameState.getInstance().getCurrentPlayer().getBalance() <= 0) {
                     SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
@@ -376,7 +377,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     GameState.getInstance().changeToNextPlayer();
                     TastyToast.makeText(getApplicationContext(), "Changed To Next Player", TastyToast.LENGTH_LONG, TastyToast.INFO);
                 }
-
+            }
+            else
+            {
+                TastyToast.makeText(GameState.getInstance().getContext(),"You Must Roll You Damn Fool!!!",TastyToast.LENGTH_LONG,TastyToast.CONFUSING).show();
+            }
         } else if (id == R.id.trade_properties) {
 
             tradePopup();
