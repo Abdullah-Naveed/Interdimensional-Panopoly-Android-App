@@ -717,11 +717,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sDialog) {
-                if(GameState.getInstance().getCurrentPlayer().getBalance()>=property.getHousePrice()&&GameState.getInstance().getCurrentPlayer().isGroupOwner(property))
-                {
-                    GameState.getInstance().getCurrentPlayer().withdraw(property.getHousePrice());
-                    property.buildHouse();
-                }
+                    if(GameState.getInstance().getCurrentPlayer().getBalance()>=property.getHousePrice()&&GameState.getInstance().getCurrentPlayer().isGroupOwner(property))
+                    {
+                        GameState.getInstance().getCurrentPlayer().withdraw(property.getHousePrice());
+                        property.buildHouse();
+                    }else{
+                        TastyToast.makeText(GameState.getInstance().getContext(),"You Don't Own The Colour Group",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+                    }
+
+
+
                 pDialog.cancel();
             }
         });

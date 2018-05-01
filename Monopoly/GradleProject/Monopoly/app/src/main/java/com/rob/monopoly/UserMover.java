@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TableRow;
 
 import com.rob.monopoly.Interfaces.Functional;
+import com.sdsmdg.tastytoast.TastyToast;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -31,7 +32,6 @@ public class UserMover extends AppCompatActivity{
 
     public int move(ViewGroup viewGroup, int index, int User)
     {
-//        GameState.getInstance().getCurrentPlayer().withdraw(2000);
         if(GameState.getInstance().getCurrentPlayer().getBalance() <= 0){
 
             SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
@@ -50,11 +50,7 @@ public class UserMover extends AppCompatActivity{
             View view=subView.getVirtualChildAt(index);
             if(index==3)
             {
-                ArrayList<Card> cards=GameState.getInstance().getCards();
-                Random rand=new Random();
-
-//                cards.get(rand.nextInt(cards.size()-1))
-//                cardPopup(new Card());
+                cardPopup();
             }
             if(index==5)
             {
@@ -80,6 +76,7 @@ public class UserMover extends AppCompatActivity{
                         view=subView.getVirtualChildAt(Math.abs(14));
                         newLocation=36;break;
                 }
+                tastyToast();
                 playSound();
             }
             if(index==14){
@@ -101,10 +98,7 @@ public class UserMover extends AppCompatActivity{
             if(index==19){view=subView.getVirtualChildAt(0);}
             if(index==35)
             {
-                ArrayList<Card> cards=GameState.getInstance().getCards();
-                Random rand=new Random();
-//                cards.get(rand.nextInt(cards.size()-1))
-//                cardPopup(new Card());
+                cardPopup();
                 view=subView.getVirtualChildAt(14);
             }
             setVisibility(User, view);
@@ -133,6 +127,7 @@ public class UserMover extends AppCompatActivity{
                         newLocation=36;break;
                 }
                 playSound();
+                tastyToast();
             }
             setVisibility(User, view);
             return newLocation;
@@ -166,6 +161,7 @@ public class UserMover extends AppCompatActivity{
                         view=subView.getVirtualChildAt(Math.abs(14));
                         newLocation=36;break;
                 }
+                tastyToast();
                 playSound();
             }
             if(index==38){view=subView.getVirtualChildAt(14);}
@@ -179,10 +175,7 @@ public class UserMover extends AppCompatActivity{
             TableRow subView=(TableRow)viewGroup.getChildAt(5);
             if(index==15)
             {
-                ArrayList<Card> cards=GameState.getInstance().getCards();
-                Random rand=new Random();
-//                cards.get(rand.nextInt(cards.size()-1))
-//                cardPopup(new Card());
+                cardPopup();
                 view=subView.getVirtualChildAt(0);
             }
             if(index==39){view=subView.getVirtualChildAt(14);}
@@ -197,14 +190,6 @@ public class UserMover extends AppCompatActivity{
             if(index==3)
             {
                 cardPopup();
-//                ArrayList<Card> cards=GameState.getInstance().getCards();
-//                Random rand=new Random();
-
-//                Card myCard = new Card();
-//                myCard.runAway();
-
-//                cards.get(rand.nextInt(cards.size()-1))
-//                cardPopup(new Card());
             }
             if(index==5)
             {
@@ -231,6 +216,7 @@ public class UserMover extends AppCompatActivity{
                             view=subView.getVirtualChildAt(Math.abs(14));
                             newLocation=36;break;
                 }
+                tastyToast();
                 playSound();
             }
             else
@@ -297,5 +283,10 @@ public class UserMover extends AppCompatActivity{
         pDialog.setContentText(functionProbe.invokeMarked(methods.elementAt(1)).toString()+"\n");
         pDialog.show();
 
+    }
+
+    private void tastyToast()
+    {
+        TastyToast.makeText(GameState.getInstance().getContext(),"You Teleported",TastyToast.LENGTH_LONG,TastyToast.INFO);
     }
 }

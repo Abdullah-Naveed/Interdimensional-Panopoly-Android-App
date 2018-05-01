@@ -12,33 +12,31 @@ import static com.rob.monopoly.MainActivity.properties;
 public class Property implements Improvable,Rentable,Mortgageable,Ownable {
 
     private String ID;
-    private int numHouses=0;
+    private int numHouses = 0;
     private double housePriceModifier;
-    private int baseRentPrice=0;
-    private Player player=null;
-    private boolean isMortgaged=false;
-    private boolean isOwned=false;
+    private int baseRentPrice = 0;
+    private Player player = null;
+    private boolean isMortgaged = false;
+    private boolean isOwned = false;
     private int buyPrice;
     private String colourGroup;
     private int location;
     private String compoundViewID;
 
-    public Property(String ID,String colourGroup,int buyPrice,double housePriceModifier,int baseRentPrice,String compoundViewID,int location)
-    {
-        this.ID=ID;
-        this.colourGroup=colourGroup;
-        this.buyPrice=buyPrice;
-        this.housePriceModifier=housePriceModifier;
-        this.baseRentPrice=baseRentPrice;
-        this.compoundViewID=compoundViewID;
-        this.location=location;
+    public Property(String ID, String colourGroup, int buyPrice, double housePriceModifier, int baseRentPrice, String compoundViewID, int location) {
+        this.ID = ID;
+        this.colourGroup = colourGroup;
+        this.buyPrice = buyPrice;
+        this.housePriceModifier = housePriceModifier;
+        this.baseRentPrice = baseRentPrice;
+        this.compoundViewID = compoundViewID;
+        this.location = location;
         properties.add(this);
     }
 
     @Override
     public boolean buildHouse() {
-        if(ownsColourGroup())
-        {
+        if (ownsColourGroup()) {
             numHouses++;
             return true;
         }
@@ -47,8 +45,7 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
 
     @Override
     public boolean demolishHouse() {
-        if(ownsColourGroup())
-        {
+        if (ownsColourGroup()) {
             numHouses--;
             return true;
         }
@@ -58,11 +55,10 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
 
     @Override
     public int getHousePrice() {
-        if(numHouses==0)
-        {
+        if (numHouses == 0) {
             return baseRentPrice;
         }
-        return (int)(numHouses*housePriceModifier+baseRentPrice);
+        return (int) (numHouses * housePriceModifier + baseRentPrice);
     }
 
 
@@ -79,22 +75,18 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
     @Override
     public boolean ownsColourGroup() {
 
-        ArrayList<Property> properties=player.getProperties();
-        int i=0;
+        ArrayList<Property> properties = player.getProperties();
+        int i = 0;
         for (Property property : properties) {
-            if(property.colourGroup==colourGroup)
-            {
+            if (property.colourGroup == colourGroup) {
                 i++;
             }
         }
 
-        if(colourGroup=="yellow"&&i==2||colourGroup=="orange"&&i==2)
-        {
+        if (colourGroup == "yellow" && i == 2 || colourGroup == "orange" && i == 2) {
             return true;
-        }
-        else if(colourGroup=="brown"&&i==3||colourGroup=="grey"&&i==3||colourGroup=="green"&&i==3||
-                colourGroup=="red"&&i==3||colourGroup=="pink"&&i==3||colourGroup=="blue"&&i==3)
-        {
+        } else if (colourGroup == "brown" && i == 3 || colourGroup == "grey" && i == 3 || colourGroup == "green" && i == 3 ||
+                colourGroup == "red" && i == 3 || colourGroup == "pink" && i == 3 || colourGroup == "blue" && i == 3) {
             return true;
         }
 
@@ -105,16 +97,16 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
 
     @Override
     public int getMortgageAmount() {
-        return buyPrice/2;
+        return buyPrice / 2;
     }
 
 
     @Override
     public void mortgageProperty() {
-        player.deposit(buyPrice/2);
-        isMortgaged=true;
-        isOwned=false;
-        player=null;
+        player.deposit(buyPrice / 2);
+        isMortgaged = true;
+        isOwned = false;
+        player = null;
     }
 
 
@@ -124,7 +116,7 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
     }
 
     @Override
-    public int getRentalAmount(){
+    public int getRentalAmount() {
         return getHousePrice();
     }
 
@@ -144,17 +136,17 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
     }
 
     @Override
-    public void setOwner(Player player){
-        this.player=player;
+    public void setOwner(Player player) {
+        this.player = player;
     }
 
     @Override
     public void buyProperty(Player player) {
-        this.player=player;
+        this.player = player;
         this.player.addToProperties(this);
         this.player.withdraw(buyPrice);
-        isOwned=true;
-        isMortgaged=false;
+        isOwned = true;
+        isMortgaged = false;
 
     }
 
@@ -184,83 +176,7 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
         this.compoundViewID = compoundViewID;
     }
 
-//    public static void popup(View view) {
-//        Toast.makeText(GameState.getInstance().getContext(),"TEST",Toast.LENGTH_LONG).show();
-
-
-
-//        String ownerStr=null;
-//        if(currentProperty.getOwner()==null&&GameState.getInstance().getCurrentPlayer().getPlayerLocation()==)/* and you are currently on that tile,check property location against current player location*/
-//        {
-//            ownerStr="No Owner";
-//            //call buy popup
-//        }else if(/* and you are currently on that tile,check property location against current player location*/)
-//        {
-//            Player player=currentProperty.getOwner();
-//            //if current owner is you, call build mortgage popup else pay rent pop up
-//        }
-//        else
-//        {
-//            //call ok popup
-//        }
-
-
-
-    }
-
-
-
-//    public void PopupCustomizedLayout(View view)
-//    {
-//        SweetAlertDialog pDialog=new SweetAlertDialog(this);
-//        ListView listView=new ListView(this);
-//
-//
-//        //need to add new param to property that holds the id of the compound view. compare id against it
-//
-//        View parent=(View)view.getParent();
-//        String viewName=resourceName(parent.getId());
-//
-//        Property currentProperty=new Property("red1","red",100,50,1.2,2);;
-//        for(Property prop:properties)
-//        {
-//            if(viewName==prop.getID())
-//            {
-//                currentProperty=prop;
-//            }
-//        }
-//        String ownerStr=null;
-//        if(currentProperty.getOwner()==null/* and you are currently on that tile,check property location against current player location*/)
-//        {
-//            ownerStr="No Owner";
-//            //call buy popup
-//        }else if(/* and you are currently on that tile,check property location against current player location*/)
-//        {
-//            Player player=currentProperty.getOwner();
-//            //if current owner is you, call build mortgage popup else pay rent pop up
-//        }
-//        else
-//        {
-//            //call ok popup
-//        }
-//        String[] values = new String[] {
-//                "Property Name: "+currentProperty.getID(),
-//                "Buy Price: "+currentProperty.buyPrice(),
-//                "Rent Price: "+currentProperty.getRentalAmount(),
-//                "Owner: "+ownerStr,
-//                "Colour Group: "+currentProperty.getColourGroup()
-//        };
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
-//        listView.setAdapter(adapter);
-//
-//
-//        pDialog.setCustomView(listView);
-//        pDialog.show();
-//
-//    }
-//
-//
-//
+}
 
 
 
