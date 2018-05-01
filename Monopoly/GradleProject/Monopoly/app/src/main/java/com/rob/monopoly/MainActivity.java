@@ -18,6 +18,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -588,6 +592,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
                         checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
                         GameState.getInstance().getCurrentPlayer().setInJail(false);
+                        TastyToast.makeText(GameState.getInstance().getContext(),"You have rolled a Double and escaped jail, congrats you CONVICT!",TastyToast.LENGTH_LONG,TastyToast.SUCCESS).show();
+
 
                     } else {
                         SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
