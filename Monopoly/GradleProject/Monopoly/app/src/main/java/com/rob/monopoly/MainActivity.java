@@ -79,21 +79,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int numPlayers = (int) bundle.get("NumPlayers");
 //        diceShow(new View(this));
         initialPlayers(numPlayers);
-        instance.setCurrentPlayer(instance.getPlayerWithInt(0));
+        Random random=new Random();
+        instance.setCurrentPlayer(instance.getPlayerWithInt(random.nextInt(numPlayers-1)));
 
     }
     public void initialPlayers(int numPlayers)
     {
-
-//        int numOfPlayers = 4;
-//        //System.out.println(Fictional);
-//        ArrayList<String> Players = new ArrayList<String>();
-//        for(int i = 0; i < numOfPlayers; i++) {
-//            String PlayerNames = NOC.selectRandomlyFrom(Fictional);
-//            Players.add(i, PlayerNames);
-//        }
-//        //System.out.println(Players);
-
         KnowledgeBaseModule NOC = GameState.getInstance().getKnowledgeBaseModule();
         Vector<String> allPlayers = NOC.getAllFrames();
 
@@ -363,7 +354,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }else{TastyToast.makeText(getApplicationContext(), "Sorry BRAH you have already rolled unlucky", TastyToast.LENGTH_LONG, TastyToast.INFO);}
 
         } else if (id == R.id.end_turn) {
-            if(GameState.getInstance().getCurrentPlayer().isHasRolled()) {
+            if (GameState.getInstance().getCurrentPlayer().isHasRolled()) {
                 GameState.getInstance().getCurrentPlayer().setHasRolled(false);
                 if (GameState.getInstance().getCurrentPlayer().getBalance() <= 0) {
                     SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
@@ -373,11 +364,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     GameState.getInstance().changeToNextPlayer();
                     TastyToast.makeText(getApplicationContext(), "Changed To Next Player", TastyToast.LENGTH_LONG, TastyToast.INFO);
                 }
+            } else {
+                TastyToast.makeText(GameState.getInstance().getContext(), "You Must Roll You Damn Fool!!!", TastyToast.LENGTH_LONG, TastyToast.CONFUSING).show();
             }
-            else
-            {
-                TastyToast.makeText(GameState.getInstance().getContext(),"You Must Roll You Damn Fool!!!",TastyToast.LENGTH_LONG,TastyToast.CONFUSING).show();
-            }
+
+        }else if (id == R.id.properties) {
+
         } else if (id == R.id.trade_properties) {
 
             tradePopup();

@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_check_circle_black_24px"
             android:title="End Turn" />
         <item
+            android:id="@+id/properties"
+            android:icon="@drawable/ic_home_black_24px"
+            android:title="Properties" />
+        <item
             android:id="@+id/trade_properties"
             android:icon="@drawable/ic_loop_black_24px"
             android:title="Trade Properties" />
