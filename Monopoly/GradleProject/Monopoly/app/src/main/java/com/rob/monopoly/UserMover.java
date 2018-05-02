@@ -280,7 +280,7 @@ public class UserMover extends AppCompatActivity{
         System.out.println(methods);
         SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
         pDialog.setTitleText("Card");
-        pDialog.setContentText(functionProbe.invokeMarked(methods.elementAt(1)).toString()+"\n");
+        pDialog.setContentText(functionProbe.invokeMarked(methods.elementAt(1)).toString()+System.lineSeparator());
         pDialog.show();
 
     }

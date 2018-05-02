@@ -63,12 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-
-        gameIntroduction();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -88,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initialPlayers(numPlayers);
         Random random=new Random();
         instance.setCurrentPlayer(instance.getPlayerWithInt(random.nextInt(numPlayers-1)));
+
+        gameIntroduction(); //game intro pop up
 
     }
     public void initialPlayers(int numPlayers)
@@ -399,7 +396,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             String bal=Integer.toString(GameState.getInstance().getCurrentPlayer().getBalance());
             nav_balance.setText("Balance: "+bal);
         } else if (id == R.id.roll_1){
-            GameState.getInstance().getCurrentPlayer().move(5);
+            GameState.getInstance().getCurrentPlayer().move(3);
             checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
 
         }
@@ -728,13 +725,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void gameIntroduction(){
         SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
-        pDialog.setTitle("Game Introduction");
-        pDialog.setContentText("");
-
-        pDialog.setCancelButton("Okay", sweetAlertDialog -> {
-            pDialog.cancel();
-        });
-
+        pDialog.setTitle("Game Info");
+        pDialog.setContentText("All tools of the game can be found in the Navigation Drawer." + System.lineSeparator() + "Swipe right from left edge."+ System.lineSeparator() +"Initial Balance: €2000."+ System.lineSeparator());
         pDialog.show();
     }
 
