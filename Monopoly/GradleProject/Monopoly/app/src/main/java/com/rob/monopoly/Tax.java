@@ -1,12 +1,33 @@
 package com.rob.monopoly;
 
-import com.rob.monopoly.Interfaces.Taxable;
-
 import java.util.Iterator;
 import java.util.Random;
+import java.util.Vector;
 
-public class Tax implements Taxable {
-
+public class Tax implements Taxable{
+	
+	KnowledgeBaseModule NOC=new KnowledgeBaseModule(GameState.getInstance().getContext());
+	
+	String str = "";
+	String pronoun = "he";
+	String possPro = "his";
+	
+	Vector Detectives = NOC.getAllKeysWithFieldValue("Category", "Detective");
+	String detective = NOC.selectRandomlyFrom(Detectives);
+	Vector<String> DetectivesVehicleChoices = NOC.getFieldValues("Vehicle of Choice", detective);
+	String detectivesVehicle = NOC.selectRandomlyFrom(DetectivesVehicleChoices);
+	
+	Vector Villains = NOC.getAllKeysWithFieldValue("Category", "Villain");
+	String villain = NOC.selectRandomlyFrom(Villains);
+	
+	Vector Presidents = NOC.getAllKeysWithFieldValue("Category", "President");
+	String president = NOC.selectRandomlyFrom(Presidents);
+	
+	Vector Heros = NOC.getAllKeysWithFieldValue("Category", "Hero");
+	String hero = NOC.selectRandomlyFrom(Heros);
+	Vector<String> HerosClothes = NOC.getFieldValues("Seen Wearing", hero);
+	String herosClothing = NOC.selectRandomlyFrom(HerosClothes);
+	
 	private int taxModifier1 = 10;
 	private int taxModifier2 = 20;
 	private int taxModifier3 = 30;
@@ -35,6 +56,7 @@ public class Tax implements Taxable {
 		}
 		return amountToPay;
 		// You are taxed on every house that you own.
+		
 	}
 
 	@Override
@@ -81,26 +103,67 @@ public class Tax implements Taxable {
 	}
 	
 	@Override
-	public void payHouseTax() {
+	@TaxFunctional
+	public String payHouseTax() {
 		GameState.getInstance().getCurrentPlayer().withdraw(getPropertiesTaxAmount());
+		
+		if (NOC.hasFieldValue("Gender", detective, "female"))
+		{
+			pronoun = "she";
+			possPro = "her";
+		}
+		
+		str = detective + " creeps around all of your houses in "+ possPro + " " + detectivesVehicle + " and uses " + pronoun + " detective skills to find out you avoided tax on your houses. You now mucst pay pay " + getPropertiesTaxAmount() + ".";
+		return str;
 	}
 
 	@Override
-	public void payPropertyTax() {
+	@TaxFunctional
+	public String payPropertyTax() {
+		int i = GameState.getInstance().getCurrentPlayer().getNumProperties();
 		GameState.getInstance().getCurrentPlayer().withdraw(getHouseTaxAmount());
+		
+		if (NOC.hasFieldValue("Gender", villain, "female"))
+		{
+			pronoun = "she";
+			possPro = "her";
+		}
+		
+		str = "After a recent argument with your ex-bestfriend " + villain + ", " + pronoun + " stiches you up and reveals you've been avoiding tax on all " + i + " properties that you own. You must pay a fee for each one which adds up to "+ getHouseTaxAmount() + ".";
+		return str;
 	}
 
 
 	@Override
-	public void payBalanceTax() {
+	@TaxFunctional
+	public String payBalanceTax() {
 		GameState.getInstance().getCurrentPlayer().withdraw(getBalanceTax());
 		
+		if (NOC.hasFieldValue("Gender", hero, "female"))
+		{
+			pronoun = "she";
+			possPro = "her";
+		}
+		
+		str =hero + " who usually wears "+ possPro + " is disguised as a taxperson. You believe " + possPro + " scam and end up paying " + getBalanceTax() + " cash in hand.";
+		return str;
+		
 	}
 
 	@Override
-	public void payRandomTax() {
+	@TaxFunctional
+	// new president ellection creates new random tax
+	public String payRandomTax() {
 		GameState.getInstance().getCurrentPlayer().withdraw(getRandomTax());
 		
+		if (NOC.hasFieldValue("Gender", president, "female"))
+		{
+			pronoun = "she";
+			possPro = "her";
+		}
+		
+		str = president + " gets elected as the president for your fictional world. " + pronoun + " brings in a completely new random tax that you have to pay now. " + getRandomTax() + " Has been deducted from your balance.";
+		return str;
 	}
 
 }
