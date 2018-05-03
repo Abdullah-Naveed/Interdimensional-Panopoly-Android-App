@@ -11,27 +11,10 @@ import java.util.Vector;
 public class Tax implements Taxable {
 	
 	KnowledgeBaseModule NOC=GameState.getInstance().getKnowledgeBaseModule();
-	
 	String str = "";
 	String pronoun = "he";
 	String possPro = "his";
-	
-	Vector Detectives = NOC.getAllKeysWithFieldValue("Category", "Detective");
-	String detective = NOC.selectRandomlyFrom(Detectives);
-	Vector<String> DetectivesVehicleChoices = NOC.getFieldValues("Vehicle of Choice", detective);
-	String detectivesVehicle = NOC.selectRandomlyFrom(DetectivesVehicleChoices);
-	
-	Vector Villains = NOC.getAllKeysWithFieldValue("Category", "Villain");
-	String villain = NOC.selectRandomlyFrom(Villains);
-	
-	Vector Presidents = NOC.getAllKeysWithFieldValue("Category", "President");
-	String president = NOC.selectRandomlyFrom(Presidents);
-	
-	Vector Heros = NOC.getAllKeysWithFieldValue("Category", "Hero");
-	String hero = NOC.selectRandomlyFrom(Heros);
-	Vector<String> HerosClothes = NOC.getFieldValues("Seen Wearing", hero);
-	String herosClothing = NOC.selectRandomlyFrom(HerosClothes);
-	
+
 	private int taxModifier1 = 10;
 	private int taxModifier2 = 20;
 	private int taxModifier3 = 30;
@@ -111,13 +94,19 @@ public class Tax implements Taxable {
 	public String payHouseTax() {
 		GameState.getInstance().getCurrentPlayer().withdraw(getPropertiesTaxAmount());
 		
+		Vector<String> Detectives = NOC.getAllKeysWithFieldValue("Category", "Detective");
+		String detective = NOC.selectRandomlyFrom(Detectives);
+		
+		Vector<String> DetectivesVehicleChoices = NOC.getFieldValues("Vehicle of Choice", detective);
+		String detectivesVehicle = NOC.selectRandomlyFrom(DetectivesVehicleChoices);
+		
 		if (NOC.hasFieldValue("Gender", detective, "female"))
 		{
 			pronoun = "she";
 			possPro = "her";
 		}
 		
-		str = detective + " creeps around all of your houses in "+ possPro + " " + detectivesVehicle + " and uses " + pronoun + " detective skills to find out you avoided tax on your houses. You now mucst pay pay " + getPropertiesTaxAmount() + ".";
+		str = detective + " creeps around all of your houses in "+ possPro + " " + detectivesVehicle + " and uses " + pronoun + " detective skills to find out you avoided tax on your houses. You now must pay " + getPropertiesTaxAmount() + " of the tax that you avoided.";
 		return str;
 	}
 
@@ -126,6 +115,9 @@ public class Tax implements Taxable {
 	public String payPropertyTax() {
 		int i = GameState.getInstance().getCurrentPlayer().getNumProperties();
 		GameState.getInstance().getCurrentPlayer().withdraw(getHouseTaxAmount());
+		
+		Vector<String> Villains = NOC.getAllKeysWithFieldValue("Category", "Villain");
+		String villain = NOC.selectRandomlyFrom(Villains);
 		
 		if (NOC.hasFieldValue("Gender", villain, "female"))
 		{
@@ -143,22 +135,30 @@ public class Tax implements Taxable {
 	public String payBalanceTax() {
 		GameState.getInstance().getCurrentPlayer().withdraw(getBalanceTax());
 		
+		Vector<String> Heros = NOC.getAllKeysWithFieldValue("Category", "Hero");
+		String hero = NOC.selectRandomlyFrom(Heros);
+		
+		Vector<String> HerosClothes = NOC.getFieldValues("Seen Wearing", hero);
+		String herosClothing = NOC.selectRandomlyFrom(HerosClothes);
+		
 		if (NOC.hasFieldValue("Gender", hero, "female"))
 		{
 			pronoun = "she";
 			possPro = "her";
 		}
-		//FIX wears his WHAT!!!
-		str =hero + " who usually wears "+ possPro + " disguised as a taxperson. You believe " + possPro + " scam and end up paying " + getBalanceTax() + " cash in hand.";
+		
+		str =hero + " who usually wears "+ possPro + " " + herosClothing + ", is disguised as a taxperson. You believe " + possPro + " scam and end up paying " + getBalanceTax() + " cash in hand.";
 		return str;
 		
 	}
 
 	@Override
 	@TaxFunctional
-	// new president ellection creates new random tax
 	public String payRandomTax() {
 		GameState.getInstance().getCurrentPlayer().withdraw(getRandomTax());
+		
+		Vector<String> Presidents = NOC.getAllKeysWithFieldValue("Category", "President");
+		String president = NOC.selectRandomlyFrom(Presidents);
 		
 		if (NOC.hasFieldValue("Gender", president, "female"))
 		{
