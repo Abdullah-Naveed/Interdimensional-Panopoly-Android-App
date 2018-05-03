@@ -332,7 +332,7 @@ public class Card{
     }
     
     public String droppingMoney(){
-    	GameState.getInstance().getNextPlayer().withdraw(50);
+    	GameState.getInstance().getNextPlayer(GameState.getInstance().getCurrentPlayer()).withdraw(50);
     	GameState.getInstance().getCurrentPlayer().deposit(50);
     	
     	str = "The player infront of you dropped 50 euro. You, " + killer + ", " + athlete + " and " + female + " race for it, but you get there first." ;

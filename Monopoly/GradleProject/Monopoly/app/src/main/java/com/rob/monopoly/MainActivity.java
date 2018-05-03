@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -463,7 +464,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 int i = diceRoll + diceRoll1;
 
-                TastyToast.makeText(GameState.getInstance().getContext(),"You Have Moved " + i + " Spaces.",TastyToast.LENGTH_LONG,TastyToast.SUCCESS).show();
+                TastyToast.makeText(GameState.getInstance().getContext(),"You Have Moved " + i + " Spaces.",TastyToast.LENGTH_LONG,TastyToast.SUCCESS).setGravity(Gravity.TOP,0,0);
 
 
                 try {

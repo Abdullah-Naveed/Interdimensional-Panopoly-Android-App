@@ -1,9 +1,11 @@
 package com.rob.monopoly;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.ViewGroup;
 
 import com.rob.monopoly.Interfaces.Playable;
+import com.sdsmdg.tastytoast.TastyToast;
 
 import java.util.ArrayList;
 
@@ -114,8 +116,14 @@ public class Player extends UserMover implements Playable{
 
     public void move(int amountToMove)
     {
+        int oldPlayerLocation=playerLocation;
         playerLocation+=amountToMove;
         playerLocation = playerLocation %40;
+        if(oldPlayerLocation>playerLocation)
+        {
+            GameState.getInstance().getCurrentPlayer().deposit(200);
+            TastyToast.makeText(GameState.getInstance().getContext(),"Gongrats You Survived Another Round. Here Is 200 Euro",TastyToast.LENGTH_LONG,TastyToast.SUCCESS).setGravity(Gravity.CENTER,0,0);
+        }
         if(playerLocation==7||playerLocation==16||playerLocation==27||playerLocation==36)
         {
             playerLocation=move(viewGroup, playerLocation,playerNum);
