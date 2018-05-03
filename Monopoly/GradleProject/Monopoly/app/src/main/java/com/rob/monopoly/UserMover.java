@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TableRow;
 
 import com.rob.monopoly.Interfaces.Functional;
+import com.rob.monopoly.Interfaces.TaxFunctional;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import java.lang.reflect.Method;
@@ -60,6 +61,11 @@ public class UserMover extends AppCompatActivity{
             {
                 MainActivity.miniGame(GameState.getInstance().getActivity());
             }
+
+            if(index == 11){
+                taxPop();
+            }
+
             if(index==7)
             {
                 Random random=new Random();
@@ -199,6 +205,11 @@ public class UserMover extends AppCompatActivity{
             {
                 MainActivity.miniGame(GameState.getInstance().getActivity());
             }
+
+            if(index == 11){
+                taxPop();
+            }
+
             if(index==7)
             {
 
@@ -280,6 +291,21 @@ public class UserMover extends AppCompatActivity{
         System.out.println(methods);
         SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
         pDialog.setTitleText("Card");
+        pDialog.setContentText(functionProbe.invokeMarked(methods.elementAt(1)).toString()+System.lineSeparator());
+        pDialog.show();
+
+    }
+
+    private void taxPop() {
+
+        FunctionProbe functionProbe=new FunctionProbe();
+        Vector<Method> methods=functionProbe.findMethods(Tax.class, TaxFunctional.class);
+        Random RANDOM = new Random();
+//        int i = RANDOM.nextInt(6) + 1;
+        int i=0;
+        System.out.println(methods);
+        SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
+        pDialog.setTitleText("Tax");
         pDialog.setContentText(functionProbe.invokeMarked(methods.elementAt(1)).toString()+System.lineSeparator());
         pDialog.show();
 
