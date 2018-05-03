@@ -1,12 +1,16 @@
 package com.rob.monopoly;
 
+import com.rob.monopoly.Interfaces.TaxFunctional;
+import com.rob.monopoly.Interfaces.Taxable;
+import com.rob.monopoly.NOCList.twitterbotics.KnowledgeBaseModule;
+
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Vector;
 
-public class Tax implements Taxable{
+public class Tax implements Taxable {
 	
-	KnowledgeBaseModule NOC=new KnowledgeBaseModule(GameState.getInstance().getContext());
+	KnowledgeBaseModule NOC=GameState.getInstance().getKnowledgeBaseModule();
 	
 	String str = "";
 	String pronoun = "he";

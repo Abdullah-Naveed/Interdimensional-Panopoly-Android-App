@@ -10,9 +10,9 @@ public interface Taxable {
     int getPropertiesTaxAmount();
     int getBalanceTax();
     int getRandomTax();
-    void payHouseTax();
-    void payPropertyTax();
-    void payBalanceTax();
-    void payRandomTax();
+    String payHouseTax();
+    String payPropertyTax();
+    String payBalanceTax();
+    String payRandomTax();
     
 }

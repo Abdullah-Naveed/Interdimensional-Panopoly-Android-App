@@ -87,6 +87,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         gameIntroduction(); //game intro pop up
 
     }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+//        for(Player player:GameState.getInstance().getPlayers())
+//        {
+//            player.move(0);
+//        }
+    }
+
+
     public void initialPlayers(int numPlayers)
     {
         KnowledgeBaseModule NOC = GameState.getInstance().getKnowledgeBaseModule();
@@ -475,6 +493,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     imageView1.startAnimation(anim1);
                     imageView2.startAnimation(anim2);
+                    if(diceRoll==diceRoll1)
+                    {
+                        TastyToast.makeText(GameState.getInstance().getContext(),"You Rolled A Double Man, So We Rolled For You!",TastyToast.LENGTH_SHORT,TastyToast.DEFAULT);
+                        diceShow(view);
+                    }
 
                     }catch(NullPointerException e)
                     {
