@@ -111,7 +111,7 @@ public class Card{
     			pronoun = "she";
     			possPro = "her";
     		}
-        // GameState.getInstance().getCurrentPlayer().move(i);
+        GameState.getInstance().getCurrentPlayer().move(i);
         str = "You see " + villain + " and "+ possPro +" " + villainsWeapon + " so you run away as far as you can. You move " + i + " places and find yourself in a new location";
         return str;
 	}
@@ -123,7 +123,7 @@ public class Card{
 			possPro = "her";
 		}
 		
-		//GameState.getInstance().getCurrentPlayer().withdraw(150);
+		GameState.getInstance().getCurrentPlayer().withdraw(150);
 		str ="You get into a massive fight with " + killer + " in which you break your leg. You have to pay 150 to get a cast at the hospital.";
 		return str;
 	}
@@ -135,15 +135,15 @@ public class Card{
 			pronoun = "she";
 			possPro = "her";
 		}
-		//GameState.getInstance().getCurrentPlayer().deposit(200);
+		GameState.getInstance().getCurrentPlayer().deposit(200);
 		str = "It's your birthday! " + billionaire + " sent you a card that had 200 in it.";
 		return str;
     }
 	
     public String birthday2(){
-    	int i = 50;
-    	// int i = GameState.getInstance().getNumPlayers();
-        // GameState.getInstance().getCurrentPlayer().deposit(i*50);
+    	
+    	int i = GameState.getInstance().getNumPlayers();
+        GameState.getInstance().getCurrentPlayer().deposit(i*50);
     	
     	if (NOC.hasFieldValue("Gender", villain, "female"))
 		{
@@ -156,16 +156,16 @@ public class Card{
     }
     
     public String christmas(){
-    	int i = 50;
-    	//int i = GameState.getInstance().getNumPlayers();
-    	//GameState.getInstance().getCurrentPlayer().withdraw(i*20);
+    	
+    	int i = GameState.getInstance().getNumPlayers();
+    	GameState.getInstance().getCurrentPlayer().withdraw(i*20);
     	str = "Your lovely and " + mansPositivePoint + " friend " + man + " reminded you it's time for Kris Kindle. The presents end up costing you " + i + " Euro.";
     	return str;
     }
     
     public String christmas2(){
-    	//int i = GameState.getInstance().getNumPlayers();
-    	//GameState.getInstance().getCurrentPlayer().deposit(i*30);
+    	int i = GameState.getInstance().getNumPlayers();
+    	GameState.getInstance().getCurrentPlayer().deposit(i*30);
     	str = "Although you've been unpopular this week on twitter for slating " + fatPerson + " for being fat, all the players have been thoughtful and sent you 30 each.";
     	return str;
     }
@@ -188,7 +188,7 @@ public class Card{
         Random randomNumber = new Random();
         int i = randomNumber.nextInt(10)+1;
 
-        // GameState.getInstance().getCurrentPlayer().setPlayerLocation(i);
+        GameState.getInstance().getCurrentPlayer().setPlayerLocation(i);
         str = "You go to a meeting with the "+ mansNegativePoints+ " " + man + " to talk about how " + pronoun +" loves " + menActivities + ". You move " + i + " places and find yourself on a new location on the board.";
         return str;
     }
@@ -200,7 +200,7 @@ public class Card{
 			possPro = "her";
 		}
     	
-    	//GameState.getInstance().getCurrentPlayer().deposit(125);
+    	GameState.getInstance().getCurrentPlayer().deposit(125);
     	str = "You enter a sports competition in which you face the famous athlete " + athlete + ". You use the fact that " + pronoun + " is " + athletesNegativePoints + " to your advantage and manage to win the competition and a nice prize of 150.";
     	return str;
     }
@@ -213,15 +213,15 @@ public class Card{
 			possPro = "her";
 		}
     	
-    	//GameState.getInstance().getCurrentPlayer().setPlayerLocation(0);
-    	//GameState.getInstance().getCurrentPlayer().deposit(200);
+    	GameState.getInstance().getCurrentPlayer().setPlayerLocation(0);
+    	GameState.getInstance().getCurrentPlayer().deposit(200);
 
      str = magician + " uses " + possPro + " magic powers to send you to the start.";
      return str;
     }
 
     public String robbery(){
-    	//GameState.getInstance().getCurrentPlayer().deposit(100);
+    	GameState.getInstance().getCurrentPlayer().deposit(100);
     	if (NOC.hasFieldValue("Gender", villain, "female"))
 		{
 			pronoun = "she";
@@ -238,7 +238,7 @@ public class Card{
 			pronoun = "she";
 			possPro = "her";
 		}
-    	//GameState.getInstance().getCurrentPlayer().withdraw(200);
+    	GameState.getInstance().getCurrentPlayer().withdraw(200);
     	str = "You end up crashing into " + billionaire + "'s " + billionairesCar + ". You have to pay for some of the damages made to the vehicle which costs you 200.";
     	return str;
     }
@@ -251,13 +251,13 @@ public class Card{
 			possPro = "her";
 		}
     	
-    	//GameState.getInstance().getCurrentPlayer().deposit(125);
+    	GameState.getInstance().getCurrentPlayer().deposit(125);
     	str = "You end up stealing the " + billionairesClothes + " from a known billionaire named " + billionaire + ", which you end up selling on eBay for a whopping 250. Sure it's not like " + pronoun + " would care anyways since " + pronoun + " owns a " + billionairesCar + ".";
     	return str;
     }
 
    public String bowling(){
-	   // GameState.getInstance().getCurrentPlayer().withdraw(40);
+	   GameState.getInstance().getCurrentPlayer().withdraw(40);
        str = "You go bowling with the " + directorsPositivePoint + " " + director + ", the " + actorsPositivePoint + " " + actor + " and " + athlete + ", who's known to be " + athletesNegativePoints + ". You pay for everyone's game which costs you 40." ;
        return str;
    }
@@ -269,14 +269,14 @@ public class Card{
 			pronoun = "she";
 			possPro = "her";
 		}
-	   // GameState.getInstance().getCurrentPlayer().withdraw(50);
+	   GameState.getInstance().getCurrentPlayer().withdraw(50);
 	   str = "You kinda have a crush on " + female + ", so you buy " + possPro + " something similar to the " + femalesClothing + " " + pronoun + " always wears.";
 	   return str;
    }
 
     public String propertyDamages(){
-    	int i = 0;
-    	// int i = GameState.getInstance().getCurrentPlayer().getNumProperties();
+    	
+    	int i = GameState.getInstance().getCurrentPlayer().getNumProperties();
     	if (NOC.hasFieldValue("Gender", villain, "female"))
 		{
 			pronoun = "she";
@@ -285,17 +285,17 @@ public class Card{
    
     	if(i==0){
     		str = "Since you own no properties, the " + villainsNegativePoint + " " + villain + " could not make any damages to properties but " + pronoun +" did try to break into your car leaving you with damages of 50 euro.";
-    		// GameState.getInstance().getCurrentPlayer().withdraw(50);
+    		GameState.getInstance().getCurrentPlayer().withdraw(50);
     	}else{
     	   	str = "The " + villainsNegativePoint + " " + villain + " made damages to all "+ i + " properties that you own. You pay 25 for each property damaged.";
     	   
-        	// GameState.getInstance().getCurrentPlayer().withdraw(i*25);
+        	GameState.getInstance().getCurrentPlayer().withdraw(i*25);
     	}
     	return str;
     }
     
     public String coffee(){
-    	//GameState.getInstance().getCurrentPlayer().withdraw(25);
+    	GameState.getInstance().getCurrentPlayer().withdraw(25);
     	str = female + " asked you on a cute coffee date. You think that she might be the one, but the date did cost you 25.";
     	return str;
     }
@@ -308,33 +308,33 @@ public class Card{
 			possPro = "her";
 		}
     	
-    	//GameState.getInstance().getCurrentPlayer().withdraw(15);
+    	GameState.getInstance().getCurrentPlayer().withdraw(15);
     	str = "You can't believe you just met " + hero + ", your favourite hero! " + pronoun + " charged you 15 for the picture.";
     	return str;
     }
     
     public String underPaid(){
-    	//int i = GameState.getInstance().getCurrentPlayer().getNumProperties();
-    	//GameState.getInstance().getCurrentPlayer().withdraw(i*15);
+    	int i = GameState.getInstance().getCurrentPlayer().getNumProperties();
+    	GameState.getInstance().getCurrentPlayer().withdraw(i*15);
     	
     	str = detective + " who is a detective, does some background check on you and finds out that you underpaid for your properties. You must repay 15 for every property you own.";
     	return str;
     }
     
     public String taxFraud(){
-    	//int i = GameState.getInstance().getCurrentPlayer().getBalance();
-    	//i = i/15;
+    	int i = GameState.getInstance().getCurrentPlayer().getBalance();
+    	i = i/15;
     	
-    	//GameState.getInstance().getCurrentPlayer().withdraw(i);
+    	GameState.getInstance().getCurrentPlayer().withdraw(i);
     	str = "You're caught for aStringing tax payments. Apparently " + man + " ratted you out for tax fraud.";
     	return str;
     	
     }
     
     public String droppingMoney(){
-//    	GameState.getInstance().getNextPlayer().withdraw(50);
-//    	GameState.getInstance().getCurrentPlayer().deposit(50);
-//    	
+    	GameState.getInstance().getNextPlayer().withdraw(50);
+    	GameState.getInstance().getCurrentPlayer().deposit(50);
+    	
     	str = "The player infront of you dropped 50 euro. You, " + killer + ", " + athlete + " and " + female + " race for it, but you get there first." ;
     	return str;
     }
@@ -348,24 +348,24 @@ public class Card{
     	if(geekyPerson == geekyPerson2){
     		geekyPerson2 = NOC.selectRandomlyFrom(geekyPeople);
     	}
-//    	GameState.getInstance().getCurrentPlayer().withdraw(50);
+    	GameState.getInstance().getCurrentPlayer().withdraw(50);
     	str = "You entered a competition full of geeks such as "+ geekyPerson+ " and " + geekyPerson2 + " aswell as a few others. You obviously lose the competition since you're not on the same level as them. Entry cost you 50.";
     	return str;
     }
     
    public String taxMan(){
-	   //  int i = GameState.getInstance().getCurrentPlayer().getBalance();
-	   // i = i/10;
-	   int i = 10;
-	   // GameState.getInstance().getCurrentPlayer().withdraw(i);
+	   int i = GameState.getInstance().getCurrentPlayer().getBalance();
+	   i = i/10;
+	   
+	   GameState.getInstance().getCurrentPlayer().withdraw(i);
 	   str = villain  + ", who is "+ villainsNegativePoint +", comes to your house disguised as a taxman and manages to scam you for " + i;
 	   return str;
    }
    
    public String interest(){
-	   // int i = GameState.getInstance().getCurrentPlayer().getBalance();
-	   // i = i/16;
-	   // GameState.getInstance().getCurrentPlayer().deposit(i);
+	   int i = GameState.getInstance().getCurrentPlayer().getBalance();
+	   i = i/16;
+	   GameState.getInstance().getCurrentPlayer().deposit(i);
 	  
 	  str = boxer + " tells you about a loop-hole in the banks interest system. You receive 6% interest on your balance.";
 	  return str;
@@ -373,8 +373,8 @@ public class Card{
    }
    
    public String moneyBack(){
-	   // GameState.getInstance().getCurrentPlayer().deposit(50);
-	   // Hero gave you a little present for being a loyal fan
+	   GameState.getInstance().getCurrentPlayer().deposit(50);
+
 	   Vector<String> villainsAddress1 = NOC.getFieldValues("Address 1", villain);
 	   Vector<String> villainsAddress2 = NOC.getFieldValues("Address 2", villain);
 	   Vector<String> villainsAddress3 = NOC.getFieldValues("Address 3", villain);
@@ -427,8 +427,8 @@ public class Card{
 //   }
    
    public String houseParty(){
-	   // int i = GameState.getInstance().getCurrentPlayer().getNumProperties();
-	   // GameState.getInstance().getCurrentPlayer().withdraw(i*25);
+	   int i = GameState.getInstance().getCurrentPlayer().getNumProperties();
+	   GameState.getInstance().getCurrentPlayer().withdraw(i*25);
 	   
 	   // You host a house party in every property you own that week inviting people such as HERO,HERO,HERO,HERO. Some damages were made to all properties.
    str = "You host a week of house parties where you welcomed guests such as " + hero + ", "+ villain + ", " + billionaire + ", " + fatPerson + " and " + killer + ". They ended up wrecking all of your properties partially. You have to pay 25 for each property damaged.";
@@ -451,13 +451,13 @@ public class Card{
 			possPro = "her";
 		}
 	   
-	 //  GameState.getInstance().getCurrentPlayer().deposit(130);
+	GameState.getInstance().getCurrentPlayer().deposit(130);
 	   str = "You eye up "+ athlete + " as " + pronoun + " is seen " + athletesActivity + ". Whilst " + pronoun + "'s not looking you manage to rob " + possPro + " wallet. You secured yourself a nice 130 euro.";
 	   return str;
    }
    
    public String smashedPhone(){
-	 //  GameState.getInstance().getCurrentPlayer().withdraw(150);
+	 GameState.getInstance().getCurrentPlayer().withdraw(150);
 	 
 	 Vector<String> femalesWeaponChoice = NOC.getFieldValues("Weapon of Choice", female);
 	 String femalesWeapon = NOC.selectRandomlyFrom(femalesWeaponChoice);
@@ -472,7 +472,7 @@ public class Card{
    }
    
    public String brokenPhone(){
-	   //  GameState.getInstance().getCurrentPlayer().withdraw(150);
+	   GameState.getInstance().getCurrentPlayer().withdraw(150);
 		   
 	   if (NOC.hasFieldValue("Gender", fatPerson, "female"))
 		{
@@ -491,22 +491,22 @@ public class Card{
 //   }
    
   public String pawnShop(){
-	 // GameState.getInstance().getCurrentPlayer().withdraw(80);
+	 GameState.getInstance().getCurrentPlayer().withdraw(80);
 	  
-	  // you go to a pawn shop and end up seeing HEROS CLOTHING. you end up buying it.
+	  
 	 str = "You go to a pawn shop where you find " + billionaire + "'s famous " + billionairesClothes + ". You decide to spend 80 euro on it.";
 	 return str;
   }
   
   public String cheapParking(){
-	 // GameState.getInstance().getCurrentPlayer().withdraw(25);
+	 GameState.getInstance().getCurrentPlayer().withdraw(25);
 	  
 	 str = fictional + " tells you about cheap parking down the road which only costs you 25 for the week.";
 	 return str;
   }
   
   public String petrolMoney(){
-	// GameState.getInstance().getCurrentPlayer().withdraw(50);
+	  GameState.getInstance().getCurrentPlayer().withdraw(50);
 	  str = "You borrow " + man + "'s " + mansCar + " for the week. Insurance will cost you 50 for the week.";
 	  return str;
   }
