@@ -51,12 +51,12 @@ public class Card{
 	private String athlete = NOC.selectRandomlyFrom(Athletes);
 	private String magician = NOC.selectRandomlyFrom(Magicians);
 	private String comedian = NOC.selectRandomlyFrom(Comedians);
-	private String judge = NOC.selectRandomlyFrom(Judges);
+//	private String judge = NOC.selectRandomlyFrom(Judges);
 	private String actor = NOC.selectRandomlyFrom(Actors);
 	private String director = NOC.selectRandomlyFrom(Directors);
 	private String fictional = NOC.selectRandomlyFrom(Fictional);
 
-	private Vector<String> judgesPositiveTraitChoices = NOC.getFieldValues("Positive Talking Points", judge);
+//	private Vector<String> judgesPositiveTraitChoices = NOC.getFieldValues("Positive Talking Points", judge);
 	private Vector<String> directorsPositiveTraitChoices = NOC.getFieldValues("Positive Talking Points", director);
 	private Vector<String> actorsPositiveTraitChoices = NOC.getFieldValues("Positive Talking Points", actor);
 	
@@ -78,7 +78,7 @@ public class Card{
 	private Vector<String> billionariesClothesChoices = NOC.getFieldValues("Seen Wearing", billionaire);
 	
 
-	private String judgesPositivePoint = NOC.selectRandomlyFrom(judgesPositiveTraitChoices);
+//	private String judgesPositivePoint = NOC.selectRandomlyFrom(judgesPositiveTraitChoices);
 	private String actorsPositivePoint = NOC.selectRandomlyFrom(actorsPositiveTraitChoices);
 	private String directorsPositivePoint = NOC.selectRandomlyFrom(directorsPositiveTraitChoices);
 	
@@ -101,7 +101,8 @@ public class Card{
 	
 	private String pronoun = "he";
 	private String possPro = "his";
-	
+
+	@Functional
 	public String runAway(){
 		Random randomNumber = new Random();
         int i = randomNumber.nextInt(10)+1;
@@ -111,7 +112,7 @@ public class Card{
     			pronoun = "she";
     			possPro = "her";
     		}
-        GameState.getInstance().getCurrentPlayer().move(i);
+//        GameState.getInstance().getCurrentPlayer().move(i);
         str = "You see " + villain + " and "+ possPro +" " + villainsWeapon + " so you run away as far as you can. You move " + i + " places and find yourself in a new location";
         return str;
 	}

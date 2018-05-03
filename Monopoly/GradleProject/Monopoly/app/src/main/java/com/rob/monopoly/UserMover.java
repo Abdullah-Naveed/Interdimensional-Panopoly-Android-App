@@ -2,6 +2,7 @@ package com.rob.monopoly;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,10 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import com.rob.monopoly.Interfaces.Functional;
 import com.rob.monopoly.Interfaces.TaxFunctional;
 import com.sdsmdg.tastytoast.TastyToast;
+import com.shashank.sony.fancydialoglib.Animation;
+import com.shashank.sony.fancydialoglib.FancyAlertDialog;
+import com.shashank.sony.fancydialoglib.FancyAlertDialogListener;
+import com.shashank.sony.fancydialoglib.Icon;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -289,10 +295,23 @@ public class UserMover extends AppCompatActivity{
 //        int i = RANDOM.nextInt(6) + 1;
         int i=0;
         System.out.println(methods);
-        SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
-        pDialog.setTitleText("Card");
-        pDialog.setContentText(functionProbe.invokeMarked(methods.elementAt(1)).toString()+System.lineSeparator());
-        pDialog.show();
+
+
+        new FancyAlertDialog.Builder(GameState.getInstance().getActivity())
+                .setTitle("Card")
+                .setBackgroundColor(Color.parseColor("#303F9F"))  //Don't pass R.color.colorvalue
+                .setMessage(functionProbe.invokeMarked(methods.elementAt(0)).toString())
+                .setAnimation(Animation.POP)
+
+                .setNegativeBtnText("")
+                .setPositiveBtnBackground(Color.parseColor("#FFFFFF"))  //Don't pass R.color.colorvalue
+                .setPositiveBtnText("")
+                .setNegativeBtnBackground(Color.parseColor("#FFFFFF"))  //Don't pass R.color.colorvalue
+
+
+                .isCancellable(true)
+                .setIcon(R.drawable.ic_casino_black_24px, Icon.Visible)
+                .build();
 
     }
 
