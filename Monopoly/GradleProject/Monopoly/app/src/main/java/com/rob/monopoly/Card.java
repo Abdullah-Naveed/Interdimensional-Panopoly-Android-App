@@ -205,21 +205,7 @@ public class Card{
     	str = "You enter a sports competition in which you face the famous athlete " + athlete + ". You use the fact that " + pronoun + " is " + athletesNegativePoints + " to your advantage and manage to win the competition and a nice prize of 150.";
     	return str;
     }
-	@Functional
-    public String backToStart(){
-    	
-    	if (NOC.hasFieldValue("Gender", magician, "female"))
-		{
-			pronoun = "she";
-			possPro = "her";
-		}
-    	
-    	GameState.getInstance().getCurrentPlayer().setPlayerLocation(0);
-    	GameState.getInstance().getCurrentPlayer().deposit(200);
 
-     str = magician + " uses " + possPro + " magic powers to send you to the start.";
-     return str;
-    }
 	@Functional
     public String robbery(){
     	GameState.getInstance().getCurrentPlayer().deposit(100);

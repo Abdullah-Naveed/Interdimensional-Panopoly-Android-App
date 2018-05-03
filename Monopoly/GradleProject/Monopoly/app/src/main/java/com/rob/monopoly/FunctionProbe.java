@@ -23,7 +23,7 @@ public class FunctionProbe {
     }
 
 
-    public Object invokeMarked(Method method)
+    public Object invokeMarked(Class myClass,Method method)
     {
         Object[] myArgs=null;
             try
@@ -31,7 +31,7 @@ public class FunctionProbe {
                 if(Modifier.isStatic(method.getModifiers()))
                     return method.invoke(null,myArgs);
                 else
-                    return method.invoke(Card.class.newInstance(),myArgs);
+                    return method.invoke(myClass.newInstance(),myArgs);
             }catch(Exception e)
             {
                 e.printStackTrace();

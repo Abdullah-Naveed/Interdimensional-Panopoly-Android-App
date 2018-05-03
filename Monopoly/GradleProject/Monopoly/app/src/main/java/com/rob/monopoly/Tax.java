@@ -148,8 +148,8 @@ public class Tax implements Taxable {
 			pronoun = "she";
 			possPro = "her";
 		}
-		
-		str =hero + " who usually wears "+ possPro + " is disguised as a taxperson. You believe " + possPro + " scam and end up paying " + getBalanceTax() + " cash in hand.";
+		//FIX wears his WHAT!!!
+		str =hero + " who usually wears "+ possPro + " disguised as a taxperson. You believe " + possPro + " scam and end up paying " + getBalanceTax() + " cash in hand.";
 		return str;
 		
 	}

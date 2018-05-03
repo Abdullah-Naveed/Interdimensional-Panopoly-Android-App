@@ -284,13 +284,13 @@ public class UserMover extends AppCompatActivity{
         FunctionProbe functionProbe=new FunctionProbe();
         Vector<Method> methods=functionProbe.findMethods(Card.class, Functional.class);
         Random RANDOM = new Random();
-        int i = RANDOM.nextInt(29);
+        int i = RANDOM.nextInt(28);
 
 
         new FancyAlertDialog.Builder(GameState.getInstance().getActivity())
                 .setTitle("Card")
                 .setBackgroundColor(Color.parseColor("#303F9F"))  //Don't pass R.color.colorvalue
-                .setMessage(functionProbe.invokeMarked(methods.elementAt(0)).toString())
+                .setMessage(functionProbe.invokeMarked(Card.class,methods.elementAt(i)).toString())
                 .setAnimation(Animation.POP)
                 .setNegativeBtnText("")
                 .setPositiveBtnBackground(Color.parseColor("#FFFFFF"))  //Don't pass R.color.colorvalue
@@ -312,7 +312,7 @@ public class UserMover extends AppCompatActivity{
         new FancyAlertDialog.Builder(GameState.getInstance().getActivity())
                 .setTitle("Tax")
                 .setBackgroundColor(Color.parseColor("#303F9F"))  //Don't pass R.color.colorvalue
-                .setMessage(functionProbe.invokeMarked(methods.elementAt(0)).toString())
+                .setMessage(functionProbe.invokeMarked(Tax.class,methods.elementAt(i)).toString())
                 .setAnimation(Animation.POP)
                 .setNegativeBtnText("")
                 .setPositiveBtnBackground(Color.parseColor("#FFFFFF"))  //Don't pass R.color.colorvalue
