@@ -127,13 +127,12 @@ public class Card{
     
 	@Functional
     public String wildNight(){
-		
+
 		Vector<String> Females = NOC.getAllKeysWithFieldValue("Gender", "female");
-		Vector<String> femalesClothingChoice = NOC.getFieldValues("Seen Wearing", female);
-		Vector<String> femalesPositiveTraitChoice = NOC.getFieldValues("Positive Talking Points", female);
-		
 		String female = NOC.selectRandomlyFrom(Females);
+		Vector<String> femalesClothingChoice = NOC.getFieldValues("Seen Wearing", female);
 		String femalesClothing = NOC.selectRandomlyFrom(femalesClothingChoice);
+		Vector<String> femalesPositiveTraitChoice = NOC.getFieldValues("Positive Talking Points", female);
 		String femalesPositiveTrait = NOC.selectRandomlyFrom(femalesPositiveTraitChoice);
         
         if(femalesClothing == null){
@@ -149,11 +148,10 @@ public class Card{
   public String meeting(){
 		
 		Vector<String> Male = NOC.getAllKeysWithFieldValue("Gender", "male");
-		Vector<String> mansNegativeTraitChoice = NOC.getFieldValues("Negative Talking Points", man);
-		Vector<String> mansActivityChoice = NOC.getFieldValues("Typical Activity", man);
-		
 		String man = NOC.selectRandomlyFrom(Male);
+		Vector<String> mansNegativeTraitChoice = NOC.getFieldValues("Negative Talking Points", man);
 		String mansNegativePoints = NOC.selectRandomlyFrom(mansNegativeTraitChoice);
+		Vector<String> mansActivityChoice = NOC.getFieldValues("Typical Activity", man);
 		String menActivities = NOC.selectRandomlyFrom(mansActivityChoice);
 
         GameState.getInstance().getCurrentPlayer().withdraw(75);
