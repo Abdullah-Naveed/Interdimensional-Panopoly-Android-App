@@ -415,7 +415,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             String bal=Integer.toString(GameState.getInstance().getCurrentPlayer().getBalance());
             nav_balance.setText("Balance: "+bal);
         } else if (id == R.id.roll_1){
-            GameState.getInstance().getCurrentPlayer().move(11);
+            GameState.getInstance().getCurrentPlayer().move(3);
             checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
 
         }

@@ -166,7 +166,7 @@ public class Tax implements Taxable {
 			possPro = "her";
 		}
 		
-		str = president + " gets elected as the president for your fictional world. " + pronoun + " brings in a completely new random tax that you have to pay now. " + getRandomTax() + " Has been deducted from your balance.";
+		str = president + " gets elected as the president for your fictional world, " + pronoun + " brings in a completely new random tax that you have to pay now. " + getRandomTax() + " Has been deducted from your balance.";
 		return str;
 	}
 

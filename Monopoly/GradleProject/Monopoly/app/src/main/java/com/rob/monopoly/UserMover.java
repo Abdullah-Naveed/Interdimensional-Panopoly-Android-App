@@ -290,7 +290,7 @@ public class UserMover extends AppCompatActivity{
         new FancyAlertDialog.Builder(GameState.getInstance().getActivity())
                 .setTitle("Card")
                 .setBackgroundColor(Color.parseColor("#303F9F"))  //Don't pass R.color.colorvalue
-                .setMessage(functionProbe.invokeMarked(Card.class,methods.elementAt(i)).toString())
+                .setMessage(functionProbe.invokeMarked(Card.class,methods.elementAt(i)).toString().replace("\"", ""))
                 .setAnimation(Animation.POP)
                 .setNegativeBtnText("")
                 .setPositiveBtnBackground(Color.parseColor("#FFFFFF"))  //Don't pass R.color.colorvalue
@@ -312,7 +312,7 @@ public class UserMover extends AppCompatActivity{
         new FancyAlertDialog.Builder(GameState.getInstance().getActivity())
                 .setTitle("Tax")
                 .setBackgroundColor(Color.parseColor("#303F9F"))  //Don't pass R.color.colorvalue
-                .setMessage(functionProbe.invokeMarked(Tax.class,methods.elementAt(i)).toString())
+                .setMessage(functionProbe.invokeMarked(Tax.class,methods.elementAt(i)).toString().replace("\"", ""))
                 .setAnimation(Animation.POP)
                 .setNegativeBtnText("")
                 .setPositiveBtnBackground(Color.parseColor("#FFFFFF"))  //Don't pass R.color.colorvalue

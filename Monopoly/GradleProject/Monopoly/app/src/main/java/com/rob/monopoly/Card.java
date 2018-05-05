@@ -33,7 +33,7 @@ public class Card{
     			possPro = "her";
     		}
         GameState.getInstance().getCurrentPlayer().withdraw(100);
-        str = "You and "+ villain + " were seen running around carrying "+ possPro +" " + villainsWeapon + ". You receive a 100 Euro fine for carrying a dangerous weapon.";
+        str = "You and "+ villain + " were seen running around with "+ possPro +" " + villainsWeapon + ". You receive a 100 Euro fine for carrying a dangerous weapon.";
         return str;
 	}
 	
@@ -390,7 +390,7 @@ public class Card{
 		
 		Vector<String> Killers = NOC.getAllKeysWithFieldValue("Category", "Killer");
 		Vector<String> Athletes = NOC.getAllKeysWithFieldValue("Category", "Athlete");
-		Vector<String> Females = NOC.getAllKeysWithFieldValue("Category", "Female");
+		Vector<String> Females = NOC.getAllKeysWithFieldValue("Category", "Female Impersonator");
 		
 		String killer = NOC.selectRandomlyFrom(Killers);
 		String athlete = NOC.selectRandomlyFrom(Athletes);
