@@ -252,6 +252,11 @@ public class Card{
 			pronoun = "she";
 			possPro = "her";
 		}
+
+		if(billionairesClothes == null){
+
+			billionairesClothes = "Gucci Underwear";
+		}
     	
     	GameState.getInstance().getCurrentPlayer().deposit(250);
     	str = "You end up stealing the " + billionairesClothes + " from a known billionaire named " + billionaire + ", which you end up selling on eBay for a whopping 250. Sure it's not like " + pronoun + " would care anyways since " + pronoun + " owns a " + billionairesCar + ".";
