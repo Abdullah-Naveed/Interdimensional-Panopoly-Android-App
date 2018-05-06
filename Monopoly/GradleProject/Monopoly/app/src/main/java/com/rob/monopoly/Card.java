@@ -26,7 +26,11 @@ public class Card{
 		
 		Vector<String> villainsWeaponChoice = NOC.getFieldValues("Weapon of Choice", villain);
 		String villainsWeapon = NOC.selectRandomlyFrom(villainsWeaponChoice);
-                
+		
+		if(villainsWeapon == null){
+			villainsWeapon = "sharp knife";
+		}
+              
         if (NOC.hasFieldValue("Gender", villain, "female"))
     		{
     			pronoun = "she";
@@ -78,6 +82,10 @@ public class Card{
 		
 		Vector<String> villainsWeaponChoice = NOC.getFieldValues("Weapon of Choice", villain);
 		String villainsWeapon = NOC.selectRandomlyFrom(villainsWeaponChoice);
+		
+		if(villainsWeapon == null){
+			villainsWeapon = "sharp knife";
+		}
     	
     	int i = GameState.getInstance().getNumPlayers();
     	int amount = i*50;
@@ -101,6 +109,11 @@ public class Card{
 		
 		Vector<String> mansPositiveTraitChoice = NOC.getFieldValues("Positive Talking Points", man);
 		String mansPositiveTrait = NOC.selectRandomlyFrom(mansPositiveTraitChoice);
+		
+		if(mansPositiveTrait == null){
+			man = NOC.selectRandomlyFrom(Male);
+			mansPositiveTrait = NOC.selectRandomlyFrom(mansPositiveTraitChoice);
+		}
 		
     	int i = GameState.getInstance().getNumPlayers();
     	int amount = i*20;
@@ -138,6 +151,10 @@ public class Card{
         if(femalesClothing == null){
     		femalesClothing = "Underwear";
     	}
+        
+        if(femalesPositiveTrait==null){
+        	femalesPositiveTrait = "beautiful";
+        }
 
         GameState.getInstance().getCurrentPlayer().withdraw(25);
 		str = "The " + femalesPositiveTrait + " " + female + " left her " + femalesClothing +  " at your house from your wild night yesterday. you've to meet up to give it back to her. The taxi cost you 25 Euro." ;
@@ -154,6 +171,12 @@ public class Card{
 		Vector<String> mansActivityChoice = NOC.getFieldValues("Typical Activity", man);
 		String menActivities = NOC.selectRandomlyFrom(mansActivityChoice);
 
+		if(mansNegativePoints==null || menActivities == null){
+			man = NOC.selectRandomlyFrom(Male);
+			mansNegativePoints = NOC.selectRandomlyFrom(mansNegativeTraitChoice);
+			menActivities = NOC.selectRandomlyFrom(mansActivityChoice);
+		}
+		
         GameState.getInstance().getCurrentPlayer().withdraw(75);
         str = "You've a meeting with the "+ mansNegativePoints+ " " + man + " to talk about how " + pronoun +" loves " + menActivities + ". You buy a bottle of wine for the meeting costing you 75 Euro.";
         return str;
@@ -167,6 +190,11 @@ public class Card{
 		
 		Vector<String> athletesNegativeChoices = NOC.getFieldValues("Negative Talking Points", athlete);
 		String athletesNegativePoints = NOC.selectRandomlyFrom(athletesNegativeChoices);
+		
+		if(athletesNegativePoints==null){
+			athlete = NOC.selectRandomlyFrom(Athletes);
+			athletesNegativePoints = NOC.selectRandomlyFrom(athletesNegativeChoices);
+		}
 		
     	if (NOC.hasFieldValue("Gender", athlete, "female"))
 		{
@@ -224,6 +252,10 @@ public class Card{
 		Vector<String> billionairesCarChoises = NOC.getFieldValues("Vehicle of Choice", billionaire);
 		String billionairesCar = NOC.selectRandomlyFrom(billionairesCarChoises);
 		
+		if(billionairesCar==null){
+			billionairesCar = "expensive car";
+		}
+		
     	if (NOC.hasFieldValue("Gender", billionaire, "female"))
 		{
 			pronoun = "she";
@@ -253,9 +285,13 @@ public class Card{
 			possPro = "her";
 		}
 
+    	if(billionairesCar == null){
+    		billionairesCar = "expensive car";
+    	}
+    	
 		if(billionairesClothes == null){
 
-			billionairesClothes = "Gucci Underwear";
+			billionairesClothes = "Gucci underwear";
 		}
     	
     	GameState.getInstance().getCurrentPlayer().deposit(250);
@@ -274,11 +310,25 @@ public class Card{
 		String actor = NOC.selectRandomlyFrom(Actors);
 		String athlete = NOC.selectRandomlyFrom(Athletes);
 		
+		if(director == actor){
+			actor = NOC.selectRandomlyFrom(Actors);
+		}
+		
 		Vector<String> directorsPositiveTraitChoices = NOC.getFieldValues("Positive Talking Points", director);
 		String directorsPositivePoint = NOC.selectRandomlyFrom(directorsPositiveTraitChoices);
 		
+		if(directorsPositivePoint == null){
+			director = NOC.selectRandomlyFrom(Directors);
+			directorsPositivePoint = NOC.selectRandomlyFrom(directorsPositiveTraitChoices);
+		}
+		
 		Vector<String> actorsPositiveTraitChoices = NOC.getFieldValues("Positive Talking Points", actor);
 		String actorsPositivePoint = NOC.selectRandomlyFrom(actorsPositiveTraitChoices);
+		
+		if(actorsPositivePoint == null){
+			actor = NOC.selectRandomlyFrom(Actors);
+			actorsPositivePoint = NOC.selectRandomlyFrom(actorsPositiveTraitChoices);
+		}
 		
 		Vector<String> athletesNegativeChoices = NOC.getFieldValues("Negative Talking Points", athlete);
 		String athletesNegativePoints = NOC.selectRandomlyFrom(athletesNegativeChoices);
@@ -296,6 +346,10 @@ public class Card{
 		
 		Vector<String> femalesClothingChoice = NOC.getFieldValues("Seen Wearing", female);
 		String femalesClothing = NOC.selectRandomlyFrom(femalesClothingChoice);
+		
+		if(femalesClothing == null){
+			femalesClothing = "usual red dress";
+		}
 		
 		if (NOC.hasFieldValue("Gender", female, "female"))
 		{
@@ -315,6 +369,11 @@ public class Card{
 		
 		Vector<String> villainsNegativeTraitChoice = NOC.getFieldValues("Negative Talking Points", villain);
 		String villainsNegativePoint = NOC.selectRandomlyFrom(villainsNegativeTraitChoice);
+		
+		if(villainsNegativePoint==null){
+			villain = NOC.selectRandomlyFrom(Villains);
+			villainsNegativePoint = NOC.selectRandomlyFrom(villainsNegativeTraitChoice);
+		}
 		
 		int i = GameState.getInstance().getCurrentPlayer().getNumProperties();
 		if (NOC.hasFieldValue("Gender", villain, "female"))
@@ -369,9 +428,14 @@ public class Card{
 		String detective = NOC.selectRandomlyFrom(Detectives);
 		
     	int i = GameState.getInstance().getCurrentPlayer().getNumProperties();
-    	GameState.getInstance().getCurrentPlayer().withdraw(i*15);
     	
+    	if(i==0){
+    		GameState.getInstance().getCurrentPlayer().withdraw(i*15);
     	str = detective + " who is a detective, does some background check on you and finds out that you underpaid for your properties. You must repay 15 for every property you own.";
+    	}else{
+    		GameState.getInstance().getCurrentPlayer().withdraw(150);
+    		str = detective + " who is a detective, found some dirt on you and blackmails you into paying him 150 Euro.";
+    	}
     	return str;
     }
     
@@ -395,7 +459,7 @@ public class Card{
 		
 		Vector<String> Killers = NOC.getAllKeysWithFieldValue("Category", "Killer");
 		Vector<String> Athletes = NOC.getAllKeysWithFieldValue("Category", "Athlete");
-		Vector<String> Females = NOC.getAllKeysWithFieldValue("Category", "Female Impersonator");
+		Vector<String> Females = NOC.getAllKeysWithFieldValue("Gender", "female");
 		
 		String killer = NOC.selectRandomlyFrom(Killers);
 		String athlete = NOC.selectRandomlyFrom(Athletes);
@@ -418,6 +482,7 @@ public class Card{
     	if(geekyPerson == geekyPerson2){
     		geekyPerson2 = NOC.selectRandomlyFrom(geekyPeople);
     	}
+    	
     	GameState.getInstance().getCurrentPlayer().withdraw(50);
     	str = "You entered a competition full of geeks such as "+ geekyPerson+ " and " + geekyPerson2 + " aswell as a few others. You obviously lose the competition since you're not on the same level as them. Entry cost you 50 Euro.";
     	return str;
@@ -430,6 +495,11 @@ public class Card{
 		
 		Vector<String> villainsNegativeTraitChoice = NOC.getFieldValues("Negative Talking Points", villain);
 		String villainsNegativePoint = NOC.selectRandomlyFrom(villainsNegativeTraitChoice);
+		
+		if(villainsNegativePoint == null){
+			villain = NOC.selectRandomlyFrom(Villains);
+			villainsNegativePoint = NOC.selectRandomlyFrom(villainsNegativeTraitChoice);
+		}
 		
 		int i = GameState.getInstance().getCurrentPlayer().getBalance();
 		int amount = i/10;
@@ -494,9 +564,14 @@ public class Card{
 		
 		int i = GameState.getInstance().getCurrentPlayer().getNumProperties();
 		int amount = i*25;
-		GameState.getInstance().getCurrentPlayer().withdraw(amount);
-	   
+
+	   if(i==0){
+		   GameState.getInstance().getCurrentPlayer().withdraw(100);
+		   str = "You host a week of house parties where you welcomed guests such as " + hero + ", "+ villain + ", " + billionaire + ", " + fatPerson + " and " + killer + ". They ended up wrecking your house. You must pay 100 for the damages";
+	   }else{
+		   GameState.getInstance().getCurrentPlayer().withdraw(amount);
 		str = "You host a week of house parties where you welcomed guests such as " + hero + ", "+ villain + ", " + billionaire + ", " + fatPerson + " and " + killer + ". They ended up wrecking all of your properties partially. You have to pay 25 for each property damaged.";
+	   }
 		return str;
 	}
     
@@ -508,6 +583,11 @@ public class Card{
 		
 		Vector<String> athletesTypicalActivityChoices = NOC.getFieldValues("Typical Activity", athlete);
 		String athletesActivity = NOC.selectRandomlyFrom(athletesTypicalActivityChoices);
+		
+		if(athletesActivity==null){
+			athlete = NOC.selectRandomlyFrom(Athletes);
+			athletesActivity = NOC.selectRandomlyFrom(athletesTypicalActivityChoices);
+		}
 	   
 		if (NOC.hasFieldValue("Gender", athlete, "female"))
 		{
@@ -567,6 +647,10 @@ public class Card{
 		Vector<String> billionariesClothesChoices = NOC.getFieldValues("Seen Wearing", billionaire);
 		String billionairesClothes = NOC.selectRandomlyFrom(billionariesClothesChoices);
 		
+		if(billionairesClothes == null){
+			billionairesClothes = "Gucci underwear";
+		}
+		
 		str = "You go to a pawn shop where you find " + billionaire + "'s famous " + billionairesClothes + ". You decide to spend 80 Euro on it.";
 		return str;
 	}
@@ -591,6 +675,11 @@ public class Card{
 		
 		Vector<String> mansCarChoice = NOC.getFieldValues("Vehicle of Choice", man);
 		String mansCar = NOC.selectRandomlyFrom(mansCarChoice);
+		
+		if(mansCar == null){
+			man = NOC.selectRandomlyFrom(Male);
+			mansCar = NOC.selectRandomlyFrom(mansCarChoice);
+		}
 		
 		str = "You borrow " + man + "'s " + mansCar + " for the week. Insurance will cost you 50 for the week.";
 		return str;
