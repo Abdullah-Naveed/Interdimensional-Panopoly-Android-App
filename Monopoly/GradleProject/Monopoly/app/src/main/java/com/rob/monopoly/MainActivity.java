@@ -750,7 +750,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void gameIntroduction(){
         SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
         pDialog.setTitle("Game Info");
-        pDialog.setContentText("All tools of the game can be found in the Navigation Drawer." + System.lineSeparator() + "Swipe right from left edge."+ System.lineSeparator() +"Initial Balance: €2000."+ System.lineSeparator());
+        pDialog.setContentText("All tools of the game can be found in the Navigation Drawer." + System.lineSeparator() + "Swipe right from left edge. All Property tiles are clickable."+ System.lineSeparator() +"Initial Balance: €2000."+ System.lineSeparator());
         pDialog.show();
     }
 
