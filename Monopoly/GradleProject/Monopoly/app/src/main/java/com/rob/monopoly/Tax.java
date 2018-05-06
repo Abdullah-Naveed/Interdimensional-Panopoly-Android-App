@@ -1,16 +1,17 @@
 package com.rob.monopoly;
 
-import com.rob.monopoly.Interfaces.TaxFunctional;
-import com.rob.monopoly.Interfaces.Taxable;
-import com.rob.monopoly.NOCList.twitterbotics.KnowledgeBaseModule;
-
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Vector;
 
-public class Tax implements Taxable {
+import com.rob.monopoly.Interfaces.Taxable;
+
+public class Tax implements Taxable{
 	
-	KnowledgeBaseModule NOC=GameState.getInstance().getKnowledgeBaseModule();
+	
+	
+	KnowledgeBaseModule NOC=new KnowledgeBaseModule(GameState.getInstance().getContext());
+	
 	String str = "";
 	String pronoun = "he";
 	String possPro = "his";
@@ -92,7 +93,8 @@ public class Tax implements Taxable {
 	@Override
 	@TaxFunctional
 	public String payHouseTax() {
-		GameState.getInstance().getCurrentPlayer().withdraw(getPropertiesTaxAmount());
+		
+		GameState.getInstance().getCurrentPlayer().withdraw(getHouseTaxAmount());
 		
 		Vector<String> Detectives = NOC.getAllKeysWithFieldValue("Category", "Detective");
 		String detective = NOC.selectRandomlyFrom(Detectives);
@@ -100,13 +102,21 @@ public class Tax implements Taxable {
 		Vector<String> DetectivesVehicleChoices = NOC.getFieldValues("Vehicle of Choice", detective);
 		String detectivesVehicle = NOC.selectRandomlyFrom(DetectivesVehicleChoices);
 		
+		if(detectivesVehicle == null){
+			detective = NOC.selectRandomlyFrom(Detectives);
+			detectivesVehicle = NOC.selectRandomlyFrom(DetectivesVehicleChoices);
+		}
+		
 		if (NOC.hasFieldValue("Gender", detective, "female"))
 		{
 			pronoun = "she";
 			possPro = "her";
 		}
-		
-		str = detective + " creeps around all of your houses in "+ possPro + " " + detectivesVehicle + " and uses " + pronoun + " detective skills to find out you avoided tax on your houses. You now must pay " + getPropertiesTaxAmount() + " of the tax that you avoided.";
+		if(getHouseTaxAmount()==0){
+			str = "You're lucky that you have no houses built yet because " + detective + " would've made you pay a fortune for every single one of them.";
+		}else{
+		str = detective + " creeps around all of your houses in "+ possPro + " " + detectivesVehicle + " and uses " + possPro + " detective skills to find out you avoided tax on your houses. You now must pay " + getPropertiesTaxAmount() + " of the tax that you avoided.";
+		}
 		return str;
 	}
 
@@ -114,7 +124,7 @@ public class Tax implements Taxable {
 	@TaxFunctional
 	public String payPropertyTax() {
 		int i = GameState.getInstance().getCurrentPlayer().getNumProperties();
-		GameState.getInstance().getCurrentPlayer().withdraw(getHouseTaxAmount());
+		GameState.getInstance().getCurrentPlayer().withdraw(getPropertiesTaxAmount());
 		
 		Vector<String> Villains = NOC.getAllKeysWithFieldValue("Category", "Villain");
 		String villain = NOC.selectRandomlyFrom(Villains);
@@ -124,8 +134,11 @@ public class Tax implements Taxable {
 			pronoun = "she";
 			possPro = "her";
 		}
-		
+		if(i==0){
+			str = "Aren't you lucky that you have no properties to pay tax on.";
+		}else{
 		str = "After a recent argument with your ex-bestfriend " + villain + ", " + pronoun + " stiches you up and reveals you've been avoiding tax on all " + i + " properties that you own. You must pay a fee for each one which adds up to "+ getHouseTaxAmount() + ".";
+		}
 		return str;
 	}
 
@@ -140,6 +153,11 @@ public class Tax implements Taxable {
 		
 		Vector<String> HerosClothes = NOC.getFieldValues("Seen Wearing", hero);
 		String herosClothing = NOC.selectRandomlyFrom(HerosClothes);
+		
+		if(herosClothing == null){
+			hero = NOC.selectRandomlyFrom(Heros);
+			herosClothing = NOC.selectRandomlyFrom(HerosClothes);
+		}
 		
 		if (NOC.hasFieldValue("Gender", hero, "female"))
 		{
@@ -166,7 +184,7 @@ public class Tax implements Taxable {
 			possPro = "her";
 		}
 		
-		str = president + " gets elected as the president for your fictional world, " + pronoun + " brings in a completely new random tax that you have to pay now. " + getRandomTax() + " Has been deducted from your balance.";
+		str = president + " gets elected as the president for your fictional world. " + pronoun + " brings in a completely new random tax that you have to pay now. " + getRandomTax() + " Has been deducted from your balance.";
 		return str;
 	}
 
