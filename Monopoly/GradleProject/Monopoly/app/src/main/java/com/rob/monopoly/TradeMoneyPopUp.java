@@ -5,9 +5,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
 import android.text.method.DigitsKeyListener;
 import android.widget.EditText;
-
 import com.sdsmdg.tastytoast.TastyToast;
-
 import java.util.ArrayList;
 
 public class TradeMoneyPopUp {
@@ -16,11 +14,8 @@ public class TradeMoneyPopUp {
     public void tradeMoneyPopup()
     {
         AlertDialog tradeDialog;
-        final boolean secondPopup=false;
-
         CharSequence[] items = new CharSequence[GameState.getInstance().getCurrentPlayer().getNumProperties()];
         ArrayList<Property> properties=GameState.getInstance().getCurrentPlayer().getProperties();
-        ArrayList<Property> selectedProperties=new ArrayList<>();
         int i=0;
         for(Property property:properties)
         {
@@ -130,7 +125,7 @@ public class TradeMoneyPopUp {
                                 seletedItems.add(indexSelected);
                             } else if (seletedItems.contains(indexSelected)) {
                                 // Else, if the item is already in the array, remove it
-                                // write your code when user Uchecked the checkbox
+                                // write your code when user Unchecked the checkbox
                                 seletedItems.remove(Integer.valueOf(indexSelected));
                             }
                         }
@@ -146,7 +141,7 @@ public class TradeMoneyPopUp {
                                 selectedProperties.add(properties.get((int)i));
                             }
 
-//                            new dialog to agree
+                            //  new dialog to agree
                             agreementBetweenPlayers(player, price ,selectedProperties);
 
 
@@ -195,7 +190,6 @@ public class TradeMoneyPopUp {
         AlertDialog tradeDialog2=builder2.create();
         tradeDialog2.show();
 
-
     }
 
     private void tradeProperties(Player player, String price, ArrayList<Property> properties) {
@@ -211,6 +205,5 @@ public class TradeMoneyPopUp {
         TastyToast.makeText(GameState.getInstance().getContext(), "Trade Successful", TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
 
     }
-
 
 }

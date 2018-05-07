@@ -10,13 +10,10 @@ import com.rob.monopoly.NOCList.twitterbotics.KnowledgeBaseModule;
 
 public class Tax implements Taxable{
 	
-	
-	
-	KnowledgeBaseModule NOC= GameState.getInstance().getKnowledgeBaseModule();
-	
-	String str = "";
-	String pronoun = "he";
-	String possPro = "his";
+	private KnowledgeBaseModule NOC= GameState.getInstance().getKnowledgeBaseModule();
+	private String str = "";
+	private String pronoun = "he";
+	private String possPro = "his";
 
 	private int taxModifier1 = 10;
 	private int taxModifier2 = 20;
@@ -80,12 +77,9 @@ public class Tax implements Taxable{
 
 	@Override
 	public int getRandomTax() {
-		
 		Random randomNumber = new Random();
 	    int i = randomNumber.nextInt(5)+2;
-	    int totalTax =0;  
-	    
-	    totalTax = getBalanceTax()+getHouseTaxAmount()+getPropertiesTaxAmount();
+	    int totalTax = getBalanceTax()+getHouseTaxAmount()+getPropertiesTaxAmount();
 	    amountToPay = (totalTax/i);
 	    
 		return amountToPay;
@@ -95,7 +89,6 @@ public class Tax implements Taxable{
 	@Override
 	@TaxFunctional
 	public String payHouseTax() {
-		
 		GameState.getInstance().getCurrentPlayer().withdraw(getHouseTaxAmount());
 		
 		Vector<String> Detectives = NOC.getAllKeysWithFieldValue("Category", "Detective");

@@ -1,8 +1,6 @@
 package com.rob.monopoly;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -10,14 +8,9 @@ import android.view.WindowManager;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-
-
 public class MainMenuGame extends AppCompatActivity {
     private TextView textView;
     private SeekBar seekBar;
-    public int prog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +19,9 @@ public class MainMenuGame extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main_menu_game);
 
-        textView = (TextView) findViewById(R.id.textView);
+        textView = findViewById(R.id.textView);
         textView.setText("2 Players");
-        seekBar = (SeekBar) findViewById(R.id.seekBar);
+        seekBar = findViewById(R.id.seekBar);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -50,16 +43,12 @@ public class MainMenuGame extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     public void startGame(View view){
-
         Intent startGame = new Intent(MainMenuGame.this,MainActivity.class);
         startGame.putExtra("NumPlayers",Integer.parseInt(textView.getText().toString().substring(0,1)));
         startActivity(startGame);
-
     }
 
 
