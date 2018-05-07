@@ -558,13 +558,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         GameState.getInstance().getCurrentPlayer().setInJail(false);
                         TastyToast.makeText(GameState.getInstance().getContext(),"You have rolled a Double and escaped jail, congrats you CONVICT!",TastyToast.LENGTH_LONG,TastyToast.SUCCESS).show();
 
-
                     } else {
                         SweetAlertDialog pDialog = new SweetAlertDialog(GameState.getInstance().getContext());
                         pDialog.setTitleText("You didn't roll a double, pay 50 euro if you want to get out of Jail");
                         pDialog.show();
 
-                        pDialog.setCancelButton("No I don't want pay", sweetAlertDialog -> {
+                        pDialog.setCancelButton("No I don't want to pay", sweetAlertDialog -> {
                             pDialog.cancel();
                         });
 

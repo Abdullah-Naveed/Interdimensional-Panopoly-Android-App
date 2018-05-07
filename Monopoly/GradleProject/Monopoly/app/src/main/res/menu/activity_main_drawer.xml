@@ -9,29 +9,25 @@
             android:icon="@drawable/ic_check_circle_black_24px"
             android:title="End Turn" />
         <item
+            android:id="@+id/refresh"
+            android:icon="@drawable/ic_refresh_black"
+            android:title="Refresh" />
+        <item
             android:id="@+id/properties"
             android:icon="@drawable/ic_home_black_24px"
             android:title="Properties" />
-        <item
-            android:id="@+id/refresh"
-            android:icon="@drawable/ic_loop_black_24px"
-            android:title="Refresh" />
         <item
             android:id="@+id/trade_properties"
             android:icon="@drawable/ic_loop_black_24px"
             android:title="Trade Properties" />
         <item
             android:id="@+id/trade_money_properties"
-            android:icon="@drawable/ic_loop_black_24px"
+            android:icon="@drawable/ic_euro_symbol"
             android:title="Trade Properties for Money" />
         <item
             android:id="@+id/bankrupt"
             android:icon="@drawable/ic_money_off_black_24px"
             android:title="Bankrupt" />
-        <item
-            android:id="@+id/roll_1"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Roll_1" />
     </group>
 
 
