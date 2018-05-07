@@ -21,7 +21,6 @@ public class GameState {
         private int numPlayers;
         private ArrayList<Property> properties=new ArrayList<Property>();
         private ArrayList<Player> players=new ArrayList<Player>();
-        private ArrayList<Card> cards=new ArrayList<Card>();
         private ViewGroup viewGroup;
         private Context context;
         private KnowledgeBaseModule knowledgeBaseModule;
@@ -156,12 +155,6 @@ public class GameState {
         public void setContext(Context context) {
             this.context = context;
         }
-
-        public ArrayList<Card> getCards() { return cards; }
-
-        public void setCards(ArrayList<Card> cards) { this.cards = cards; }
-
-        public void addCards(Card card) { this.cards.add(card); }
 
         public KnowledgeBaseModule getKnowledgeBaseModule() {
             return knowledgeBaseModule;

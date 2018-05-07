@@ -39,7 +39,7 @@ public class UserMover extends AppCompatActivity{
 
             return 0;
         }
-
+        //removes players current icon to make way for new icon
         wipe(User,viewGroup);
         if(index>=20&&index<=34)
         {
@@ -80,7 +80,7 @@ public class UserMover extends AppCompatActivity{
                         view=subView.getVirtualChildAt(Math.abs(14));
                         newLocation=36;break;
                 }
-                tastyToast();
+                tastyToastTeleport();
                 playSound();
             }
             if(index==14){
@@ -131,7 +131,7 @@ public class UserMover extends AppCompatActivity{
                         newLocation=36;break;
                 }
                 playSound();
-                tastyToast();
+                tastyToastTeleport();
             }
             setVisibility(User, view);
             return newLocation;
@@ -165,7 +165,7 @@ public class UserMover extends AppCompatActivity{
                         view=subView.getVirtualChildAt(Math.abs(14));
                         newLocation=36;break;
                 }
-                tastyToast();
+                tastyToastTeleport();
                 playSound();
             }
             if(index==38){view=subView.getVirtualChildAt(14);}
@@ -225,7 +225,7 @@ public class UserMover extends AppCompatActivity{
                             view=subView.getVirtualChildAt(Math.abs(14));
                             newLocation=36;break;
                 }
-                tastyToast();
+                tastyToastTeleport();
                 playSound();
             }
             else
@@ -272,13 +272,14 @@ public class UserMover extends AppCompatActivity{
         }
     }
 
-
+    //teleport sound
     private void playSound()
     {
         final MediaPlayer mp = MediaPlayer.create(context, R.raw.teleport_sound);
         mp.start();
     }
 
+    //when you land on card
     private void cardPopup() {
 
         FunctionProbe functionProbe=new FunctionProbe();
@@ -302,6 +303,7 @@ public class UserMover extends AppCompatActivity{
 
     }
 
+    //when you land on tax
     private void TaxPopup() {
 
         FunctionProbe functionProbe=new FunctionProbe();
@@ -324,7 +326,8 @@ public class UserMover extends AppCompatActivity{
 
     }
 
-    private void tastyToast()
+    //when you teleport
+    private void tastyToastTeleport()
     {
         TastyToast.makeText(GameState.getInstance().getContext(),"You Teleported",TastyToast.LENGTH_LONG,TastyToast.INFO);
     }

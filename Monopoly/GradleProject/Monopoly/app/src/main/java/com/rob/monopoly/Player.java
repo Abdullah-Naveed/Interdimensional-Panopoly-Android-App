@@ -9,19 +9,16 @@ import com.sdsmdg.tastytoast.TastyToast;
 
 import java.util.ArrayList;
 
-import static com.rob.monopoly.MainActivity.players;
-
-
 public class Player extends UserMover implements Playable{
 
-    private int playerNum = 1;
+    private int playerNum;
     private int playerLocation = 0;
     private boolean playerWasRemoved = false;
     private boolean isInJail = false;
     private boolean hasRolled = false;
     private ViewGroup viewGroup;
     private String ID;
-    private Bank bankAccount=new Bank(1000);
+    private Bank bankAccount;
     private ArrayList<Property> properties=new ArrayList<Property>();
 
     public Player(Context context,ViewGroup viewGroup, String ID,int playerNum)
@@ -31,7 +28,6 @@ public class Player extends UserMover implements Playable{
         this.ID=ID;
         this.playerNum=playerNum;
         bankAccount=new Bank(2000);
-        players.add(this);
     }
 
     public int getPlayerNum() {

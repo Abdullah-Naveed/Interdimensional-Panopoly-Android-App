@@ -7,8 +7,6 @@ import com.rob.monopoly.Interfaces.Rentable;
 
 import java.util.ArrayList;
 
-import static com.rob.monopoly.MainActivity.properties;
-
 public class Property implements Improvable,Rentable,Mortgageable,Ownable {
 
     private String ID;
@@ -31,7 +29,6 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
         this.baseRentPrice = baseRentPrice;
         this.compoundViewID = compoundViewID;
         this.location = location;
-        properties.add(this);
     }
 
     @Override
@@ -82,15 +79,12 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
                 i++;
             }
         }
-
         if (colourGroup == "yellow" && i == 2 || colourGroup == "orange" && i == 2) {
             return true;
         } else if (colourGroup == "brown" && i == 3 || colourGroup == "grey" && i == 3 || colourGroup == "green" && i == 3 ||
                 colourGroup == "red" && i == 3 || colourGroup == "pink" && i == 3 || colourGroup == "blue" && i == 3) {
             return true;
         }
-
-
         return false;
     }
 
@@ -164,16 +158,8 @@ public class Property implements Improvable,Rentable,Mortgageable,Ownable {
         return location;
     }
 
-    public void setLocation(int location) {
-        this.location = location;
-    }
-
     public String getCompoundViewID() {
         return compoundViewID;
-    }
-
-    public void setCompoundViewID(String compoundViewID) {
-        this.compoundViewID = compoundViewID;
     }
 
 }

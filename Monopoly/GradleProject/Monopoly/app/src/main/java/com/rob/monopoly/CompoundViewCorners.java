@@ -8,11 +8,8 @@ import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class CompoundViewCorners extends LinearLayout {
-
-
 
     Button button=(Button)findViewById(R.id.button);
     Context mainContext;
@@ -23,29 +20,17 @@ public class CompoundViewCorners extends LinearLayout {
         LayoutInflater.from(context).inflate(R.layout.compound_view_corners, this, true);
 
         String title;
-        String subtitle;
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CustomView, 0, 0);
-
         try {
             title = a.getString(R.styleable.CustomView_customViewTitle);
         } finally {
             a.recycle();
         }
-
         // Throw an exception if required attributes are not set
         if (title == null) {
             throw new RuntimeException("No title provided");
         }
-
-        init(title);
-
     }
-
-    // Setup views
-    private void init(String title) {
-    }
-
-
 
     public void changeImage(int imageCode){
         ImageView imageView=findViewById(R.id.imageviewcorners);

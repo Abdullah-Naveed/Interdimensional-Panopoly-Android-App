@@ -1,22 +1,17 @@
 package com.rob.monopoly;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.rob.monopoly.NOCList.twitterbotics.KnowledgeBaseModule;
 import com.sdsmdg.tastytoast.TastyToast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 import java.util.Vector;
 
 public class GuessTheFictionalWorld extends AppCompatActivity {
@@ -78,63 +73,47 @@ public class GuessTheFictionalWorld extends AppCompatActivity {
         switch(view.getId()){
 
             case R.id.button0:
-
                 if(answers.get(0).equals(answer)){
                     GameState.getInstance().getCurrentPlayer().deposit(50);
                     TastyToast.makeText(this, "Fairplay, you're not as dumb as you look!! Here is 50 euro",TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
-
                 }else{
                     GameState.getInstance().getCurrentPlayer().withdraw(50);
                     TastyToast.makeText(this, "YOU HAM!!! Give Me 50 euro",TastyToast.LENGTH_LONG, TastyToast.ERROR);
-
                 }
-
                 break;
             case R.id.button1:
-
                 if(answers.get(1).equals(answer)){
                     GameState.getInstance().getCurrentPlayer().deposit(50);
                     TastyToast.makeText(this, "Fairplay, you're not as dumb as you look!! Here is 50 euro",TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
-
                 }else{
                     GameState.getInstance().getCurrentPlayer().withdraw(50);
                     TastyToast.makeText(this, "YOU HAM!!! Give Me 50 euro",TastyToast.LENGTH_LONG, TastyToast.ERROR);
-
                 }
-
                 break;
             case R.id.button2:
-
                 if(answers.get(2).equals(answer)){
                     GameState.getInstance().getCurrentPlayer().deposit(50);
                     TastyToast.makeText(this, "Fairplay, you're not as dumb as you look!! Here is 50 euro",TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
-
                 }else{
                     GameState.getInstance().getCurrentPlayer().withdraw(50);
                     TastyToast.makeText(this, "YOU HAM!!! Give Me 50 euro",TastyToast.LENGTH_LONG, TastyToast.ERROR);
-
                 }
-
                 break;
             case R.id.button3:
-
                 if(answers.get(3).equals(answer)){
                     GameState.getInstance().getCurrentPlayer().deposit(50);
                     TastyToast.makeText(this, "Fairplay, you're not as dumb as you look!! Here is 50 euro",TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
-
                 }else{
                     GameState.getInstance().getCurrentPlayer().withdraw(50);
                     TastyToast.makeText(this, "YOU HAM!!! Give Me 50 euro",TastyToast.LENGTH_LONG, TastyToast.ERROR);
-
                 }
-
                 break;
-
         }
         finish();
 
     }
 
+    //so player cant go back to main activity
     @Override
     public void onBackPressed()
     {

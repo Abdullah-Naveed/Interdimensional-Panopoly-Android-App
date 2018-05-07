@@ -24,7 +24,6 @@ public class TradePopUp {
             i++;
         }
 
-
         // arraylist to keep the selected items
         final ArrayList seletedItems=new ArrayList();
 
@@ -70,7 +69,6 @@ public class TradePopUp {
 
         tradeDialog = builder.create();//AlertDialog dialog; create like this outside onClick
         tradeDialog.show();
-
     }
 
     private void choosePlayerPopUp(ArrayList<Property> selectedProperties) {
@@ -89,7 +87,6 @@ public class TradePopUp {
                 items2[j]=player.getID();
                 j++;
             }
-
         }
         try
         {
@@ -111,7 +108,6 @@ public class TradePopUp {
         {
             e.printStackTrace();
         }
-
     }
 
     private void choseOtherPlayerProperties(Player player, ArrayList<Property> selectedP) {
@@ -158,11 +154,8 @@ public class TradePopUp {
                                 selectedProperties.add(properties.get((int)i));
                             }
 
-//                            new dialog to agree
+                            //new dialog to agree
                             agreementBetweenPlayers(player, selectedP,selectedProperties);
-
-
-
                             dialog.cancel();
                         }
                     })
@@ -178,22 +171,19 @@ public class TradePopUp {
         {
             e.printStackTrace();
         }
-
     }
 
     private void agreementBetweenPlayers(Player player, ArrayList<Property> firstProperties, ArrayList<Property> secondProperties) {
 
         AlertDialog.Builder builder2 = new AlertDialog.Builder(GameState.getInstance().getContext());
         builder2.setTitle(player.getID() + ", Do you agree to this trade? ");
-
         builder2.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
                 //function to do the trading between the players
                 tradeProperties(player, firstProperties, secondProperties);
                 dialogInterface.dismiss();
-
             }
         });
 
@@ -204,11 +194,8 @@ public class TradePopUp {
             }
         });
 
-
         AlertDialog tradeDialog2=builder2.create();
         tradeDialog2.show();
-
-
     }
 
     private void tradeProperties(Player player, ArrayList<Property> firstProperties, ArrayList<Property> secondProperties) {
@@ -228,7 +215,5 @@ public class TradePopUp {
         TastyToast.makeText(GameState.getInstance().getContext(), "Trade Successful", TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
 
     }
-
-
 
 }

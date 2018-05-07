@@ -3,8 +3,6 @@ package com.rob.monopoly;
 import com.rob.monopoly.Interfaces.Functional;
 import com.rob.monopoly.NOCList.twitterbotics.KnowledgeBaseModule;
 
-import java.util.ArrayList;
-import java.util.Random;
 import java.util.Vector;
 
 public class Card{
