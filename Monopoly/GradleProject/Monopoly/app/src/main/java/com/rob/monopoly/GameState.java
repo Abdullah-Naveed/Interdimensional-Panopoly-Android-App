@@ -36,7 +36,7 @@ public class GameState {
             try{
                 instance = new GameState();
             }catch(Exception e){
-                throw new RuntimeException("Exception occured in creating singleton instance");
+                throw new RuntimeException("Exception occurred in creating singleton instance");
             }
         }
 

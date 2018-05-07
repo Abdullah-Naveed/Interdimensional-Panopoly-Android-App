@@ -2,50 +2,33 @@ package com.rob.monopoly;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rob.monopoly.NOCList.twitterbotics.KnowledgeBaseModule;
 import com.sdsmdg.tastytoast.TastyToast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.Vector;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -53,8 +36,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    static ArrayList<Property> properties=new ArrayList<Property>();
-    static ArrayList<Player> players=new ArrayList<Player>(0);
     ViewGroup viewGroup=null;
     GameState instance=null;
 
@@ -76,11 +57,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         instance.setKnowledgeBaseModule(this);
         initialSetting();
         //gamestate add players, current player and numPlayers
-
-        //add players
+        //get num players from main menu
         Bundle bundle = getIntent().getExtras();
         int numPlayers = (int) bundle.get("NumPlayers");
-//        diceShow(new View(this));
         initialPlayers(numPlayers);
         Random random=new Random();
         instance.setCurrentPlayer(instance.getPlayerWithInt(random.nextInt(numPlayers-1)));
@@ -99,10 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onResume()
     {
         super.onResume();
-//        for(Player player:GameState.getInstance().getPlayers())
-//        {
-//            player.move(0);
-//        }
     }
 
 
@@ -121,9 +96,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-
+    //sets random locations to properties based on NOC list
     public void initialSetting(){
-        //red
+
         KnowledgeBaseModule NOC=GameState.getInstance().getKnowledgeBaseModule();
         HashMap<String,ArrayList<String>> colourLocations = new LinkedHashMap<String,ArrayList<String>>(NOC.getLocations(this));
 
@@ -414,10 +389,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             TextView nav_balance = (TextView)hView.findViewById(R.id.balance);
             String bal=Integer.toString(GameState.getInstance().getCurrentPlayer().getBalance());
             nav_balance.setText("Balance: "+bal);
-        } else if (id == R.id.roll_1){
-            GameState.getInstance().getCurrentPlayer().move(3);
-            checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -506,7 +477,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
 
                     GameState.getInstance().getCurrentPlayer().move(i);
-                    System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
                     checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
 
                 } else{
@@ -552,8 +522,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     if (diceRoll == diceRoll1) {
 
-                        GameState.getInstance().getCurrentPlayer().move(i);
-                        System.out.println(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
+                        GameState.getInstance().getCurrentPlayer().move(i+20);
                         checkRent(GameState.getInstance().getCurrentPlayer().getPlayerLocation());
                         GameState.getInstance().getCurrentPlayer().setInJail(false);
                         TastyToast.makeText(GameState.getInstance().getContext(),"You have rolled a Double and escaped jail, congrats you CONVICT!",TastyToast.LENGTH_LONG,TastyToast.SUCCESS).show();
@@ -598,16 +567,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         for (Property prop : GameState.getInstance().getProperties()) {
             if (viewName.equals(prop.getCompoundViewID())) {
                 currentProperty = prop;
-//                System.out.println(currentProperty.getLocation());
             }
         }
-
+        //if square clicked
         if(currentProperty==null) { return; }
 
         if (currentProperty.getOwner() == null && GameState.getInstance().getCurrentPlayer().getPlayerLocation() == currentProperty.getLocation()) {
 //            //call buy popup
             buyPopUp(GameState.getInstance().getContext(), currentProperty);
         } else if (currentProperty.getOwner() == GameState.getInstance().getCurrentPlayer()) {
+            //call mortgage build popup
             buildMortgagePopUp(GameState.getInstance().getContext(), currentProperty);
         } else
         {
